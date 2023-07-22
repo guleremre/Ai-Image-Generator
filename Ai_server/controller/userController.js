@@ -1,24 +1,24 @@
 const User = require("../modules/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const signup = async (req, res) => {
-  var checkUserMail = await User.findOne({
+  var checkUser = await User.findOne({
     $or: [{ email: req.body.email }, { username: req.body.username }],
   });
-
-  if (checkUserMail) {
+  if (checkUser) {
     return res.status(409).send({ msg: "Email or username already exists" });
   } else {
     //adding salt
-    bcrypt.genSalt(process.env.saltRounds, async (err, salt) => {
+    bcrypt.genSalt(10, async (err, salt) => {
       bcrypt.hash(req.body.password, salt, async (err, hash) => {
         //hashing salted
-        var user = {
+        var user = new User({
           username: req.body.username,
           email: req.body.email,
           password: hash,
-        };
+        });
         var createdUser = await User.create(user);
         var token = jwt.sign({ id: createdUser._id }, process.env.salt); //sending token to front and
         return res.status(201).send({ token });
@@ -30,7 +30,7 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
   var user = await User.findOne({
     $or: [{ email: req.body.email }, { username: req.body.username }],
-  }); //checking if email or userName exist
+  }); //checking if email or username exist
   if (user) {
     bcrypt.compare(req.body.password, user.password, function (err, result) {
       //checking crypted password with crypted password from database
