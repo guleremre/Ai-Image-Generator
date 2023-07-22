@@ -3,16 +3,19 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const signup = async (req, res) => {
-  var checkUserMail = await User.findOne({ email: req.body.email });
+  var checkUserMail = await User.findOne({
+    $or: [{ email: req.body.email }, { username: req.body.username }],
+  });
 
   if (checkUserMail) {
-    return res.send({ msg: "Email or username already exists" });
+    return res.status(409).send({ msg: "Email or username already exists" });
   } else {
     //adding salt
     bcrypt.genSalt(process.env.saltRounds, async (err, salt) => {
       bcrypt.hash(req.body.password, salt, async (err, hash) => {
         //hashing salted
         var user = {
+          username: req.body.username,
           email: req.body.email,
           password: hash,
         };
@@ -26,7 +29,7 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
   var user = await User.findOne({
-    $or: [{ email: req.body.email }, { userName: req.body.userName }],
+    $or: [{ email: req.body.email }, { username: req.body.username }],
   }); //checking if email or userName exist
   if (user) {
     bcrypt.compare(req.body.password, user.password, function (err, result) {
