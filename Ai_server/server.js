@@ -5,8 +5,8 @@ require("dotenv").config();
 
 app.use(express.json({ limit: "50mb" }));
 
-const imgRouter = require("./router/imgRouter.js");
-const userRouter = require("./router/userRouter.js");
+const imgRouter = require("./router/imgRouter");
+const userRouter = require("./router/userRouter");
 
 app.use(
   cors({
@@ -17,6 +17,6 @@ app.use(
 app.use("/img", imgRouter);
 app.use("/user", userRouter);
 
-app.listen(port, () => {
+app.listen(process.env.port, () => {
   console.log(`server is running on ${process.env.port} `);
 });
