@@ -21,36 +21,21 @@ function Signup() {
   //signup function
   async function onSubmit() {
     try {
-      const response = await axios.post(url, { email, password });
-      console.log(response);
+      const response = await axios.post(url, { username, email, password });
       const data = response.data;
       if (data.token) {
         localStorage.setItem("token", data.token);
         navigate("/home");
+        alert("Account created successfully");
       } else {
-        console.log(response.data);
+        response.data.msg;
+        alert(response.data.msg); //Email or username already exists
       }
     } catch (error) {
       console.error("Error Signup:", error);
       alert("Error signing up. Please try again.");
     }
   }
-  // function signup() {
-  //   axios
-  //     .post(url, { username, email, password })
-  //     .then(({ data }) => {
-  //       console.log({ data });
-  //       if (data.token) {
-  //         localStorage.setItem("token", data.token);
-  //         navigate("/home");
-  //       } else {
-  //         alert(data.msg);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error Signup:", error);
-  //     });
-  // }
   return (
     <>
       <form action="submit">

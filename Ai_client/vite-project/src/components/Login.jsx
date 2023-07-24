@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Signup from "./signup";
 
 const url = "http://localhost:4000/user/login";
 
 function Login() {
-  var [username, setUsername] = useState("");
-  var [email, setEmail] = useState("");
-  var [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   //   useEffect(() => {
@@ -23,16 +22,18 @@ function Login() {
   //     }
   //   }
 
-  const login = () => {
+  const onSubmit = async () => {
     try {
-      const response = axios.post(url, { username, email, password });
+      const response = await axios.post(url, { username, email, password });
       const data = response.data;
+      console.log(response.data);
+      console.log(data);
+
       if (data.token) {
         localStorage.setItem("token", data.token);
         navigate("/home");
       } else {
-        alert({ msg: "Wrong password" });
-        navigate("/signup");
+        alert("If you don't have  account please signup");
       }
     } catch (error) {
       console.log("Error Login:", error);
@@ -82,7 +83,7 @@ function Login() {
         />
         <button
           onClick={(e) => {
-            login();
+            onSubmit();
           }}
         >
           Login

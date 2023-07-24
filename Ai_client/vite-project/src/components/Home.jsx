@@ -1,0 +1,58 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+const url = "http://127.0.0.1:7861/sdapi/v1/txt2img";
+
+function Home() {
+  const [prompt, setPrompt] = useState("");
+  const [negativePrompt, setNegativePrompt] = useState("");
+  const [imageBase64, setImageBase64] = useState("");
+
+  async function onSubmit() {
+    try {
+      const response = await axios.post(url, { prompt: prompt });
+      const imageData = response.data.images[0];
+      setImageBase64(imageData);
+      console.log(response.json);
+    } catch (error) {
+      console.error(error.msg);
+      alert("Error Please try again.");
+    }
+  }
+
+  return (
+    <form>
+      {" "}
+      <h1>hi</h1>
+      <img src="`data:image/jpeg;base64,${imageBase64}`" alt="" /> <br />
+      <input
+        type="text"
+        placeholder="prompt"
+        onChange={(e) => {
+          setPrompt(e.target.value);
+        }}
+      />
+      <br />
+      {/* <input
+        type="text"
+        placeholder="negative prompt"
+        onChange={(e) => {
+          setNegativePrompt(e.target.value);
+        }}
+      /> */}
+      <br />
+      <button
+        type="submit"
+        onClick={() => {
+          onSubmit;
+        }}
+      >
+        {" "}
+        Generate Img
+      </button>
+    </form>
+  );
+}
+
+export default Home;
