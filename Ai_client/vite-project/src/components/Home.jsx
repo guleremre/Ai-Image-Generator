@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const url = "http://127.0.0.1:7860/sdapi/v1/txt2img";
 
@@ -19,15 +18,14 @@ function Home() {
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Content-Type": "application/json",
-            }
+            },
           }
         )
-        .then((response)=>{
-          console.log("response.json")
+        .then((response) => {
+          console.log(response.data);
         });
       console.log("response");
-      const imageData = response.data.images[0];
-      setImageBase64(imageData);
+
       console.log(response.json);
     } catch (error) {
       console.error();
