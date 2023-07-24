@@ -11,17 +11,21 @@ function Home() {
 
   async function onSubmit() {
     try {
-      const response = await axios.post(
-        url,
-        { prompt, negativePrompt },
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(response);
+      await axios
+        .post(
+          url,
+          { prompt, negativePrompt },
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+            }
+          }
+        )
+        .then((response)=>{
+          console.log("response.json")
+        });
+      console.log("response");
       const imageData = response.data.images[0];
       setImageBase64(imageData);
       console.log(response.json);
