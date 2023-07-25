@@ -6,34 +6,29 @@ const url = "http://127.0.0.1:7860/sdapi/v1/txt2img";
 function Home() {
   const [prompt, setPrompt] = useState("");
   const [negative_prompt, setNegativePrompt] = useState("");
-  const [img, setImg] = useState();
-  const [loading, updateLoading] = useState();
+  const [img, setImg] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [imgLoad, setImgLoad] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // const headers = {
-    //   "Content-Type": "application/json",
-    //   Accept: "*/*",
-    // };
+    setLoading(true);
     try {
-      const response = await axios.post(
-        url,
-        { prompt, negative_prompt }
-        // { headers }
-      );
+      const response = await axios.post(url, { prompt, negative_prompt });
       console.log("Response:", response.data.images[0]);
       console.log("Response:", response.data);
       console.log(prompt);
       console.log(negative_prompt);
-      updateLoading(false);
+      setLoading(false);
       setImg(response.data.images[0]);
+      setImgLoad(true);
       // Handle the response data here
     } catch (error) {
       console.error("Error:", error.message);
       // Handle errors here
     }
   };
-
+  //rendering image from base64 format
   const renderImg = `data:image/jpeg;base64,${img}`;
 
   useEffect(() => {
@@ -46,24 +41,32 @@ function Home() {
         <h1>Ai Image Generator</h1>
 
         <textarea
+          style={{ width: 800, minHeight: 100 }}
           type="text"
-          defaultValue="1girl, 8k, ((best quality)), ((masterpiece)), ((realistic)), vintage Afro-Caribbean woman, elegant attire, 1950s fashion, radiant smile, confident stance, cultural pride, (oil painting:1.2),  vivid colors, nostalgic background, authentic vintage feel, (portrait composition:1.3), (high-resolution:1.2)"
+          placeholder="Enter prompt"
+          defaultValue="cute fluffy monster"
+          // defaultValue="1girl, (masterpiece, best quality, beautiful and aesthetic:1.2), ultra high res, 8k, detailed, (fractal art:1.3), colorful, radiosity, automatic white balance
+          // "
           onChange={(e) => setPrompt(e.target.value)}
         />
+        <br />
         <textarea
+          style={{ width: 800, minHeight: 100 }}
           type="text"
-          placeholder="negative prompt"
-          defaultValue="nude,3d, cartoon, anime, sketches, (worst quality, bad quality, child, cropped:1.4) ((monochrome)), ((grayscale)),  (bad-hands-5:1.0), (badhandv4:1.0), (easynegative:0.8),  (bad-artist-anime:0.8), (bad-artist:0.8), (bad_prompt:0.8), (bad-picture-chill-75v:0.8), (bad_prompt_version2:0.8),  (bad_quality:0.8)"
+          placeholder="Enter negative prompt"
+          defaultValue="nude, ng_deepnegative_v1_75t,easynegative,(worst quality:2), (low quality:2), (normal quality:1.8), lowres, ((monochrome)), ((grayscale)),sketch,ugly,morbid, deformed,logo,text, bad anatomy,bad proportions,disfigured,extra arms, extra legs, fused fingers,extra digits, fewer digits, mutated hands, poorly drawn hands,bad hands"
           onChange={(e) => {
             setNegativePrompt(e.target.value);
           }}
         />
         <br />
-        <button>Generate Img</button>
+        <button disabled={loading}>Generate Img</button>
         {/* <img src={renderImg} /> */}
       </form>
       <div>
-        {loading ? <div>Loading...</div> : img ? <img src={renderImg} /> : null}
+        {loading ? <div>Loading...</div> : null}
+        {imgLoad ? <img src={renderImg} /> : null}
+        {/* {loading ? <div>Loading...</div> : img ? <img src={renderImg} /> : null} */}
       </div>
     </>
   );
