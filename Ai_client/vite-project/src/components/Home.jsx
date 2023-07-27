@@ -4,10 +4,8 @@ import Box from "@mui/material/Box";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SendIcon from "@mui/icons-material/Send";
 import Skeleton from "@mui/material/Skeleton";
-import "@fontsource/public-sans";
 import Textarea from "@mui/joy/Textarea";
 import FormLabel from "@mui/joy/FormLabel";
-import EmptyTextarea from "./css/Textarea";
 
 const url = "http://127.0.0.1:7860/sdapi/v1/txt2img";
 
