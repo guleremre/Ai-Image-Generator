@@ -10,6 +10,7 @@ import NotFound from "./components/NotFound";
 import { BrowserRouter } from "react-router-dom";
 import Profile from "./components/Profile";
 import About from "./components/About";
+import Hamza from "./components/Hamza";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />}></Route>
             <Route path="/signup" element={<Signup />}></Route>
+            <Route path="/hamza" element={<Hamza />}></Route>
             <Route path="/home" element={<Home />}></Route>
             <Route path="/test" element={<Test />}></Route>
             <Route path="/profile" element={<Profile />}></Route>

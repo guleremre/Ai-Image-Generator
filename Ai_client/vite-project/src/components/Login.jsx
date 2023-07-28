@@ -10,17 +10,17 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-    useEffect(() => {
-      checkIfLogged();
-    }),
-      [];
-//if user already logged in don't need to see login page
-    function checkIfLogged() {
-      const item = localStorage.getItem("token");
-      if (item) {
-        return navigate("/home");
-      }
+  useEffect(() => {
+    checkIfLogged();
+  }),
+    [];
+  //if user already logged in don't need to see login page
+  function checkIfLogged() {
+    const item = localStorage.getItem("token");
+    if (item) {
+      return navigate("/home");
     }
+  }
 
   const onSubmit = async () => {
     try {
@@ -28,7 +28,7 @@ function Login() {
       const data = response.data;
       console.log(response.data);
       console.log(data);
-//if user logged in navigate to home page
+      //if user logged in navigate to home page
       if (data.token) {
         localStorage.setItem("token", data.token);
         navigate("/home");
