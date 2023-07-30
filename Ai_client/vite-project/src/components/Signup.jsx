@@ -17,13 +17,21 @@ function ModeToggle() {
 
   // necessary for server-side rendering
   // because mode is undefined on the server
+
   useEffect(() => {
     setMounted(true);
+    checkIfLogged();
   }, []);
+
   if (!mounted) {
     return null;
   }
-
+  function checkIfLogged() {
+    const item = localStorage.getItem("token");
+    if (item) {
+      return navigate("/home");
+    }
+  }
   return (
     <Button
       variant="outlined"
@@ -150,7 +158,7 @@ export default function Signup() {
             }}
             sx={{ mt: 1 /* margin top */ }}
           >
-            Sign us
+            Sign up
           </Button>
           <Typography
             endDecorator={<Link href="/">log in</Link>}

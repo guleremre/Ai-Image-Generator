@@ -11,7 +11,7 @@ import { BrowserRouter } from "react-router-dom";
 import Profile from "./components/Profile";
 import About from "./components/About";
 import Login from "./components/Login";
-import Signup from "./components/Signup2";
+import Signup from "./components/Signup";
 
 function App() {
   return (
@@ -19,7 +19,6 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <ResponsiveAppBar />
-
           <Routes>
             <Route path="/Login2" element={<Login2 />}></Route>
             <Route path="/signup2" element={<Signup2 />}></Route>
