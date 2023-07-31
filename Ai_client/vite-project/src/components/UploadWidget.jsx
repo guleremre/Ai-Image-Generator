@@ -10,13 +10,18 @@ const UploadWidget = () => {
       {
         cloudName: "djyfosrda",
         uploadPreset: "airtistic",
-        cropping: true
+        cropping: true,
+        // theme: "purple",
+        folder: "ai_generator",
+        multiple: false,
+        // clientAllowedFormats: ["images"],
       },
       function (error, result) {
         console.log(result);
       }
     );
   }, []);
+
   return (
     <div>
       <h1> hi</h1>

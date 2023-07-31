@@ -1,0 +1,86 @@
+import React from "react";
+
+const UploadWidget = () => {
+  const handleUploadClick = () => {
+    // Assuming "selectedImage" is the file object obtained from the file input or a drop zone
+    const formData = new FormData();
+    formData.append("image", selectedImage);
+
+    fetch("/upload", {
+      method: "POST",
+      body: formData,
+      headers: {
+        // Add any necessary headers, such as authorization, here
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Image uploaded:", data);
+      })
+      .catch((error) => {
+        console.error("Error uploading image:", error);
+      });
+  };
+
+  return (
+    <div>
+      <h1>hi</h1>
+      <input type="file" onChange={(e) => setSelectedImage(e.target.files[0])} />
+      <button onClick={handleUploadClick}>Upload</button>
+    </div>
+  );
+};
+
+export default UploadWidget;
+
+
+const express = require("express");
+const multer = require("multer");
+const mongodb = require("mongodb");
+
+const app = express();
+const port = 5000;
+
+// Multer setup to handle file uploads
+const upload = multer({ dest: "uploads/" });
+
+// MongoDB setup
+const MongoClient = mongodb.MongoClient;
+const mongoUrl = "mongodb://localhost:27017";
+const dbName = "your-db-name";
+
+app.post("/upload", upload.single("image"), (req, res) => {
+  // Here, you can get the user information from your authentication middleware
+  // For demonstration purposes, we'll assume a placeholder user object
+  const user = {
+    userId: "user123",
+    userName: "John Doe",
+    userEmail: "john.doe@example.com",
+  };
+
+  const imageUrl = req.file.path; // Assuming Multer stores the uploaded file in "uploads/" directory
+
+  // Save the user info and image URL to MongoDB
+  MongoClient.connect(mongoUrl, (err, client) => {
+    if (err) {
+      console.error("Error connecting to MongoDB:", err);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      const db = client.db(dbName);
+      const collection = db.collection("uploaded_images");
+
+      collection.insertOne({ user, imageUrl }, (err, result) => {
+        if (err) {
+          console.error("Error inserting into MongoDB:", err);
+          res.status(500).json({ error: "Internal server error" });
+        } else {
+          res.json({ success: true, imageUrl });
+        }
+      });
+    }
+  });
+});
+
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});
