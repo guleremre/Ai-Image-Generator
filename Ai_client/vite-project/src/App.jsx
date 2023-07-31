@@ -12,6 +12,7 @@ import Profile from "./components/Profile";
 import About from "./components/About";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import UploadWidget from "./components/UploadWidget";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/profile" element={<Profile />}></Route>
             <Route path="/about" element={<About />}></Route>
             <Route path="*" element={<NotFound />}></Route>
+            <Route path="/widget" element={<UploadWidget />}></Route>
           </Routes>
         </BrowserRouter>
       </div>

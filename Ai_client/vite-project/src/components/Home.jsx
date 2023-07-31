@@ -6,6 +6,7 @@ import SendIcon from "@mui/icons-material/Send";
 import Skeleton from "@mui/material/Skeleton";
 import Textarea from "@mui/joy/Textarea";
 import FormLabel from "@mui/joy/FormLabel";
+import "./Home.css";
 
 const url = "http://127.0.0.1:7860/sdapi/v1/txt2img";
 
@@ -14,8 +15,13 @@ function Home() {
     "monster 1girl, (masterpiece, best quality, beautiful and aesthetic:1.2), ultra high res, 8k, detailed, (fractal art:1.3), colorful, radiosity, automatic white balance"
   );
   const [negative_prompt, setNegativePrompt] = useState(
-    "(((nude))), topless, naked, ng_deepnegative_v1_75t, easynegative, (worst quality:2), (low quality:2), (normal quality:1.8), lowres, ((monochrome)), ((grayscale)), sketch, ugly, morbid, deformed, logo, text, bad anatomy, bad proportions, disfigured, extra arms, extra legs, fused fingers, extra digits, fewer digits, mutated hands, poorly drawn hands, bad hands"
+    "nude, topless, naked, ng_deepnegative_v1_75t, easynegative, (worst quality:2), (low quality:2), (normal quality:1.8), lowres, ((monochrome)), ((grayscale)), sketch, ugly, morbid, deformed, logo, text, bad anatomy, bad proportions, disfigured, extra arms, extra legs, fused fingers, extra digits, fewer digits, mutated hands, poorly drawn hands, bad hands"
   );
+  const [double, setDouble] = useState(false);
+
+  const doubleSize = () => {
+    setDouble((prevValue) => !prevValue);
+  };
   const [img, setImg] = useState([]);
   const [loading, setLoading] = useState(false);
   const [imgLoad, setImgLoad] = useState(false);
@@ -41,6 +47,18 @@ function Home() {
   //rendering image from base64 format
   const renderImg = `data:image/jpeg;base64,${img}`;
 
+  // const handleAddFavorite = async (id) => {
+
+  //   try {
+  //     const response = await axios.post(`http://localhost:5000/user/${id}`, {
+  //       token: token,
+  //     });
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   useEffect(() => {
     onSubmit();
   }, []);
@@ -59,18 +77,34 @@ function Home() {
           }}
         >
           {imgLoad ? (
-            <img src={renderImg} />
+            <img
+              className={double ? "size2" : "size"}
+              onClick={() => doubleSize()}
+              src={renderImg}
+            />
           ) : (
             <Skeleton
               sx={{ bgcolor: "grey.900" }}
               variant="rectangular"
               animation="wave"
-              width={512}
-              height={512}
+              width={265}
+              height={265}
             />
           )}
         </Box>
 
+        <Box sx={{ "& > button": { m: 3, mb: 1 } }}>
+          <LoadingButton
+            size="medium"
+            onClick={onSubmit}
+            endIcon={<SendIcon />}
+            loading={loading}
+            loadingPosition="end"
+            variant="contained"
+          >
+            <span>Generate Image</span>
+          </LoadingButton>
+        </Box>
         <Box
           sx={{
             p: 8,
@@ -128,18 +162,6 @@ function Home() {
               setNegativePrompt(e.target.value);
             }}
           />
-        </Box>
-        <Box sx={{ "& > button": { m: 1 } }}>
-          <LoadingButton
-            size="medium"
-            onClick={onSubmit}
-            endIcon={<SendIcon />}
-            loading={loading}
-            loadingPosition="end"
-            variant="contained"
-          >
-            <span>Generate Image</span>
-          </LoadingButton>
         </Box>
       </form>
     </>

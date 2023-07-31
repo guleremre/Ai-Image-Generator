@@ -1,0 +1,9 @@
+.size2 {
+  width: 200%;
+  transition: width 0.2s ease;
+}
+
+.size {
+  width: 256px;
+  transition: width 0.2s ease;
+}

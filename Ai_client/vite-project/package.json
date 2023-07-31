@@ -11,6 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.11.2",
+    "@cloudinary/url-gen": "^1.11.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.5",
@@ -20,7 +22,7 @@
     "@mui/material": "^5.14.2",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
-    "cloudinary": "^1.39.0",
+    "cloudinary": "^1.40.0",
     "flowbite": "^1.7.0",
     "flowbite-react": "^0.5.0",
     "postcss": "^8.4.27",

@@ -16,6 +16,7 @@ const schema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    favoriteBooks: { type: Array },
   },
   { timestamps: true }
 );
