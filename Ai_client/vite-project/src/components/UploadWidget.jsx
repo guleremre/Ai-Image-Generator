@@ -10,6 +10,7 @@ const UploadWidget = () => {
       {
         cloudName: "djyfosrda",
         uploadPreset: "airtistic",
+        cropping: true
       },
       function (error, result) {
         console.log(result);
