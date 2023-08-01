@@ -1,23 +1,31 @@
 const mongoose = require("mongoose");
-const Img = require("../modules/img");
+const Avatar = require("../modules/avatar");
+const cloudinary = require("cloudinary").v2;
 
 //GET ALL IMGS
 const getAllImg = async (req, res) => {
   try {
-    const imgs = await Img.find({});
+    const avatars = await Avatar.find({});
     res.status(200).json(imgs);
   } catch (err) {
     res.status(500).json({ msg: err.msg });
   }
 };
+
 //CREATE NEW IMG
 const postOneImg = async (req, res) => {
-  console.log("hello",req.body)
+  const result = await cloudinary.uploader.upload(
+    req.files.image.tempFilePath,
+    {
+      use_filename: true,
+      folder: "ai_generator",
+    }
+  );
+  console.log("result", result);
   try {
-    const newImg = await Img.create(req.body);
-    res.status(201).json({ msg: "Img successfully uploaded" });
+    const newImg = await Avatar.create(req.body);
+    res.status(201).json({ msg: "Avatar successfully uploaded" });
   } catch (err) {
-    console.log(err)
     res.status(409).json({ msg: err.msg });
   }
 };
@@ -25,7 +33,7 @@ const postOneImg = async (req, res) => {
 //DELETE A IMG
 const deleteImg = async (req, res) => {
   try {
-    const deleteOneImg = await Img.deleteOne({ _id: req.params.id });
+    const deleteOneImg = await Avatar.deleteOne({ _id: req.params.id });
     res.json(deleteOneImg);
   } catch (err) {
     res.status(500).json({ msg: err.msg });
@@ -34,7 +42,7 @@ const deleteImg = async (req, res) => {
 //UPDATE A IMG
 const updateImg = async (req, res) => {
   try {
-    const updateImg = await Img.findByIdAndUpdate(
+    const updateImg = await Avatar.findByIdAndUpdate(
       { _id: req.params.id },
       req.body
     );
@@ -47,7 +55,7 @@ const updateImg = async (req, res) => {
 //GET ALL IMGS OF ONE USER
 const getAllUserImg = async (req, res) => {
   try {
-    const imgs = await Img.find({ userId: req.params.userId });
+    const imgs = await Avatar.find({ userId: req.params.userId });
     res.status(200).json(imgs);
   } catch (err) {
     console.log(err);
@@ -55,10 +63,20 @@ const getAllUserImg = async (req, res) => {
   }
 };
 
+const getOneImg = async (req, res) => {
+  const _id = req.params.id;
+  try {
+    const Imgs = await Avatar.findOne({ _id });
+    res.json(Imgs);
+  } catch (err) {
+    console.log(err);
+  }
+};
 module.exports = {
   getAllImg,
   postOneImg,
   deleteImg,
   updateImg,
   getAllUserImg,
+  getOneImg,
 };
