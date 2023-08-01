@@ -47,12 +47,14 @@ const Profile = () => {
   const [imageLink, setImageLink] = useState("");
 
   async function uploadAvatar() {
-    // const cld = new Cloudinary({ cloud: { cloudName: "djyfosrda" } });
+  //  const api_key=""
+  //  const cloud_key=""
     try {
       const data = new FormData();
+
       data.append("file", Image);
-      data.append("upload_preset", "cloudinarytutorial");
-      data.append("cloudName", "");
+      data.append("upload_preset", "aigenerator");
+      data.append("cloudName", "djyfosrda");
       await axios
         .post("https://api.cloudinary.com/v1_1/djyfosrda/image/upload")
         .then((data) => setImageLink(data.imageLink));

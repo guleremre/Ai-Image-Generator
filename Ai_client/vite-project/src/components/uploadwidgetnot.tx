@@ -84,3 +84,19 @@ app.post("/upload", upload.single("image"), (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
+
+const getUserIdFromToken = () => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      return decodedToken.userId; 
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return null;
+    }
+  }
+  return null;
+};
+you can use the function every time you want to get the userId

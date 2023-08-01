@@ -52,7 +52,7 @@ export default function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  //checking if user entered same pasword
+  //checking if user entered same password
   function handleButtonClick() {
     if (password === confirmPassword) {
       onSubmit();
