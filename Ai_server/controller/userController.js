@@ -3,7 +3,18 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+const getAllUserImg = async (req, res) => {
+  try {
+    const imgs = await User.find({ imgUrl: req.params.imgUrl });
+    res.status(200).json(imgs);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: err.msg });
+  }
+};
+
 const update = async (req, res) => {
+  console.log("hello update", req.body);
   try {
     await User.findByIdAndUpdate({ _id: req.params.id }, req.body);
     res.send({ msg: "updated" });
@@ -11,7 +22,6 @@ const update = async (req, res) => {
     console.log(err);
   }
 };
-
 
 const signup = async (req, res) => {
   try {
@@ -104,4 +114,5 @@ module.exports = {
   login,
   verify,
   update,
+  getAllUserImg,
 };

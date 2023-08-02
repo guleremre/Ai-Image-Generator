@@ -28,7 +28,7 @@ function ResponsiveAppBar() {
   useEffect(() => {
     // await auth();
     memo ? setLogged(true) : setLogged(false);
-  }, []);
+  }, [memo]);
 
   // useEffect(() => {
   //   link(userId);

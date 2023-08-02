@@ -16,7 +16,7 @@ const schema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    imgUrl: String,
+    imgUrl: { type: String },
     favoriteBooks: { type: Array },
   },
   { timestamps: true }
