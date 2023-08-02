@@ -13,13 +13,13 @@ import {
   MDBIcon,
 } from "mdb-react-ui-kit";
 
-// import "./profile.scss";
+import "./profile.scss";
 const Profile = () => {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
   const [userInfo, setUserInfo] = useState([]);
   const [userId, setUserId] = useState("");
-
+  console.log(userInfo.imgUrl);
   //to get user id
   async function auth() {
     const url = "http://localhost:4000/user/verify";
@@ -37,7 +37,7 @@ const Profile = () => {
       console.error("Error verifying token:", error);
     }
   }
-
+  //to use cloudinary widget for  img upload
   function UploadToWidget(userId) {
     cloudinaryRef.current = window.cloudinary;
     widgetRef.current = cloudinaryRef.current.createUploadWidget(
@@ -79,6 +79,8 @@ const Profile = () => {
       var response = await axios.put(`http://localhost:4000/user/${userId}`, {
         imgUrl: avatar,
       });
+      var imgs = userInfo.imgUrl;
+      setImgs(imgs);
       // getAvatar(avatar, userId);
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -105,7 +107,7 @@ const Profile = () => {
     <>
       <h1>{`this is profile of ${userId} `}</h1>
 
-      <img src="#" />
+      <img src={"#"} />
       <button onClick={getAvatar} type="button">
         getAvatar
       </button>
