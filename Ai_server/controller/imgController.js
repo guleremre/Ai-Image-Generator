@@ -34,7 +34,7 @@ const deleteImg = async (req, res) => {
 //UPDATE A IMG
 const updateImg = async (req, res) => {
   try {
-    const updateImg = await Img.findByIdAndUpdate(
+    const updatedImg = await Img.findByIdAndUpdate(
       { _id: req.params.id },
       req.body
     );
@@ -58,7 +58,7 @@ const getAllUserImg = async (req, res) => {
 const getOneImg = async (req, res) => {
   const _id = req.params.id;
   try {
-    const Imgs = await Avatar.findOne({ _id });
+    const Imgs = await Img.findOne({ _id });
     res.json(Imgs);
   } catch (err) {
     console.log(err);

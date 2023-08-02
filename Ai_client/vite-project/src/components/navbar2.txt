@@ -14,60 +14,60 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-// import axios from "axios";
+import axios from "axios";
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [logged, setLogged] = useState(false);
-  // const [userId, setUserId] = useState([]);
-  // const [userAvatar, setUserAvatar] = useState([]);
+  const [userId, setUserId] = useState([]);
+  const [userAvatar, setUserAvatar] = useState([]);
+  const [avatarlink, setAvatarlink] = useState([]);
 
   const memo = localStorage.getItem("token");
+  useEffect(() => {
+    memo ? setLogged(true) : setLogged(false);
+  }, [memo]);
+  useEffect(() => {
+    auth();
+  }, [userId]);
 
   useEffect(() => {
-    // await auth();
-    memo ? setLogged(true) : setLogged(false);
-  }, []);
-
-  // useEffect(() => {
-  //   link(userId);
-  // }, []);
+    link(userId);
+  }, [userId]);
 
   //Call the auth function to get the userId
-  // async function auth() {
-  //   // debugger;
-  //   const url = "http://localhost:4000/user/verify";
-  //   const token = localStorage.getItem("token");
-  //   try {
-  //     const response = await axios.post(url, { token });
-  //     var updatedUserId = response.data._id;
-  //     setUserId(updatedUserId);
-  //     console.log("updatedUserId", updatedUserId);
-  //     console.log("userId!!!!!!!", userId);
-  //     link(userId);
-  //   } catch (error) {
-  //     console.error("Error verifying token:", error);
-  //   }
-  // }
-
-  // //to get users images link
-  // async function link(userId) {
-  //   // debugger;
-  //   try {
-  //     const url = `http://localhost:4000/img/${userId}`;
-  //     const { data } = await axios.get(url);
-  //     console.log("{data}", { data });
-  //     setUserAvatar({ data });
-  //     console.log(`userAvatar  this is images of ${userId} `, userAvatar);
-  //     const avatarLink = userAvatar.map((item) => {
-  //       item.avatar;
-  //     });
-  //     // console.log("avatarlink", avatarLink);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  async function auth() {
+    // debugger;
+    const url = "http://localhost:4000/user/verify";
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.post(url, { token });
+      var updatedUserId = response.data._id;
+      setUserId(updatedUserId);
+      console.log("updatedUserId", updatedUserId);
+      console.log("userId", userId);
+    } catch (error) {
+      console.error("Error verifying token:", error);
+    }
+  }
+  //to get users images link
+  async function link(userId) {
+    // debugger;
+    try {
+      const url = `http://localhost:4000/img/${userId}`;
+      const { data } = await axios.get(url);
+      setUserAvatar(data);
+      console.log("user images", userAvatar);
+      const avatarLink = userAvatar.map((item) => {
+        item.avatar;
+      });
+      return avatarLink;
+      console.log(avatarLink);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const navigate = useNavigate();
 
@@ -229,7 +229,7 @@ function ResponsiveAppBar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="username" src="#" />
+                  <Avatar alt="username" src={avatarlink[0]} />
                 </IconButton>
               </Tooltip>
               <Menu

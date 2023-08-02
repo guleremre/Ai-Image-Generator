@@ -3,6 +3,16 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+const update = async (req, res) => {
+  try {
+    await User.findByIdAndUpdate({ _id: req.params.id }, req.body);
+    res.send({ msg: "updated" });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+
 const signup = async (req, res) => {
   try {
     // Check if user exists with the given email or username
@@ -93,4 +103,5 @@ module.exports = {
   signup,
   login,
   verify,
+  update,
 };
