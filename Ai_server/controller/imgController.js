@@ -12,12 +12,12 @@ const getAllImg = async (req, res) => {
 };
 //CREATE NEW IMG
 const postOneImg = async (req, res) => {
-  console.log("hello",req.body)
+  console.log("hello", req.body);
   try {
     const newImg = await Img.create(req.body);
     res.status(201).json({ msg: "Img successfully uploaded" });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.status(409).json({ msg: err.msg });
   }
 };
@@ -54,6 +54,16 @@ const getAllUserImg = async (req, res) => {
     res.status(500).json({ msg: err.msg });
   }
 };
+//GET IMGS OF ONE USER
+const getOneImg = async (req, res) => {
+  const _id = req.params.id;
+  try {
+    const Imgs = await Avatar.findOne({ _id });
+    res.json(Imgs);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 module.exports = {
   getAllImg,
@@ -61,4 +71,5 @@ module.exports = {
   deleteImg,
   updateImg,
   getAllUserImg,
+  getOneImg,
 };

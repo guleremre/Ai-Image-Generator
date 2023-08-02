@@ -1,108 +1,72 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { Cloudinary } from "@cloudinary/url-gen";
 
 const Profile = () => {
-  const token = localStorage.getItem("token");
-  console.log(token);
-  const [user, setUser] = useState("");
-  const navigate = useNavigate();
+  const cloudinaryRef = useRef();
+  const widgetRef = useRef();
+  const [userId, setUserId] = useState("");
 
-  const handleDeleteFavorite = async (id) => {
-    console.log(token);
-    console.log(id);
+  //to get user id
+  async function auth() {
+    const url = "http://localhost:4000/user/verify";
+    const token = localStorage.getItem("token");
     try {
-      const response = await axios.delete(`http://localhost:4000/user/${id}`, {
-        data: { token: token },
-      });
-      console.log(response);
-      setUser(response.data.user);
+      const response = await axios.post(url, { token });
+      console.log(response.data);
+      setUserId(response.data._id);
+      console.log(response.data._id);
+      console.log("gsetuserdan gelen", userId);
+      // localStorage.setItem("userId", response.data._id); // Store the userId in local storage
     } catch (error) {
-      console.log(error);
-    }
-  };
-
-  function checkIfLogged() {
-    if (!token) {
-      alert("You need to logged in to see the page");
-      return navigate("/home");
+      console.error("Error verifying token:", error);
     }
   }
 
-  const getUserData = async (req, res) => {
+  function UploadToWidget() {
+    cloudinaryRef.current = window.cloudinary;
+    widgetRef.current = cloudinaryRef.current.createUploadWidget(
+      {
+        cloudName: "djyfosrda",
+        uploadPreset: "airtistic",
+        cropping: true,
+        folder: "ai_generator",
+        multiple: false,
+      },
+      function (error, result) {
+        if (!error && result && result.event === "success") {
+          var avatar = result.info.secure_url;
+          // const userId = localStorage.getItem("userId");
+          post(avatar,userId); // Call the post function with the image data and userId
+        } else if (error) {
+          console.error("Error uploading image:", error);
+        }
+      }
+    );
+  }
+
+  async function post(avatar,userId) {
+    const url = "http://localhost:4000/img/";
     try {
-      const response = await axios.post("http://localhost:4000/user/verify", {
-        token: token,
+      var response = await axios.post(url, {
+        avatar,
+        userId, // Add the userId to the request
       });
-      setUser(response.data);
-      console.log(response);
+      console.log("Upload successful!", response.data);
+      console.log("postun ki", userId);
     } catch (error) {
-      console.log(error);
-    }
-  };
-  const [Image, setImage] = useState("");
-  const [imageLink, setImageLink] = useState("");
-
-  async function uploadAvatar() {
-  //  const api_key=""
-  //  const cloud_key=""
-    try {
-      const data = new FormData();
-
-      data.append("file", Image);
-      data.append("upload_preset", "aigenerator");
-      data.append("cloudName", "djyfosrda");
-      await axios
-        .post("https://api.cloudinary.com/v1_1/djyfosrda/image/upload")
-        .then((data) => setImageLink(data.imageLink));
-    } catch (error) {
-      console.log(error);
+      console.error("Error uploading image:", error);
     }
   }
 
   useEffect(() => {
-    getUserData();
-    checkIfLogged();
-  }, [token]);
+    auth(); // Call the auth function to get the userId
+    UploadToWidget();
+  }, []);
 
   return (
     <div>
-      <h1>Here is a list of your favorite </h1>
-      <input
-        type="file"
-        onChange={(e) => {
-          setImageLink(e.target.files[0]);
-        }}
-      />
-      <button onClick={uploadAvatar}> Upload Avatar</button>
-      <div>
-        <ul>
-          {user.favoriteBooks &&
-            user.favoriteBooks.map((book, i) => (
-              <li key={i}>
-                <div className="card">
-                  <img src={book.image} alt={book.name} />
-                  <article>By {book.author}</article>
-                  <h3>{book.name}</h3>
-                  <p>{book.description}</p>
-                  <h3>Rs: {book.price} $</h3>
-                  {token ? <p>Available: {String(book.available)}</p> : ""}
-                  <Button
-                    onClick={() => {
-                      handleDeleteFavorite(book._id);
-                    }}
-                    sx={{ mt: "auto" }}
-                  >
-                    Remove it from Favorite
-                  </Button>
-                </div>
-              </li>
-            ))}
-        </ul>
-      </div>
+      <h1>hi</h1>
+      <button onClick={() => widgetRef.current.open()}>Upload</button>
     </div>
   );
 };

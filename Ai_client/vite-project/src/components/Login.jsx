@@ -42,6 +42,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const url = "http://localhost:4000/user/login";
+
   useEffect(() => {
     checkIfLogged();
   }),

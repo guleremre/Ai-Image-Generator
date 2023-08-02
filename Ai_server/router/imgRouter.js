@@ -7,6 +7,6 @@ router.post("/", ImgController.postOneImg);
 router.delete("/:id", ImgController.deleteImg);
 router.put("/:id", ImgController.updateImg);
 router.get("/:userId", ImgController.getAllUserImg);
-router.get("/:Id", ImgController.getAllUserImg);
+router.get("/:Id", ImgController.getOneImg);
 
 module.exports = router; // bunun ismini değişme özel bu

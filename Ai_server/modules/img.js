@@ -3,8 +3,7 @@ const connection = require("./connection");
 
 const schema = new mongoose.Schema(
   {
-    Base64Img: { type: String, required: true },
-    prompt: { type: String },
+    avatar: { type: String, required: true },
     userId: String,
   },
   { timestamps: true }
@@ -12,4 +11,3 @@ const schema = new mongoose.Schema(
 const Img = mongoose.model("Img", schema);
 
 module.exports = Img;
- 

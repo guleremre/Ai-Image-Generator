@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 import axios from "axios";
 
-const UploadWidget = () => {
+const Profile = () => {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
 
-  function wid() {
+  function UploadToWidget() {
     cloudinaryRef.current = window.cloudinary;
     widgetRef.current = cloudinaryRef.current.createUploadWidget(
       {
@@ -21,30 +21,53 @@ const UploadWidget = () => {
         if (!error && result && result.event === "success") {
           console.log(result);
           console.log("news", result.info.secure_url);
-         
-          var Base64Img = result.info.secure_url;
-          console.log("21212", Base64Img);
-          post(Base64Img); // Call the post function with the image data
+
+          var avatar = result.info.secure_url;
+
+          post(avatar); // Call the post function with the image data
+          auth();
         } else if (error) {
           console.error("Error uploading image:", error);
         }
       }
     );
   }
+  // async function auth() {
+  //   const url = "http://localhost:4000/user/verify";
+  //   const token = localStorage.getItem("token");
+  //   const response = await axios.post(url, token);
 
-  async function post(Base64Img) {
-    console.log("oldumu", Base64Img);
-    const url = "http://localhost:4000/img/";
-    console.log("oldumu2", Base64Img);
+  //   console.log(response);
+  // }
+  async function auth() {
+    const url = "http://localhost:4000/user/verify";
+    const token = localStorage.getItem("token");
+
     try {
-      const response = await axios.post(url, { Base64Img });
+      const response = await axios.post(url, { token }); // Send the token in the request body
+      console.log(response.data); // This will contain the user ID returned from the server
+      console.log(response.data._id);
+    } catch (error) {
+      console.error("Error verifying token:", error);
+    }
+  }
+
+  //to send image url to backend
+  async function post(avatar) {
+    const url = "http://localhost:4000/img/";
+
+    try {
+      const response = await axios.post(url, {
+        avatar,
+        userId: response.data._id,
+      });
       console.log("Upload successful!", response.data);
     } catch (error) {
       console.error("Error uploading image:", error);
     }
   }
   useEffect(() => {
-    wid();
+    UploadToWidget();
   }, []);
 
   return (
@@ -55,4 +78,6 @@ const UploadWidget = () => {
   );
 };
 
-export default UploadWidget;
+export default Profile;
+
+ben'm gptye yapi;tirdigim
