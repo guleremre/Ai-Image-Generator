@@ -17,7 +17,7 @@ const schema = new mongoose.Schema(
       required: true,
     },
     imgUrl: { type: String },
-    favoriteBooks: { type: Array },
+    favoriteImg: { type: Array },
   },
   { timestamps: true }
 );

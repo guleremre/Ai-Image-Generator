@@ -6,6 +6,7 @@ const imgRouter = require("./router/imgRouter");
 const userRouter = require("./router/userRouter");
 const cloudinary = require("cloudinary").v2;
 const fileUpload = require("express-fileupload");
+const favoriteImgController = require("./router/favoriteImage");
 
 app.use(express.json({ limit: "50mb" }));
 app.use(
@@ -29,6 +30,7 @@ cloudinary.config({
 
 app.use("/img", imgRouter);
 app.use("/user", userRouter);
+app.use("/user", favoriteImgController);
 
 app.listen(process.env.port, () => {
   console.log(`server is running on ${process.env.port} `);

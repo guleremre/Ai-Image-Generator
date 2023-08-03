@@ -26,7 +26,7 @@ function ResponsiveAppBar() {
   const memo = localStorage.getItem("token");
 
   useEffect(() => {
-    // await auth();
+    //  auth();
     memo ? setLogged(true) : setLogged(false);
   }, [memo]);
 
@@ -71,6 +71,9 @@ function ResponsiveAppBar() {
 
   const navigate = useNavigate();
 
+  const getAvatar = () => {
+    return localStorage.getItem("avatarimg");
+  };
   const navToHome = () => {
     navigate("/home");
     handleCloseNavMenu();
@@ -93,6 +96,11 @@ function ResponsiveAppBar() {
 
   const navToProfile = () => {
     navigate("/profile");
+    handleCloseUserMenu();
+  };
+
+  const navToFavorites = () => {
+    navigate("/favorites");
     handleCloseUserMenu();
   };
 
@@ -229,7 +237,7 @@ function ResponsiveAppBar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="username" src="#" />
+                  <Avatar alt="Avatar" src={getAvatar()} />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -251,6 +259,9 @@ function ResponsiveAppBar() {
                 {" "}
                 <MenuItem value="profile" onClick={() => navToProfile()}>
                   Profile
+                </MenuItem>
+                <MenuItem value="favorites" onClick={() => navToFavorites()}>
+                  Favorites
                 </MenuItem>
                 <MenuItem
                   onClick={() => {

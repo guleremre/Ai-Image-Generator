@@ -10,49 +10,57 @@ import Input from "@mui/joy/Input";
 import Button from "@mui/material/Button";
 import Link from "@mui/joy/Link";
 import { Stack } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-  // debugger;
+  const navigate = useNavigate();
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
   const [userInfo, setUserInfo] = useState([]);
   const [userId, setUserId] = useState("");
-
+  // const [navImg, setNavImg] = useState();
+  function checkIfLogged() {
+    const item = localStorage.getItem("token");
+    if (!item) {
+      return navigate("/home");
+    }
+  }
   //to get user id
   async function auth() {
     const url = "http://localhost:4000/user/verify";
     const token = localStorage.getItem("token");
-
     try {
       const response = await axios.post(url, { token });
-
+      // console.log("response.data", response.data);
       const userName = userInfo.username;
-      // console.log("feyo username", userInfo.username);
-      // console.log("feyoing", userInfo.imgUrl);
       setUserInfo(response.data);
       setUserId(response.data._id);
 
-      // console.log("userInfo", userInfo);
-      // console.log("userInfo userName", userName);
-      // console.log("userId", userId);
+      console.log("feyoname", userInfo.username);
+      console.log("feyoing", userInfo.imgUrl);
+
+      console.log("userInfo", userInfo);
+      console.log("userInfo.imgUrl", userInfo.imgUrl);
+      console.log("userInfo userName", userName);
+      console.log("userId", userId);
     } catch (error) {
       console.error("Error verifying token:", error);
     }
   }
 
-  //to use cloudinary widget for  img upload
+  //to use cloudinary widget for img upload
   function UploadToWidget(userId) {
     cloudinaryRef.current = window.cloudinary;
     widgetRef.current = cloudinaryRef.current.createUploadWidget(
       {
         cloudName: "djyfosrda",
         uploadPreset: "airtistic",
-        cropping: true,
+        cropping: false,
         folder: "user_profile",
         multiple: false,
       },
       function (error, result) {
-        if (!error && result && result.event === "success") {
+        if (result) {
           const avatar = result.info.secure_url;
           put(avatar, userId);
         } else if (error) {
@@ -67,17 +75,19 @@ const Profile = () => {
       const response = await axios.put(`http://localhost:4000/user/${userId}`, {
         imgUrl: avatar,
       });
+      console.log("nav set", userInfo.imgUrl);
       localStorage.setItem("avatarimg", userInfo.imgUrl);
+      // const imgtoken = localStorage.setItem("NavImg", userInfo.imgUrl);
+      // console.log("imgtoken", imgtoken);
     } catch (error) {
       console.error("Error uploading image:", error);
     }
   }
+
   useEffect(() => {
-    const fetchData = async () => {
-      await auth();
-      UploadToWidget(userId);
-    };
-    fetchData();
+    checkIfLogged();
+    auth(); // Call the auth function to get the userId
+    UploadToWidget(userId);
   }, [userId]);
 
   return (

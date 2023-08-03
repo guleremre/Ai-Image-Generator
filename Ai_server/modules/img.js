@@ -3,7 +3,8 @@ const connection = require("./connection");
 
 const schema = new mongoose.Schema(
   {
-    avatar: { type: String, required: true },
+    imgUrl: { type: String, required: true },
+    prompt: String,
     userId: String,
   },
   { timestamps: true }
