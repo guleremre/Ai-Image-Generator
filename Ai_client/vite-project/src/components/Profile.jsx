@@ -1,24 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import {
-  MDBCol,
-  MDBContainer,
-  MDBRow,
-  MDBCard,
-  MDBCardText,
-  MDBCardBody,
-  MDBCardImage,
-  MDBBtn,
-  MDBTypography,
-  MDBIcon,
-} from "mdb-react-ui-kit";
+import Avatar from "@mui/material/Avatar";
+import { CssVarsProvider } from "@mui/joy/styles";
+import Sheet from "@mui/joy/Sheet";
+import Typography from "@mui/joy/Typography";
+import FormControl from "@mui/joy/FormControl";
+import FormLabel from "@mui/joy/FormLabel";
+import Input from "@mui/joy/Input";
+import Button from "@mui/material/Button";
+import Link from "@mui/joy/Link";
+import { Stack } from "@mui/material";
 
-import "./profile.scss";
 const Profile = () => {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
   const [userInfo, setUserInfo] = useState([]);
   const [userId, setUserId] = useState("");
+
   console.log(userInfo.imgUrl);
   //to get user id
   async function auth() {
@@ -29,14 +27,20 @@ const Profile = () => {
       // console.log("response.data", response.data);
       const settedUserInfo = response.data;
       const settedUserId = response.data._id;
+      const userName = userInfo.username;
+      console.log("feyo", userInfo.username);
+      console.log("feyoing", userInfo.imgUrl);
       setUserInfo(settedUserInfo);
       setUserId(settedUserId);
-      // console.log("userInfo", userInfo);
-      // console.log("userId", userId);
+
+      console.log("userInfo", userInfo);
+      console.log("userInfo userName", userName);
+      console.log("userId", userId);
     } catch (error) {
       console.error("Error verifying token:", error);
     }
   }
+
   //to use cloudinary widget for  img upload
   function UploadToWidget(userId) {
     cloudinaryRef.current = window.cloudinary;
@@ -48,18 +52,19 @@ const Profile = () => {
         folder: "user_profile",
         multiple: false,
       },
+
       function (error, result) {
         if (!error && result && result.event === "success") {
           const avatar = result.info.secure_url;
-          // post(avatar, userId); // Call the post function with the image data and userId
+          console.log(avatar);
           put(avatar, userId);
-          // getAvatar(avatar, userId);
         } else if (error) {
           console.error("Error uploading image:", error);
         }
       }
     );
   }
+
   // async function post(avatar, userId) {
   //   // axios.put("http://localhost:4000/user/" + userId , {imgUrl : clouridiray})
   //   const url = "http://localhost:4000/img/";
@@ -76,23 +81,10 @@ const Profile = () => {
   // }
   async function put(avatar, userId) {
     try {
-      var response = await axios.put(`http://localhost:4000/user/${userId}`, {
+      const response = await axios.put(`http://localhost:4000/user/${userId}`, {
         imgUrl: avatar,
       });
       var imgs = userInfo.imgUrl;
-      setImgs(imgs);
-      // getAvatar(avatar, userId);
-    } catch (error) {
-      console.error("Error uploading image:", error);
-    }
-  }
-  async function getAvatar(userId, avatar) {
-    try {
-      var response = await axios.get(`http://localhost:4000/user/${userId}`);
-
-      console.log("bune?", response.data);
-      // console.log("imgUrl?", imgUrl);
-      getAvatar(userId);
     } catch (error) {
       console.error("Error uploading image:", error);
     }
@@ -105,81 +97,80 @@ const Profile = () => {
 
   return (
     <>
-      <h1>{`this is profile of ${userId} `}</h1>
+      <Stack
+        sx={{
+          p: 8,
+          pt: 2,
+          pb: 2,
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <h1>{`Profile of ${userInfo.username} `}</h1>
+      </Stack>
+      <CssVarsProvider>
+        <main>
+          <Sheet
+            className=" profile"
+            sx={{
+              maxWidth: 300,
+              mx: "left", // margin left & right
+              my: 4, // margin top & bottom
+              py: 3, // padding top & bottom
+              px: 2, // padding left & right
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+              borderRadius: "sm",
+              boxShadow: "large",
+            }}
+            color="neutral"
+            variant="soft"
+          >
+            <Stack
+              sx={{
+                m: "left",
+                display: "flex",
+                flexDirection: "column",
+              }}
+              direction="row"
+              spacing={5}
+            >
+              <Avatar
+                sx={{ width: 240, height: 240, alignSelf: "center" }}
+                src={userInfo.imgUrl}
+              />
+            </Stack>
+            <Button
+              onClick={() => widgetRef.current.open()}
+              variant="contained"
+              color="primary"
+              size="small"
+            >
+              Update Avatar
+            </Button>
+            <Stack direction="row" spacing={2}></Stack>
+            <Typography level="h4" component="h1">
+              <FormLabel>User Name</FormLabel>
+              <b>{userInfo.username}</b>
+            </Typography>
 
-      <img src={"#"} />
-      <button onClick={getAvatar} type="button">
-        getAvatar
-      </button>
-      {/* <div>
-        <h1>General Img</h1>
-        <button onClick={() => widgetRef.current.open()}>Upload img</button>
-      </div> */}
+            <Typography level="h4" component="h1">
+              <FormLabel>Email</FormLabel>
+              <b>{userInfo.email}</b>
+            </Typography>
 
-      <div>
-        <button name="updateAvatar" onClick={() => widgetRef.current.open()}>
-          Avatar img
-        </button>
-      </div>
-      <div className="vh-100" style={{ backgroundColor: "#eee" }}>
-        <MDBContainer className="container py-5 h-100">
-          <MDBRow className="justify-content-center align-items-center h-100">
-            <MDBCol md="12" xl="4">
-              <MDBCard style={{ borderRadius: "15px" }}>
-                <MDBCardBody className="text-center">
-                  <div className="mt-3 mb-4">
-                    <MDBCardImage
-                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
-                      className="rounded-circle"
-                      fluid
-                      style={{ width: "100px" }}
-                    />
-                  </div>
-                  <MDBTypography tag="h4">Julie L. Arsenault</MDBTypography>
-                  <MDBCardText className="text-muted mb-4">
-                    @Programmer <span className="mx-2">|</span>{" "}
-                    <a href="#!">mdbootstrap.com</a>
-                  </MDBCardText>
-                  <div className="mb-4 pb-2">
-                    <MDBBtn outline floating>
-                      <MDBIcon fab icon="facebook" size="lg" />
-                    </MDBBtn>
-                    <MDBBtn outline floating className="mx-1">
-                      <MDBIcon fab icon="twitter" size="lg" />
-                    </MDBBtn>
-                    <MDBBtn outline floating>
-                      <MDBIcon fab icon="skype" size="lg" />
-                    </MDBBtn>
-                  </div>
-                  <MDBBtn rounded size="lg">
-                    Message now
-                  </MDBBtn>
-                  <div className="d-flex justify-content-between text-center mt-5 mb-2">
-                    <div>
-                      <MDBCardText className="mb-1 h5">8471</MDBCardText>
-                      <MDBCardText className="small text-muted mb-0">
-                        Wallets Balance
-                      </MDBCardText>
-                    </div>
-                    <div className="px-3">
-                      <MDBCardText className="mb-1 h5">8512</MDBCardText>
-                      <MDBCardText className="small text-muted mb-0">
-                        Followers
-                      </MDBCardText>
-                    </div>
-                    <div>
-                      <MDBCardText className="mb-1 h5">4751</MDBCardText>
-                      <MDBCardText className="small text-muted mb-0">
-                        Total Transactions
-                      </MDBCardText>
-                    </div>
-                  </div>
-                </MDBCardBody>
-              </MDBCard>
-            </MDBCol>
-          </MDBRow>
-        </MDBContainer>
-      </div>
+            {/* <Typography
+              endDecorator={<Link href="/">log in</Link>}
+              fontSize="sm"
+              sx={{ alignSelf: "center" }}
+            >
+              Do you have an account?
+            </Typography> */}
+          </Sheet>
+          <Sheet className="favorites"></Sheet>
+        </main>
+      </CssVarsProvider>
     </>
   );
 };
