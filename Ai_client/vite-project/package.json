@@ -25,6 +25,7 @@
     "cloudinary": "^1.40.0",
     "flowbite": "^1.7.0",
     "flowbite-react": "^0.5.0",
+    "jwt-decode": "^3.1.2",
     "mdb-react-ui-kit": "^6.1.0",
     "postcss": "^8.4.27",
     "react": "^18.2.0",

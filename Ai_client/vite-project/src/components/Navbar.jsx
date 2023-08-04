@@ -14,6 +14,8 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
 // import axios from "axios";
 
 function ResponsiveAppBar() {
@@ -21,7 +23,7 @@ function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [logged, setLogged] = useState(false);
   // const [userId, setUserId] = useState([]);
-  // const [userAvatar, setUserAvatar] = useState([]);
+  const [userAvatar, setUserAvatar] = useState("");
 
   const memo = localStorage.getItem("token");
 
@@ -33,6 +35,29 @@ function ResponsiveAppBar() {
   // useEffect(() => {
   //   link(userId);
   // }, []);
+
+  useEffect(() => {
+    async function fetchAvatar() {
+      console.log("hi");
+      const token = localStorage.getItem("token");
+      if (token) {
+        var decoded = jwt_decode(token);
+        console.log(decoded);
+        let userId = decoded.id;
+        console.log("token comes from decode", userId);
+        try {
+          let res = await axios.get(`http://localhost:4000/img/${userId}`, {
+            token,
+          });
+          console.log(res);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+
+    fetchAvatar();
+  }, []);
 
   //Call the auth function to get the userId
   // async function auth() {
@@ -72,7 +97,11 @@ function ResponsiveAppBar() {
   const navigate = useNavigate();
 
   const getAvatar = () => {
-    return localStorage.getItem("avatarimg");
+    const newAvatar = localStorage.getItem("avatarimg");
+    console.log("thisis navbaravatar", newAvatar);
+
+    return newAvatar;
+    // return localStorage.getItem("avatarimg");
   };
   const navToHome = () => {
     navigate("/home");

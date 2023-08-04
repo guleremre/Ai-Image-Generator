@@ -5,6 +5,7 @@ const schema = new mongoose.Schema(
   {
     imgUrl: { type: String, required: true },
     prompt: String,
+    nprompt: String,
     userId: String,
   },
   { timestamps: true }

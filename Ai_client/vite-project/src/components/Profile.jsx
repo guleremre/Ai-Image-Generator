@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Avatar from "@mui/material/Avatar";
-
 import Sheet from "@mui/joy/Sheet";
-import Typography from "@mui/joy/Typography";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
-import Input from "@mui/joy/Input";
-import Button from "@mui/material/Button";
 import Link from "@mui/joy/Link";
-import { Stack } from "@mui/material";
+import { Stack, Typography, Input, Button } from "@mui/material";
+// import {
+//   Dialog,
+//   DialogActions,
+//   DialogContent,
+//   DialogTitle,
+// } from "@mui/material";
 
 const Profile = () => {
   // debugger;
@@ -17,6 +19,40 @@ const Profile = () => {
   const widgetRef = useRef();
   const [userInfo, setUserInfo] = useState([]);
   const [userId, setUserId] = useState("");
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [updatedUsername, setUpdatedUsername] = useState("");
+  const [updatedEmail, setUpdatedEmail] = useState("");
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+    setUpdatedUsername(userInfo.username);
+    setUpdatedEmail(userInfo.email);
+  };
+  const cancel = () => {
+    setIsEditing(false);
+  };
+
+  const handleUpdateSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios.put(`http://localhost:4000/user/${userId}`, {
+        username: updatedUsername,
+        email: updatedEmail,
+      });
+
+      // Update user info and exit edit mode
+      setUserInfo({
+        ...userInfo,
+        username: updatedUsername,
+        email: updatedEmail,
+      });
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error updating user info:", error);
+    }
+  };
 
   //to get user id
   async function auth() {
@@ -27,9 +63,11 @@ const Profile = () => {
       const response = await axios.post(url, { token });
 
       const userName = userInfo.username;
+
       // console.log("feyo username", userInfo.username);
       // console.log("feyoing", userInfo.imgUrl);
-      setUserInfo(response.data);
+      // setUserInfo(response.data);
+      setUserInfo((prevUserInfo) => ({ ...prevUserInfo, ...response.data }));
       setUserId(response.data._id);
 
       // console.log("userInfo", userInfo);
@@ -51,27 +89,50 @@ const Profile = () => {
         folder: "user_profile",
         multiple: false,
       },
-      function (error, result) {
+      async function (error, result) {
         if (!error && result && result.event === "success") {
           const avatar = result.info.secure_url;
-          put(avatar, userId);
+          console.log("yasmeen", userId, avatar);
+          await put(avatar, userId);
+          // UploadToWidget(userId);
         } else if (error) {
           console.error("Error uploading image:", error);
         }
       }
     );
   }
-
+  //to upload profile image
   async function put(avatar, userId) {
+    console.log("yas", avatar);
     try {
       const response = await axios.put(`http://localhost:4000/user/${userId}`, {
         imgUrl: avatar,
       });
-      localStorage.setItem("avatarimg", userInfo.imgUrl);
+      // Update localStorage with the new image URL
+
+      setUserInfo((prevUserInfo) => ({
+        ...prevUserInfo,
+        imgUrl: avatar,
+      }));
+      console.log(userInfo);
+      console.log("localstorage", avatar);
+      localStorage.setItem("avatarimg", avatar);
     } catch (error) {
       console.error("Error uploading image:", error);
     }
   }
+  //user update users info
+  async function updateInfo() {
+    try {
+      const response = await axios.put(`http://localhost:4000/user/${userId}`, {
+        username,
+        email,
+      });
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       await auth();
@@ -99,8 +160,8 @@ const Profile = () => {
           className=" profile"
           sx={{
             maxWidth: 300,
-            mx: "left", // margin left & right
-            my: 4, // margin top & bottom
+            mx: "auto", // margin left & right
+            my: 2, // margin top & bottom
             py: 3, // padding top & bottom
             px: 2, // padding left & right
             display: "flex",
@@ -118,8 +179,6 @@ const Profile = () => {
               display: "flex",
               flexDirection: "column",
             }}
-            direction="row"
-            spacing={5}
           >
             <Avatar
               sx={{ width: 240, height: 240, alignSelf: "center" }}
@@ -136,14 +195,65 @@ const Profile = () => {
           </Button>
           <Stack direction="row" spacing={2}></Stack>
           <Typography level="h4" component="h1">
-            <FormLabel>User Name</FormLabel>
-            <b>{userInfo.username}</b>
+            <FormLabel>
+              <b>User Name</b>
+            </FormLabel>
+            <p>{userInfo.username}</p>
           </Typography>
 
           <Typography level="h4" component="h1">
-            <FormLabel>Email</FormLabel>
-            <b>{userInfo.email}</b>
+            <FormLabel>
+              <b>Email</b>
+            </FormLabel>
+            <p>{userInfo.email}</p>
           </Typography>
+          {isEditing ? (
+            <form onSubmit={handleUpdateSubmit}>
+              <FormLabel>
+                <b>User Name</b>
+              </FormLabel>
+              <Input
+                type="text"
+                value={updatedUsername}
+                onChange={(e) => setUpdatedUsername(e.target.value)}
+              />
+              <FormLabel>
+                <b>Email</b>
+              </FormLabel>
+              <Input
+                type="email"
+                value={updatedEmail}
+                onChange={(e) => setUpdatedEmail(e.target.value)}
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                size="small"
+              >
+                Update Info
+              </Button>{" "}
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                size="small"
+                onClick={cancel}
+              >
+                Cancel
+              </Button>
+            </form>
+          ) : (
+            <Button
+              onClick={handleEditClick}
+              variant="contained"
+              color="primary"
+              size="small"
+            >
+              Edit Info
+            </Button>
+          )}
+          {/* <Button>Open Dialog</Button> */}
         </Sheet>
         <Sheet className="favorites"></Sheet>
       </main>

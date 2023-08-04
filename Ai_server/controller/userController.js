@@ -13,6 +13,15 @@ const getAllUserImg = async (req, res) => {
   }
 };
 
+const getUserAvatar = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    console.log(userId);
+    // console.log(payload);
+    // const avatar = User.find();
+  } catch (error) {}
+};
+
 const update = async (req, res) => {
   console.log("hello update", req.body);
   try {
@@ -20,6 +29,23 @@ const update = async (req, res) => {
     res.send({ msg: "updated" });
   } catch (err) {
     console.log(err);
+  }
+};
+
+const updateProfile = async (req, res) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: req.body }, // Use $set to update only the provided fields
+      { new: true } // Return the updated document
+    );
+    if (!updatedUser) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+    return res.status(200).json({ msg: "Profile updated", user: updatedUser });
+  } catch (err) {
+    console.error("Error updating profile:", err);
+    return res.status(500).json({ msg: "Internal server error" });
   }
 };
 
@@ -90,7 +116,6 @@ const verify = async (req, res) => {
   if (!req.body.token) {
     return res.send({ msg: "Token not provided" });
   }
-
   try {
     const payload = jwt.verify(req.body.token, process.env.salt);
     if (payload) {
@@ -115,4 +140,6 @@ module.exports = {
   verify,
   update,
   getAllUserImg,
+  updateProfile,
+  getUserAvatar,
 };
