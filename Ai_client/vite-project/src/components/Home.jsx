@@ -9,6 +9,19 @@ import Textarea from "@mui/joy/Textarea";
 import FormLabel from "@mui/joy/FormLabel";
 import "./Home.css";
 
+import * as React from "react";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Switch from "@mui/material/Switch";
+
 const url = "http://127.0.0.1:7860/sdapi/v1/txt2img";
 
 function Home() {
@@ -20,7 +33,6 @@ function Home() {
   );
   const [double, setDouble] = useState(false);
 
-  
   const doubleSize = () => {
     setDouble((prevValue) => !prevValue);
   };
@@ -59,7 +71,6 @@ function Home() {
     link.click();
     document.body.removeChild(link);
   };
-  
 
   //rendering image from base64 format
   const renderImg = `data:image/jpeg;base64,${img}`;
@@ -76,6 +87,15 @@ function Home() {
   //   }
   // };
 
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     onSubmit();
   }, []);
@@ -86,8 +106,8 @@ function Home() {
         <Box
           sx={{
             bgcolor: "#9fa8a4",
-            p: 8,
-            pt: 4,
+            p: 0,
+            pt: 3,
             pb: 0,
             display: "flex",
             justifyContent: "center",
@@ -95,13 +115,14 @@ function Home() {
         >
           {imgLoad ? (
             <img
-              className={double ? "size2" : "size"}
-              onClick={() => doubleSize()}
+              width="256"
+              className={"size"}
+              onClick={handleClickOpen}
               src={renderImg}
             />
           ) : (
             <Skeleton
-              sx={{ bgcolor: "grey.900" }}
+              sx={{ bgcolor: "grey.800" }}
               variant="rectangular"
               animation="wave"
               width={265}
@@ -109,7 +130,14 @@ function Home() {
             />
           )}
         </Box>
-        <Box sx={{ "& > button": { m: 3, mb: 1 } }}>
+        <Box
+          sx={{
+            "& > button": { mt: 3 },
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+        >
           <LoadingButton
             size="medium"
             onClick={onSubmit}
@@ -117,17 +145,20 @@ function Home() {
             loading={loading}
             loadingPosition="end"
             variant="contained"
+            sx={{ margin: "auto" }}
           >
             <span>Generate Image</span>
-          </LoadingButton>
-
+          </LoadingButton>{" "}
           {downloadReady && (
-            <LoadingButton variant="contained" size="medium" onClick={handleDownload}>
+            <LoadingButton
+              variant="contained"
+              size="medium"
+              onClick={handleDownload}
+              sx={{ margin: "auto" }}
+            >
               Download Image
             </LoadingButton>
           )}
-
-          
         </Box>
         <Box
           sx={{
@@ -185,6 +216,39 @@ function Home() {
             }}
           />
         </Box>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogContent>
+            <Box
+              noValidate
+              component="form"
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                // justifyContent: "space-between",
+              }}
+            >
+              <img
+                style={{
+                  width: "100%", // Set the initial width to 100%
+                  maxWidth: "200%", // Ensure the image doesn't exceed its natural size
+                  // height: "auto", // Maintain aspect ratio
+                  transition: "width 0.2s ease",
+                  marginBottom: 20,
+                }}
+                src={renderImg}
+                alt="renderImg"
+                onClick={handleClose}
+              />
+              <Button
+                sx={{ mt: 2, m: "auto" }}
+                variant="outlined"
+                onClick={handleClose}
+              >
+                Close
+              </Button>
+            </Box>
+          </DialogContent>
+        </Dialog>
       </form>
     </>
   );
