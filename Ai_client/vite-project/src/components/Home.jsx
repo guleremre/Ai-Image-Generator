@@ -20,6 +20,7 @@ function Home() {
   );
   const [double, setDouble] = useState(false);
 
+  
   const doubleSize = () => {
     setDouble((prevValue) => !prevValue);
   };
