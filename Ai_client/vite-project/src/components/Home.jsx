@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import LoadingButton from "@mui/lab/LoadingButton";
+import Button from "@mui/joy/Button";
 import SendIcon from "@mui/icons-material/Send";
 import Skeleton from "@mui/material/Skeleton";
 import Textarea from "@mui/joy/Textarea";
@@ -11,10 +12,10 @@ import "./Home.css";
 const url = "http://127.0.0.1:7860/sdapi/v1/txt2img";
 
 function Home() {
-  const [prompt, setPrompt] = useState(
+  let [prompt, setPrompt] = useState(
     "monster 1girl, (masterpiece, best quality, beautiful and aesthetic:1.2), ultra high res, 8k, detailed, (fractal art:1.3), colorful, radiosity, automatic white balance"
   );
-  const [negative_prompt, setNegativePrompt] = useState(
+  let [negative_prompt, setNegativePrompt] = useState(
     "nude, topless, naked, ng_deepnegative_v1_75t, easynegative, (worst quality:2), (low quality:2), (normal quality:1.8), lowres, ((monochrome)), ((grayscale)), sketch, ugly, morbid, deformed, logo, text, bad anatomy, bad proportions, disfigured, extra arms, extra legs, fused fingers, extra digits, fewer digits, mutated hands, poorly drawn hands, bad hands"
   );
   const [double, setDouble] = useState(false);
@@ -31,19 +32,34 @@ function Home() {
     setLoading(true);
     try {
       const response = await axios.post(url, { prompt, negative_prompt });
-      console.log("Response:", response.data.images[0]);
-      console.log("Response:", response.data);
-      console.log(prompt);
-      console.log(negative_prompt);
+      // console.log("Response:", response.data.images[0]);
+      // console.log("Response:", response.data);
+      // console.log(prompt);
+      // console.log(negative_prompt);
       setLoading(false);
       setImg(response.data.images[0]);
+      // setImg((prevImg) => ({ ...prevImg, ...response.data.images[0] }))
       setImgLoad(true);
+      setDownloadReady(true);
       // Handle the response data here
     } catch (error) {
       console.error("Error:", error.message);
       // Handle errors here
     }
   };
+  const [downloadReady, setDownloadReady] = useState(false);
+
+  const handleDownload = () => {
+    // Create a download link for the image
+    const link = document.createElement("a");
+    link.href = renderImg;
+    link.download = "generated_image.jpg";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  
+
   //rendering image from base64 format
   const renderImg = `data:image/jpeg;base64,${img}`;
 
@@ -92,7 +108,6 @@ function Home() {
             />
           )}
         </Box>
-
         <Box sx={{ "& > button": { m: 3, mb: 1 } }}>
           <LoadingButton
             size="medium"
@@ -104,6 +119,14 @@ function Home() {
           >
             <span>Generate Image</span>
           </LoadingButton>
+
+          {downloadReady && (
+            <LoadingButton variant="contained" size="medium" onClick={handleDownload}>
+              Download Image
+            </LoadingButton>
+          )}
+
+          
         </Box>
         <Box
           sx={{
