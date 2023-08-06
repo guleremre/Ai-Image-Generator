@@ -206,37 +206,38 @@ function Home() {
           />
         </Box>
         <Dialog open={open} onClose={handleClose}>
-          <Box
-            noValidate
-            component="form"
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              width: "fit-content",
-              height: "fit-content",
-            }}
-          >
-            <img
-              style={{
-                width: "100%", // Set the initial width to 100%
-                maxWidth: "200%", // Ensure the image doesn't exceed its natural size
-                // height: "auto", // Maintain aspect ratio
-                transition: "width 0.2s ease",
-                marginBottom: 20,
-                transform: "scale(2)",
+          <DialogContent>
+            <Box
+              noValidate
+              component="form"
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                width: "fit-content",
               }}
-              src={renderImg}
-              alt="renderImg"
-              onClick={handleClose}
-            />
-            <Button
-              sx={{ mt: 2, m: "auto" }}
-              variant="outlined"
-              onClick={handleClose}
             >
-              Close
-            </Button>
-          </Box>
+              <img
+                style={{
+                  width: "100%", // Set the initial width to 100%
+                  maxWidth: "200%", // Ensure the image doesn't exceed its natural size
+                  // height: "auto", // Maintain aspect ratio
+                  transition: "width 0.2s ease",
+                  marginBottom: 20,
+                  transform: "scale(1)",
+                }}
+                src={renderImg}
+                alt="renderImg"
+                onClick={handleClose}
+              />
+              <Button
+                sx={{ mt: 2, m: "auto" }}
+                variant="outlined"
+                onClick={handleClose}
+              >
+                Close
+              </Button>
+            </Box>
+          </DialogContent>
         </Dialog>
       </form>
     </>
