@@ -1,3 +1,4 @@
+import * as React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Box from "@mui/material/Box";
@@ -7,20 +8,8 @@ import SendIcon from "@mui/icons-material/Send";
 import Skeleton from "@mui/material/Skeleton";
 import Textarea from "@mui/joy/Textarea";
 import FormLabel from "@mui/joy/FormLabel";
-import "./Home.css";
-
-import * as React from "react";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import FormControl from "@mui/material/FormControl";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import Switch from "@mui/material/Switch";
 
 const url = "http://127.0.0.1:7860/sdapi/v1/txt2img";
 
@@ -217,37 +206,37 @@ function Home() {
           />
         </Box>
         <Dialog open={open} onClose={handleClose}>
-          <DialogContent>
-            <Box
-              noValidate
-              component="form"
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                // justifyContent: "space-between",
+          <Box
+            noValidate
+            component="form"
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              width: "fit-content",
+              height: "fit-content",
+            }}
+          >
+            <img
+              style={{
+                width: "100%", // Set the initial width to 100%
+                maxWidth: "200%", // Ensure the image doesn't exceed its natural size
+                // height: "auto", // Maintain aspect ratio
+                transition: "width 0.2s ease",
+                marginBottom: 20,
+                transform: "scale(2)",
               }}
+              src={renderImg}
+              alt="renderImg"
+              onClick={handleClose}
+            />
+            <Button
+              sx={{ mt: 2, m: "auto" }}
+              variant="outlined"
+              onClick={handleClose}
             >
-              <img
-                style={{
-                  width: "100%", // Set the initial width to 100%
-                  maxWidth: "200%", // Ensure the image doesn't exceed its natural size
-                  // height: "auto", // Maintain aspect ratio
-                  transition: "width 0.2s ease",
-                  marginBottom: 20,
-                }}
-                src={renderImg}
-                alt="renderImg"
-                onClick={handleClose}
-              />
-              <Button
-                sx={{ mt: 2, m: "auto" }}
-                variant="outlined"
-                onClick={handleClose}
-              >
-                Close
-              </Button>
-            </Box>
-          </DialogContent>
+              Close
+            </Button>
+          </Box>
         </Dialog>
       </form>
     </>

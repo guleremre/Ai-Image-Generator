@@ -16,7 +16,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import Switch from "@mui/material/Switch";
 
 // import {
 //   Dialog,
@@ -245,7 +244,7 @@ const Profile = () => {
           {isEditing ? (
             <form onSubmit={handleUpdateSubmit}>
               <FormLabel>
-                <b>User Name</b>
+                <b>User Name2</b>
               </FormLabel>
               <Input
                 type="text"
@@ -253,7 +252,7 @@ const Profile = () => {
                 onChange={(e) => setUpdatedUsername(e.target.value)}
               />
               <FormLabel>
-                <b>Email</b>
+                <b>Email2</b>
               </FormLabel>
               <Input
                 type="email"
@@ -288,9 +287,7 @@ const Profile = () => {
               Edit Info
             </Button>
           )}
-          {/* <Button>Open Dialog</Button> */}
         </Sheet>
-        <Sheet className="favorites"></Sheet>
       </main>
       <div>
         <Button variant="outlined" onClick={handleClickOpen}>
@@ -302,12 +299,9 @@ const Profile = () => {
           open={open}
           onClose={handleClose}
         >
-          <DialogTitle>Optional sizes</DialogTitle>
+          <DialogTitle>Update User Information</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              You can set my maximum width and whether to adapt or not.
-            </DialogContentText>
-            <Box
+            {/* <Box
               noValidate
               component="form"
               sx={{
@@ -316,38 +310,7 @@ const Profile = () => {
                 m: "auto",
                 width: "fit-content",
               }}
-            >
-              <FormControl sx={{ mt: 2, minWidth: 120 }}>
-                <InputLabel htmlFor="max-width">maxWidth</InputLabel>
-                <Select
-                  autoFocus
-                  value={maxWidth}
-                  onChange={handleMaxWidthChange}
-                  label="maxWidth"
-                  inputProps={{
-                    name: "max-width",
-                    id: "max-width",
-                  }}
-                >
-                  <MenuItem value={false}>false</MenuItem>
-                  <MenuItem value="xs">xs</MenuItem>
-                  <MenuItem value="sm">sm</MenuItem>
-                  <MenuItem value="md">md</MenuItem>
-                  <MenuItem value="lg">lg</MenuItem>
-                  <MenuItem value="xl">xl</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControlLabel
-                sx={{ mt: 1 }}
-                control={
-                  <Switch
-                    checked={fullWidth}
-                    onChange={handleFullWidthChange}
-                  />
-                }
-                label="Full width"
-              />
-            </Box>
+            ></Box> */}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Close</Button>
