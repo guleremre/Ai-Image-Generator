@@ -143,24 +143,16 @@ const Profile = () => {
             display: "flex",
             flexDirection: "column",
             gap: 2,
-            borderRadius: "sm",
-            boxShadow: "large",
+            borderRadius: "md",
+            boxShadow: "xl",
           }}
-          color="neutral"
+          color="primary"
           variant="soft"
         >
-          <Stack
-            sx={{
-              m: "left",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Avatar
-              sx={{ width: 240, height: 240, alignSelf: "center" }}
-              src={userInfo.imgUrl}
-            />
-          </Stack>
+          <Avatar
+            sx={{ width: 240, height: 240, alignSelf: "center" }}
+            src={userInfo.imgUrl}
+          />
           <Button
             onClick={() => widgetRef.current.open()}
             variant="contained"
@@ -169,21 +161,18 @@ const Profile = () => {
           >
             Update Avatar
           </Button>
-          <Stack direction="row" spacing={2}></Stack>
-          <Typography level="h4" component="h1">
+          <Typography level="h4" component="h2">
             <FormLabel>
               <b>User Name</b>
             </FormLabel>
-            <p>{userInfo.username}</p>
+            <body2>{userInfo.username}</body2>
           </Typography>
-
-          <Typography level="h4" component="h1">
+          <Typography level="h4" component="h2">
             <FormLabel>
               <b>Email</b>
             </FormLabel>
-            <p>{userInfo.email}</p>
+            <body2>{userInfo.email}</body2>
           </Typography>
-
           <Button
             onClick={handleClickOpen}
             variant="contained"
@@ -192,51 +181,49 @@ const Profile = () => {
           >
             Edit Info
           </Button>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>Update User Information</DialogTitle>
+            <DialogContent>
+              <form onSubmit={handleUpdateSubmit}>
+                <FormLabel>
+                  <b>User Name</b>
+                </FormLabel>
+                <Input
+                  type="text"
+                  value={updatedUsername}
+                  onChange={(e) => setUpdatedUsername(e.target.value)}
+                />
+                <FormLabel>
+                  <b>Email</b>
+                </FormLabel>
+                <Input
+                  type="email"
+                  value={updatedEmail}
+                  onChange={(e) => setUpdatedEmail(e.target.value)}
+                />
+              </form>
+              <br />
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                size="small"
+                onClick={handleUpdateSubmit}
+              >
+                Update Info
+              </Button>{" "}
+              <Button
+                variant="contained"
+                color="primary"
+                size="small"
+                onClick={handleClose}
+              >
+                Cancel
+              </Button>
+            </DialogContent>
+          </Dialog>
         </Sheet>
       </main>
-      <div>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Update User Information</DialogTitle>
-          <DialogContent>
-            <form onSubmit={handleUpdateSubmit}>
-              <FormLabel>
-                <b>User Name</b>
-              </FormLabel>
-              <Input
-                type="text"
-                value={updatedUsername}
-                onChange={(e) => setUpdatedUsername(e.target.value)}
-              />
-              <FormLabel>
-                <b>Email</b>
-              </FormLabel>
-              <Input
-                type="email"
-                value={updatedEmail}
-                onChange={(e) => setUpdatedEmail(e.target.value)}
-              />
-            </form>
-            <br />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              size="small"
-              onClick={handleUpdateSubmit}
-            >
-              Update Info
-            </Button>{" "}
-            <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              onClick={handleClose}
-            >
-              Cancel
-            </Button>
-          </DialogContent>
-        </Dialog>
-      </div>
     </>
   );
 };

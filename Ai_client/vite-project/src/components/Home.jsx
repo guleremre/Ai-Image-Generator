@@ -34,25 +34,20 @@ function Home() {
     setLoading(true);
     try {
       const response = await axios.post(url, { prompt, negative_prompt });
-      // console.log("Response:", response.data.images[0]);
-      // console.log("Response:", response.data);
-      // console.log(prompt);
-      // console.log(negative_prompt);
+
       setLoading(false);
       setImg(response.data.images[0]);
-      // setImg((prevImg) => ({ ...prevImg, ...response.data.images[0] }))
+
       setImgLoad(true);
       setDownloadReady(true);
-      // Handle the response data here
     } catch (error) {
       console.error("Error:", error.message);
-      // Handle errors here
     }
   };
   const [downloadReady, setDownloadReady] = useState(false);
 
+  // Create a download link for the image
   const handleDownload = () => {
-    // Create a download link for the image
     const link = document.createElement("a");
     link.href = renderImg;
     link.download = "generated_image.jpg";
@@ -65,7 +60,6 @@ function Home() {
   const renderImg = `data:image/jpeg;base64,${img}`;
 
   // const handleAddFavorite = async (id) => {
-
   //   try {
   //     const response = await axios.post(`http://localhost:5000/user/${id}`, {
   //       token: token,
