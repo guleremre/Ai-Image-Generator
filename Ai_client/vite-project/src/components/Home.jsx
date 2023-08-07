@@ -12,7 +12,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import BasicSelect from "./HomeComponents/BasicSelect";
 import SamplingSteps from "./HomeComponents/SamplingSteps";
-
+import CfgSlider from "./HomeComponents/CfgScale";
 const url = "http://127.0.0.1:7860/sdapi/v1/txt2img";
 
 function Home() {
@@ -35,13 +35,18 @@ function Home() {
     e.preventDefault();
     setLoading(true);
     try {
-      const sampler_index = "DPM++ 2S a";
-      const body1 = { prompt, negative_prompt, sampler_index, steps };
-      console.log(sampler_index);
+      const body1 = {
+        prompt,
+        negative_prompt,
+        sampler_index,
+        steps,
+        cfg_scale,
+      };
+      // console.log(sampler_index);
       const response = await axios.post(url, body1);
-      console.log(response);
-      console.log(response.data.info.sampler_name);
-      console.log(response.data.info);
+      // console.log(response);
+      // console.log(response.data.info.sampler_index);
+      // console.log(response.data.info);
       setLoading(false);
       setImg(response.data.images[0]);
       setImgLoad(true);
@@ -85,24 +90,34 @@ function Home() {
     setOpen(false);
   };
   const [sampler_index, setSampler_index] = useState("");
-  console.log("home sampler_index is", sampler_index);
+
+  console.log("home sampler_index  atadnmadan", sampler_index);
 
   // const [selectedValue, setSelectedValue] = useState("");
-  const handleSelectChange = (input) => {
-    setSampler_index(input);
-    console.log("home sampler_index is2", sampler_index);
+  const handleSelectChange = (selectedValue) => {
+    setSampler_index(selectedValue);
+    // console.log("home sampler_index is22222222", sampler_index);
+    console.log("home 111111111111111", selectedValue);
     // setSampler_index((prevSampler_index) => [
     //   ...prevSampler_index,
     //   sampler_index,
     // ]);
   };
+  console.log("home sampler_index is3", sampler_index);
 
   const [steps, setSteps] = useState(20);
 
   const handleSliderValueChange = (newSteps) => {
-    console.log("stepshome",steps);
-    console.log("newsteps home",newSteps);
+    // console.log("stepshome", steps);
+    // console.log("newsteps home", newSteps);
     setSteps(newSteps.target.value); // Update the state with the selected slider value
+  };
+  const [cfg_scale, setCfgScale] = useState(5);
+
+  console.log("home usestate setCfg_scale", cfg_scale);
+  const handleCfgValueChange = (newScale) => {
+    setCfgScale(newScale);
+    console.log("home in func setCfg_scale", newScale);
   };
 
   useEffect(() => {
@@ -225,11 +240,28 @@ function Home() {
               setNegativePrompt(e.target.value);
             }}
           />
-          <Box className="advancedSetups" sx={{ margin: 2 }}>
+          <Box
+            className="advancedSetups"
+            sx={{ margin: 2, display: "flex", flexDirection: "column" }}
+          >
             <BasicSelect onSelected={handleSelectChange} />
-            <SamplingSteps
-              onValueChange={handleSliderValueChange}
-              steps={steps}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "left",
+                alignItems: "center",
+              }}
+            >
+              <SamplingSteps
+                onValueChange={handleSliderValueChange}
+                steps={steps}
+              />
+              <p>Detail value {steps}</p>
+            </Box>
+            <CfgSlider
+              onValueChange={handleCfgValueChange}
+              cfg_scale={cfg_scale}
             />
           </Box>
         </Box>

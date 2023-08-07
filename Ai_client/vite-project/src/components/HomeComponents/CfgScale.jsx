@@ -2,39 +2,39 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { styled, alpha, Box } from "@mui/system";
 import Slider, { sliderClasses } from "@mui/base/Slider";
-import { useState } from "react";
 
-export default function SamplingSteps({ onValueChange }) {
-  const handleSliderChange = (newSteps) => {
-    // let steps;
-    onValueChange(newSteps); // Update the state when slider value changes
+export default function CfgSlider({ onValueChange }) {
+  const handleSliderChange = (newScale) => {
+    onValueChange(newScale); // Update the state when slider value changes
   };
   return (
-    <Box sx={{ width: 300 }}>
+    <Box sx={{ width: 400 }}>
       <StyledSlider
-        // value={steps}
-        onChange={handleSliderChange}
-        defaultValue={20}
-        max={50}
+        aria-label="Smilarity"
+        defaultValue={5}
+        // getAriaValueText={valuetext}
+        step={0.5}
+        marks
+        min={0}
+        max={20}
         slots={{ valueLabel: SliderValueLabel }}
       />
-      {/* <p>Detail value {steps}</p> */}
     </Box>
   );
 }
 
 function SliderValueLabel({ children }) {
-  //   console.log("SliderValueLabel children:", children);
-  return (
-    <span className="label">
-      <div className="value">{children}</div>
-    </span>
-  );
+  //   console.log(children);
+  return <span className="valueLabel">{children}</span>;
 }
 
 SliderValueLabel.propTypes = {
   children: PropTypes.element.isRequired,
 };
+
+// function valuetext(value) {
+//   return { value };
+// }
 
 const blue = {
   100: "#DAECFF",
@@ -70,15 +70,18 @@ const StyledSlider = styled(Slider)(
   cursor: pointer;
   touch-action: none;
   -webkit-tap-highlight-color: transparent;
+
   &:hover {
-    opacity: 1;
+    opacity: 2;
   }
-  &.${sliderClasses.disabled} {
+
+  &.${sliderClasses.disabled} { 
     pointer-events: none;
     cursor: default;
     color: ${theme.palette.mode === "light" ? grey[300] : grey[600]};
     opacity: 0.5;
   }
+
   & .${sliderClasses.rail} {
     display: block;
     position: absolute;
@@ -87,6 +90,7 @@ const StyledSlider = styled(Slider)(
     border-radius: 2px;
     background-color: ${theme.palette.mode === "light" ? blue[200] : blue[900]};
   }
+
   & .${sliderClasses.track} {
     display: block;
     position: absolute;
@@ -94,6 +98,7 @@ const StyledSlider = styled(Slider)(
     border-radius: 2px;
     background-color: currentColor;
   }
+
   & .${sliderClasses.thumb} {
     position: absolute;
     width: 16px;
@@ -105,6 +110,9 @@ const StyledSlider = styled(Slider)(
     outline: 0;
     border: 3px solid currentColor;
     background-color: #fff;
+    display: flex;
+    flex-direction: column-reverse;
+
     :hover,
     &.${sliderClasses.focusVisible} {
       box-shadow: 0 0 0 0.25rem ${alpha(
@@ -112,35 +120,7 @@ const StyledSlider = styled(Slider)(
         0.15
       )};
     }
-    & .label {
-        font-family: IBM Plex Sans;
-        font-weight: 600;
-        font-size: 14px;
-        background: unset;
-        background-color: ${
-          theme.palette.mode === "light" ? blue[500] : blue[300]
-        };
-        width: 32px;
-        height: 32px;
-        padding: 0px;
-        // visibility: hidden;
-        color: #fff;
-        border-radius: 50% 50% 50% 0;
-        position: absolute;
-        transform: translate(-35%, -140%) rotate(-45deg) scale(1);
-        transition: transform 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    :hover .label {
-        visibility: visible;
-        transform: translate(-35%, -140%) rotate(-45deg) scale(1.5);
-    }
-    :hover .value {
-        transform: rotate(45deg);
-        text-align: center;
-    }
+
     &.${sliderClasses.active} {
       box-shadow: 0 0 0 0.25rem ${alpha(
         theme.palette.mode === "light" ? blue[200] : blue[300],
@@ -148,5 +128,31 @@ const StyledSlider = styled(Slider)(
       )};
     }
   }
+
+  & .${sliderClasses.mark} {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 99%;
+    background-color: ${theme.palette.mode === "light" ? blue[200] : blue[900]};
+    top: 43%;
+    transform: translateX(-50%);
+  }
+
+  & .${sliderClasses.markActive} {
+    background-color: ${theme.palette.mode === "light" ? blue[500] : blue[400]};
+  }
+
+  & .valueLabel {
+    font-family: IBM Plex Sans;
+    font-weight: 600;
+    font-size: 24px;
+    position: relative;
+    top: -0.5em;
+    text-align: center;
+    align-self: center;
+    
+  }
+  
 `
 );
