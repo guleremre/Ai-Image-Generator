@@ -38,7 +38,6 @@ function ResponsiveAppBar() {
 
   useEffect(() => {
     async function fetchAvatar() {
-      console.log("hi");
       const token = localStorage.getItem("token");
       if (token) {
         var decoded = jwt_decode(token);

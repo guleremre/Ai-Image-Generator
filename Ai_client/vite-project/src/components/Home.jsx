@@ -10,6 +10,7 @@ import Textarea from "@mui/joy/Textarea";
 import FormLabel from "@mui/joy/FormLabel";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
+import BasicSelect from "./HomeComponents/BasicSelect";
 
 const url = "http://127.0.0.1:7860/sdapi/v1/txt2img";
 
@@ -33,11 +34,15 @@ function Home() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post(url, { prompt, negative_prompt });
-
+      const sampler_index = "DPM++ 2S a";
+      const body1 = { prompt, negative_prompt, sampler_index };
+      console.log(sampler_index);
+      const response = await axios.post(url, body1);
+      console.log(response);
+      console.log(response.data.info.sampler_name);
+      console.log(response.data.info);
       setLoading(false);
       setImg(response.data.images[0]);
-
       setImgLoad(true);
       setDownloadReady(true);
     } catch (error) {
@@ -54,6 +59,13 @@ function Home() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+  const [sampler_index, setSampler_index] = useState("");
+  console.log("home sampler_index is", sampler_index);
+
+  // const [selectedValue, setSelectedValue] = useState("");
+  const handleSelectChange = (input) => {
+    setSampler_index(input);
   };
 
   //rendering image from base64 format
@@ -176,6 +188,7 @@ function Home() {
           <br />
 
           <FormLabel>Negative prompt</FormLabel>
+
           <Textarea
             color="primary"
             minRows={3}
@@ -198,6 +211,9 @@ function Home() {
               setNegativePrompt(e.target.value);
             }}
           />
+          <Box className="advancedSetups">
+            <BasicSelect onSelected={handleSelectChange} />
+          </Box>
         </Box>
         <Dialog open={open} onClose={handleClose}>
           <DialogContent>
