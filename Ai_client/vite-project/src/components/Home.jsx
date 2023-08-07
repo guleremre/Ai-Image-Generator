@@ -11,6 +11,7 @@ import FormLabel from "@mui/joy/FormLabel";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import BasicSelect from "./HomeComponents/BasicSelect";
+import SamplingSteps from "./HomeComponents/SamplingSteps";
 
 const url = "http://127.0.0.1:7860/sdapi/v1/txt2img";
 
@@ -35,7 +36,7 @@ function Home() {
     setLoading(true);
     try {
       const sampler_index = "DPM++ 2S a";
-      const body1 = { prompt, negative_prompt, sampler_index };
+      const body1 = { prompt, negative_prompt, sampler_index, steps };
       console.log(sampler_index);
       const response = await axios.post(url, body1);
       console.log(response);
@@ -60,17 +61,6 @@ function Home() {
     link.click();
     document.body.removeChild(link);
   };
-  const [sampler_index, setSampler_index] = useState("");
-  console.log("home sampler_index is", sampler_index);
-
-  // const [selectedValue, setSelectedValue] = useState("");
-  const handleSelectChange = (input) => {
-    setSampler_index(input);
-    // setSampler_index((prevSampler_index) => [
-    //   ...prevSampler_index,
-    //   sampler_index,
-    // ]);
-  };
 
   //rendering image from base64 format
   const renderImg = `data:image/jpeg;base64,${img}`;
@@ -93,6 +83,26 @@ function Home() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+  const [sampler_index, setSampler_index] = useState("");
+  console.log("home sampler_index is", sampler_index);
+
+  // const [selectedValue, setSelectedValue] = useState("");
+  const handleSelectChange = (input) => {
+    setSampler_index(input);
+    console.log("home sampler_index is2", sampler_index);
+    // setSampler_index((prevSampler_index) => [
+    //   ...prevSampler_index,
+    //   sampler_index,
+    // ]);
+  };
+
+  const [steps, setSteps] = useState(20);
+
+  const handleSliderValueChange = (newSteps) => {
+    console.log("stepshome",steps);
+    console.log("newsteps home",newSteps);
+    setSteps(newSteps.target.value); // Update the state with the selected slider value
   };
 
   useEffect(() => {
@@ -217,6 +227,10 @@ function Home() {
           />
           <Box className="advancedSetups" sx={{ margin: 2 }}>
             <BasicSelect onSelected={handleSelectChange} />
+            <SamplingSteps
+              onValueChange={handleSliderValueChange}
+              steps={steps}
+            />
           </Box>
         </Box>
         <Dialog open={open} onClose={handleClose}>
