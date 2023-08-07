@@ -66,6 +66,10 @@ function Home() {
   // const [selectedValue, setSelectedValue] = useState("");
   const handleSelectChange = (input) => {
     setSampler_index(input);
+    // setSampler_index((prevSampler_index) => [
+    //   ...prevSampler_index,
+    //   sampler_index,
+    // ]);
   };
 
   //rendering image from base64 format
@@ -211,7 +215,7 @@ function Home() {
               setNegativePrompt(e.target.value);
             }}
           />
-          <Box className="advancedSetups">
+          <Box className="advancedSetups" sx={{ margin: 2 }}>
             <BasicSelect onSelected={handleSelectChange} />
           </Box>
         </Box>

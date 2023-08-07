@@ -89,8 +89,8 @@ const Profile = () => {
         ...prevUserInfo,
         imgUrl: avatar,
       }));
-      console.log(userInfo);
-      console.log("localstorage", avatar);
+      // console.log(userInfo);
+      // console.log("localstorage", avatar);
       localStorage.setItem("avatarimg", avatar);
     } catch (error) {
       console.error("Error uploading image:", error);

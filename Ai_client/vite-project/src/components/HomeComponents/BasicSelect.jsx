@@ -12,7 +12,6 @@ export default function BasicSelect({ onSelected }) {
   const handleChange = (event) => {
     const selectedValue = event.target.value;
     setInput(selectedValue);
-    setInput((prevInput) => ({ ...prevInput, selectedValue }));
     console.log("basicselect", input);
     onSelected(input);
   };
