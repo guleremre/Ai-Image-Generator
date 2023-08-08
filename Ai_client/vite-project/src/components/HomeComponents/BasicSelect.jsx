@@ -7,15 +7,9 @@ import Select from "@mui/material/Select";
 import { useState } from "react";
 
 export default function BasicSelect({ onSelected }) {
-  let [input, setInput] = useState("Eular a");
-
+  
   const handleChange = (event) => {
-    const selectedValue = event.target.value;
-    // setInput(selectedValue);
-    setInput(selectedValue);
-    // console.log("ch'ld selectedValue", selectedValue);
-    onSelected(selectedValue);
-    // console.log("child inputumuz", input);
+    onSelected(event);
   };
 
   return (
@@ -24,7 +18,8 @@ export default function BasicSelect({ onSelected }) {
       <Select
         labelId="Sampling-Method-label"
         id="Sampling-Method"
-        value={input}
+        // value={input}
+        defaultValue="Euler"
         label="input"
         onChange={handleChange}
       >

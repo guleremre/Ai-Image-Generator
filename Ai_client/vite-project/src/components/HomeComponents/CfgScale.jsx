@@ -6,13 +6,14 @@ import Slider, { sliderClasses } from "@mui/base/Slider";
 export default function CfgSlider({ onValueChange }) {
   const handleSliderChange = (newScale) => {
     onValueChange(newScale); // Update the state when slider value changes
-  };
+    };
   return (
     <Box sx={{ width: 400 }}>
       <StyledSlider
         aria-label="Smilarity"
         defaultValue={5}
         // getAriaValueText={valuetext}
+        onChange={handleSliderChange}
         step={0.5}
         marks
         min={0}
@@ -24,8 +25,11 @@ export default function CfgSlider({ onValueChange }) {
 }
 
 function SliderValueLabel({ children }) {
-  //   console.log(children);
-  return <span className="valueLabel">{children}</span>;
+  return (
+    <span className="valueLabel">
+      <div className="value">{children}</div>
+    </span>
+  );
 }
 
 SliderValueLabel.propTypes = {

@@ -42,11 +42,9 @@ function Home() {
         steps,
         cfg_scale,
       };
-      // console.log(sampler_index);
+      console.log(body1);
       const response = await axios.post(url, body1);
-      // console.log(response);
-      // console.log(response.data.info.sampler_index);
-      // console.log(response.data.info);
+      console.log("console.log(body1);", body1);
       setLoading(false);
       setImg(response.data.images[0]);
       setImgLoad(true);
@@ -56,7 +54,6 @@ function Home() {
     }
   };
   const [downloadReady, setDownloadReady] = useState(false);
-
   // Create a download link for the image
   const handleDownload = () => {
     const link = document.createElement("a");
@@ -89,35 +86,34 @@ function Home() {
   const handleClose = () => {
     setOpen(false);
   };
-  const [sampler_index, setSampler_index] = useState("");
+  const [sampler_index, setSamplerIndex] = useState("Euler");
 
-  console.log("home sampler_index  atadnmadan", sampler_index);
+  console.log("usestate sampler index", sampler_index);
 
-  // const [selectedValue, setSelectedValue] = useState("");
-  const handleSelectChange = (selectedValue) => {
-    setSampler_index(selectedValue);
-    // console.log("home sampler_index is22222222", sampler_index);
-    console.log("home 111111111111111", selectedValue);
-    // setSampler_index((prevSampler_index) => [
-    //   ...prevSampler_index,
-    //   sampler_index,
-    // ]);
+  const handleSelectChange = (event) => {
+    const sampler = event.target.value;
+    console.log("sadece sampler olan önce", sampler);
+    setSamplerIndex(event.target.value);
+    console.log(" sampler olan ", sampler);
+    console.log("  event.target.value olan", event.target.value);
+    console.log("sampler index  1111111", sampler_index);
   };
-  console.log("home sampler_index is3", sampler_index);
+  console.log("home sampler method is", sampler_index);
 
   const [steps, setSteps] = useState(20);
 
   const handleSliderValueChange = (newSteps) => {
     // console.log("stepshome", steps);
-    // console.log("newsteps home", newSteps);
+    console.log("step value is", newSteps.target.value);
     setSteps(newSteps.target.value); // Update the state with the selected slider value
   };
   const [cfg_scale, setCfgScale] = useState(5);
 
-  console.log("home usestate setCfg_scale", cfg_scale);
+  cfg_scale;
   const handleCfgValueChange = (newScale) => {
-    setCfgScale(newScale);
-    console.log("home in func setCfg_scale", newScale);
+    const cfg = newScale.target.value;
+    setCfgScale(cfg);
+    console.log("smilarity to prompt is setted to value", cfg);
   };
 
   useEffect(() => {
@@ -149,8 +145,8 @@ function Home() {
               sx={{ bgcolor: "grey.800" }}
               variant="rectangular"
               animation="wave"
-              width={265}
-              height={265}
+              width={258}
+              height={258}
             />
           )}
         </Box>
@@ -242,16 +238,19 @@ function Home() {
           />
           <Box
             className="advancedSetups"
-            sx={{ margin: 2, display: "flex", flexDirection: "column" }}
+            // sx={{ margin: 2, display: "flex", flexDirection: "column" }}
           >
-            <BasicSelect onSelected={handleSelectChange} />
+            <BasicSelect
+              onSelected={handleSelectChange}
+              sampler_index={sampler_index}
+            />
             <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "left",
-                alignItems: "center",
-              }}
+            // sx={{
+            //   display: "flex",
+            //   flexDirection: "column",
+            //   justifyContent: "left",
+            //   alignItems: "center",
+            // }}
             >
               <SamplingSteps
                 onValueChange={handleSliderValueChange}

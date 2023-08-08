@@ -24,7 +24,6 @@ export default function SamplingSteps({ onValueChange }) {
 }
 
 function SliderValueLabel({ children }) {
-  //   console.log("SliderValueLabel children:", children);
   return (
     <span className="label">
       <div className="value">{children}</div>

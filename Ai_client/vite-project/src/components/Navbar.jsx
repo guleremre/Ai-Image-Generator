@@ -48,7 +48,7 @@ function ResponsiveAppBar() {
           let res = await axios.get(`http://localhost:4000/img/${userId}`, {
             token,
           });
-          console.log(res);
+          // console.log(res);
         } catch (error) {
           console.log(error);
         }
