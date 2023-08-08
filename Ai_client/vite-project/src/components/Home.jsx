@@ -34,15 +34,15 @@ function Home() {
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    console.log("ahahahah" , sampler_index)
     try {
       const body1 = {
         prompt,
         negative_prompt,
-        sampler_index,
+        sampler_index ,
         steps,
         cfg_scale,
       };
-      console.log(body1);
       const response = await axios.post(url, body1);
       console.log("console.log(body1);", body1);
       setLoading(false);
@@ -90,14 +90,14 @@ function Home() {
 
   console.log("usestate sampler index", sampler_index);
 
-  const handleSelectChange = (event) => {
-    const sampler = event.target.value;
-    console.log("sadece sampler olan önce", sampler);
-    setSamplerIndex(event.target.value);
-    console.log(" sampler olan ", sampler);
-    console.log("  event.target.value olan", event.target.value);
-    console.log("sampler index  1111111", sampler_index);
-  };
+  // const handleSelectChange = (event) => {
+  //   const sampler = event.target.value;
+  //   console.log("sadece sampler olan önce", sampler);
+  //   setSamplerIndex(event.target.value);
+  //   console.log(" sampler olan ", sampler);
+  //   console.log("  event.target.value olan", event.target.value);
+  //   console.log("sampler index  1111111", sampler_index);
+  // };
   console.log("home sampler method is", sampler_index);
 
   const [steps, setSteps] = useState(20);
@@ -241,7 +241,7 @@ function Home() {
             // sx={{ margin: 2, display: "flex", flexDirection: "column" }}
           >
             <BasicSelect
-              onSelected={handleSelectChange}
+              onSelected={setSamplerIndex}
               sampler_index={sampler_index}
             />
             <Box
