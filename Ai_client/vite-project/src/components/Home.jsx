@@ -10,7 +10,7 @@ import Textarea from "@mui/joy/Textarea";
 import FormLabel from "@mui/joy/FormLabel";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
-import BasicSelect from "./HomeComponents/BasicSelect";
+import SamplingMethodSelect from "./HomeComponents/SamplingMethodSelect";
 import SamplingSteps from "./HomeComponents/SamplingSteps";
 import CfgSlider from "./HomeComponents/CfgScale";
 const url = "http://127.0.0.1:7860/sdapi/v1/txt2img";
@@ -34,12 +34,12 @@ function Home() {
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log("ahahahah" , sampler_index)
+    console.log("ahahahah", sampler_index);
     try {
       const body1 = {
         prompt,
         negative_prompt,
-        sampler_index ,
+        sampler_index,
         steps,
         cfg_scale,
       };
@@ -240,7 +240,7 @@ function Home() {
             className="advancedSetups"
             // sx={{ margin: 2, display: "flex", flexDirection: "column" }}
           >
-            <BasicSelect
+            <SamplingMethodSelect
               onSelected={setSamplerIndex}
               sampler_index={sampler_index}
             />
