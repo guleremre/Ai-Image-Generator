@@ -22,11 +22,6 @@ function Home() {
   let [negative_prompt, setNegativePrompt] = useState(
     "nude, topless, naked, ng_deepnegative_v1_75t, easynegative, (worst quality:2), (low quality:2), (normal quality:1.8), lowres, ((monochrome)), ((grayscale)), sketch, ugly, morbid, deformed, logo, text, bad anatomy, bad proportions, disfigured, extra arms, extra legs, fused fingers, extra digits, fewer digits, mutated hands, poorly drawn hands, bad hands"
   );
-  const [double, setDouble] = useState(false);
-
-  const doubleSize = () => {
-    setDouble((prevValue) => !prevValue);
-  };
   const [img, setImg] = useState([]);
   const [loading, setLoading] = useState(false);
   const [imgLoad, setImgLoad] = useState(false);
@@ -34,7 +29,6 @@ function Home() {
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log("ahahahah", sampler_index);
     try {
       const body1 = {
         prompt,
@@ -44,6 +38,7 @@ function Home() {
         cfg_scale,
       };
       const response = await axios.post(url, body1);
+      console.log(response);
       console.log("console.log(body1);", body1);
       setLoading(false);
       setImg(response.data.images[0]);
@@ -63,10 +58,8 @@ function Home() {
     link.click();
     document.body.removeChild(link);
   };
-
   //rendering image from base64 format
   const renderImg = `data:image/jpeg;base64,${img}`;
-
   // const handleAddFavorite = async (id) => {
   //   try {
   //     const response = await axios.post(`http://localhost:5000/user/${id}`, {
@@ -77,38 +70,23 @@ function Home() {
   //     console.log(error);
   //   }
   // };
-
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
+  // which algoritm to choose
   const [sampler_index, setSamplerIndex] = useState("Euler");
-
-  console.log("usestate sampler index", sampler_index);
-
-  // const handleSelectChange = (event) => {
-  //   const sampler = event.target.value;
-  //   console.log("sadece sampler olan önce", sampler);
-  //   setSamplerIndex(event.target.value);
-  //   console.log(" sampler olan ", sampler);
-  //   console.log("  event.target.value olan", event.target.value);
-  //   console.log("sampler index  1111111", sampler_index);
-  // };
-  console.log("home sampler method is", sampler_index);
-
+  //choose created image detail level
   const [steps, setSteps] = useState(20);
-
   const handleSliderValueChange = (newSteps) => {
-    // console.log("stepshome", steps);
     console.log("step value is", newSteps.target.value);
     setSteps(newSteps.target.value); // Update the state with the selected slider value
   };
+  // choose image freedom level from input
   const [cfg_scale, setCfgScale] = useState(5);
-
   cfg_scale;
   const handleCfgValueChange = (newScale) => {
     const cfg = newScale.target.value;
@@ -122,7 +100,7 @@ function Home() {
 
   return (
     <>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="background-image">
         <Box
           sx={{
             bgcolor: "#9fa8a4",

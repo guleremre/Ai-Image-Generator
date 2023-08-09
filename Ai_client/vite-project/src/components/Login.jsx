@@ -11,12 +11,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+// color theme function
 function ModeToggle() {
   const { mode, setMode } = useColorScheme();
   const [mounted, setMounted] = React.useState(false);
 
-  // necessary for server-side rendering
-  // because mode is undefined on the server
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -36,6 +35,7 @@ function ModeToggle() {
   );
 }
 
+//login function
 export default function Login() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -43,27 +43,22 @@ export default function Login() {
   const navigate = useNavigate();
   const url = "http://localhost:4000/user/login";
 
-  useEffect(() => {
-    checkIfLogged();
-  }),
-    [];
-
-  //if user already logged in don't need to see login page
+  //check If  user Logged
   function checkIfLogged() {
     const item = localStorage.getItem("token");
     if (item) {
+      //if logged in user don't need to see login page
       return navigate("/home");
     }
   }
+
   const onSubmit = async () => {
     try {
       var response = await axios.post(url, { username, email, password });
       const data = response.data;
-      console.log(response.data);
-      console.log(data);
-      //if user logged in navigate to home page
       if (data.token) {
         localStorage.setItem("token", data.token);
+        //if user logged in navigate to home page
         navigate("/home");
       } else {
         alert("If you don't have  account please signup");
@@ -73,6 +68,10 @@ export default function Login() {
     }
   };
 
+  useEffect(() => {
+    checkIfLogged();
+  }),
+    [];
   return (
     <CssVarsProvider>
       <main>
@@ -80,10 +79,10 @@ export default function Login() {
         <Sheet
           sx={{
             maxWidth: 300,
-            mx: "auto", // margin left & right
-            my: 4, // margin top & bottom
-            py: 3, // padding top & bottom
-            px: 2, // padding left & right
+            mx: "auto",
+            my: 4,
+            py: 3,
+            px: 2,
             display: "flex",
             flexDirection: "column",
             gap: 2,
@@ -101,7 +100,6 @@ export default function Login() {
           <FormControl>
             <FormLabel>User Name</FormLabel>
             <Input
-              // html input attribute
               name="username"
               type="text"
               placeholder="User Name"
@@ -113,7 +111,6 @@ export default function Login() {
           <FormControl>
             <FormLabel>Email</FormLabel>
             <Input
-              // html input attribute
               name="email"
               type="email"
               placeholder="shai@email.com"
@@ -125,7 +122,6 @@ export default function Login() {
           <FormControl>
             <FormLabel>Password</FormLabel>
             <Input
-              // html input attribute
               name="password"
               type="password"
               placeholder="password"
@@ -139,7 +135,7 @@ export default function Login() {
             onClick={() => {
               onSubmit();
             }}
-            sx={{ mt: 1 /* margin top */ }}
+            sx={{ mt: 1 }}
           >
             Log in
           </Button>

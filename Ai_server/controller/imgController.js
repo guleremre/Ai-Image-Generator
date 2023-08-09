@@ -1,6 +1,50 @@
 const mongoose = require("mongoose");
 const Img = require("../modules/img");
 const User = require("../modules/user");
+const cloudinary = require("../utils/cloudinary");
+
+//create cloudinary
+const postCloudinary = async (req, res) => {
+  const {
+    imgUrl,
+    prompt,
+    negative_prompt,
+    sampler_index,
+    steps,
+    cfg_scale,
+    seed,
+  } = req.body;
+  try {
+    if (imgUrl) {
+      await cloudinary.uploader.upload(imgUrl, { upload_preset: "imgSchema" });
+      if (uploadRes) {
+        const img = new İmg({
+          imgUrl: uploadRes,
+          prompt,
+          negative_prompt,
+          sampler_index,
+          steps,
+          cfg_scale,
+          seed,
+        });
+        const savedImg = await img.save();
+        req.statusCode(200).send(savedImg);
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
+};
+const getCloudinary = async (req, res) => {
+  try {
+    const img = await Img.find();
+    res.status(200).send(img);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
+};
 
 //GET ALL IMGS
 const getAllImg = async (req, res) => {
@@ -125,4 +169,6 @@ module.exports = {
   getOneImg,
   addFavoriteImg,
   removeFavoriteImg,
+  getCloudinary,
+  postCloudinary,
 };

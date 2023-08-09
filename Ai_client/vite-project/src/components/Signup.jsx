@@ -11,21 +11,15 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+// color theme function
 function ModeToggle() {
   const { mode, setMode } = useColorScheme();
   const [mounted, setMounted] = React.useState(false);
 
-  // necessary for server-side rendering
-  // because mode is undefined on the server
-
-  useEffect(() => {
-    setMounted(true);
-    checkIfLogged();
-  }, []);
-
   if (!mounted) {
     return null;
   }
+  //check If  user Logged
   function checkIfLogged() {
     const item = localStorage.getItem("token");
     if (item) {
@@ -78,6 +72,10 @@ export default function Signup() {
     }
   };
 
+  useEffect(() => {
+    setMounted(true);
+    checkIfLogged();
+  }, []);
   return (
     <CssVarsProvider>
       <main>

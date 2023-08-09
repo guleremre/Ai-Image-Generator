@@ -5,6 +5,7 @@ require("dotenv").config();
 const imgRouter = require("./router/imgRouter");
 const userRouter = require("./router/userRouter");
 const favoriteImgController = require("./router/favoriteImage");
+const cloudinary = require("cloudinary");
 
 app.use(express.json({ limit: "50mb" }));
 
