@@ -22,7 +22,6 @@ export default function SamplingMethodSelect({ onSelected }) {
         label="input"
         onChange={handleChange}
       >
-        const Sam
         <MenuItem value={"Euler a"}>Euler a</MenuItem>
         <MenuItem value={"Euler"}>Euler</MenuItem>
         <MenuItem value={"DPM++ 2S a"}>DPM++ 2S a</MenuItem>

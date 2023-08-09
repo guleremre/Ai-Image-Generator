@@ -38,8 +38,6 @@ function Home() {
         cfg_scale,
       };
       const response = await axios.post(url, body1);
-      console.log(response);
-      console.log("console.log(body1);", body1);
       setLoading(false);
       setImg(response.data.images[0]);
       setImgLoad(true);
@@ -58,8 +56,33 @@ function Home() {
     link.click();
     document.body.removeChild(link);
   };
+
   //rendering image from base64 format
   const renderImg = `data:image/jpeg;base64,${img}`;
+  
+  const CreateUpload = () => {
+    console.log("fav button pressed");
+    const link = document.createElement("ai");
+    link.href = renderImg;
+    console.log(link.href)
+    link.download = "generated_image.jpg";
+    console.log("{renderImg}",{renderImg});
+    console.log("link.download",link.download);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  // const CreateUpload = () => {
+  //   const [aiImg, setAiImg] = useState();
+  //   // const handleProduct=(e)=>{
+
+  //   // }
+  //   return (
+  //     <>
+  //       <img src={renderImg} alt="" onChange={handleProduct} />
+  //     </>
+  //   );
+  // };
   // const handleAddFavorite = async (id) => {
   //   try {
   //     const response = await axios.post(`http://localhost:5000/user/${id}`, {
@@ -79,6 +102,7 @@ function Home() {
   };
   // which algoritm to choose
   const [sampler_index, setSamplerIndex] = useState("Euler");
+
   //choose created image detail level
   const [steps, setSteps] = useState(20);
   const handleSliderValueChange = (newSteps) => {
@@ -148,14 +172,26 @@ function Home() {
             <span>Generate Image</span>
           </LoadingButton>{" "}
           {downloadReady && (
-            <LoadingButton
-              variant="contained"
-              size="medium"
-              onClick={handleDownload}
-              sx={{ margin: "auto" }}
-            >
-              Download Image
-            </LoadingButton>
+            <>
+              <LoadingButton
+                variant="contained"
+                size="medium"
+                onClick={handleDownload}
+                sx={{ margin: "auto" }}
+              >
+                Download Image
+              </LoadingButton>
+
+              <LoadingButton
+                variant="contained"
+                size="medium"
+                CreateUpload
+                onClick={CreateUpload}
+                sx={{ margin: "auto" }}
+              >
+                fav Image
+              </LoadingButton>
+            </>
           )}
         </Box>
         <Box
