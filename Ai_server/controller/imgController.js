@@ -36,6 +36,7 @@ const postCloudinary = async (req, res) => {
     res.status(500).send(error);
   }
 };
+// GET cloudinary
 const getCloudinary = async (req, res) => {
   try {
     const img = await Img.find();

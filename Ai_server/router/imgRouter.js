@@ -8,8 +8,8 @@ router.post("/", ImgController.postOneImg);
 router.delete("/:id", ImgController.deleteImg);
 router.put("/:id", ImgController.updateImg);
 router.get("/:userId", ImgController.getAllUserImg);
-router.get("/:Id", ImgController.getOneImg);
+// router.get("/:Id", ImgController.getOneImg);
 router.get("/:Id", ImgController.getCloudinary);
-router.get("/:Id", ImgController.postCloudinary);
+router.post("/:Id", ImgController.postCloudinary);
 
 module.exports = router; // bunun ismini değişme özel bu
