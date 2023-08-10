@@ -10,6 +10,6 @@ router.put("/:id", ImgController.updateImg);
 router.get("/:userId", ImgController.getAllUserImg);
 // router.get("/:Id", ImgController.getOneImg);
 router.get("/:userId", ImgController.getCloudinary);
-router.post("/:userId", ImgController.postCloudinary);
+router.post("/:id", ImgController.postCloudinary);
 
 module.exports = router; // bunun ismini değişme özel bu

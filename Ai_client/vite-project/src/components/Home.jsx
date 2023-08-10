@@ -28,6 +28,11 @@ function Home() {
   const [imgLoad, setImgLoad] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
   const [userId, setUserId] = useState("");
+  const [downloadReady, setDownloadReady] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [sampler_index, setSamplerIndex] = useState("Euler");
+  const [steps, setSteps] = useState(20);
+  const [cfg_scale, setCfgScale] = useState(5);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -50,7 +55,7 @@ function Home() {
       console.error("Error:", error.message);
     }
   };
-  const [downloadReady, setDownloadReady] = useState(false);
+
   // Create a download link for the image
   const handleDownload = () => {
     const link = document.createElement("a");
@@ -79,12 +84,22 @@ function Home() {
     }
   }
 
-  const createUpload = async () => {
+  const createupload = async () => {
+    const body2 = {
+      prompt,
+      negative_prompt,
+      sampler_index,
+      steps,
+      cfg_scale,
+      img,
+    };
+    console.log(body2);
     try {
-      const liink = await axios.post(`http://localhost:4000/img/${userId}`, {
-        img,
+      const liink = await axios.post(`http://localhost:4000/img/`, {
+        body2,
       });
-      console.log("liink", liink);
+      console.log("liink with body", liink);
+      // console.log("liink with body.img)", body2.img);
       // console.log({ userId });
     } catch (error) {
       console.log(error);
@@ -114,7 +129,6 @@ function Home() {
   //   }
   // };
 
-  const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -122,16 +136,15 @@ function Home() {
     setOpen(false);
   };
   // which algoritm to choose
-  const [sampler_index, setSamplerIndex] = useState("Euler");
 
   //choose created image detail level
-  const [steps, setSteps] = useState(20);
+
   const handleSliderValueChange = (newSteps) => {
     console.log("step value is", newSteps.target.value);
     setSteps(newSteps.target.value); // Update the state with the selected slider value
   };
   // choose image freedom level from input
-  const [cfg_scale, setCfgScale] = useState(5);
+
   cfg_scale;
   const handleCfgValueChange = (newScale) => {
     const cfg = newScale.target.value;
@@ -206,8 +219,7 @@ function Home() {
               <LoadingButton
                 variant="contained"
                 size="medium"
-                createUpload
-                onClick={createUpload}
+                onClick={createupload}
                 sx={{ margin: "auto" }}
               >
                 fav Image

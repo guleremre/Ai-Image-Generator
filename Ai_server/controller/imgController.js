@@ -5,25 +5,26 @@ const cloudinary = require("../utils/cloudinary");
 
 //create cloudinary
 const postCloudinary = async (req, res) => {
-  const {
-    img,
-    userId,
-    prompt,
-    negative_prompt,
-    sampler_index,
-    steps,
-    cfg_scale,
-  } = req.body;
+  const { img, prompt, negative_prompt, sampler_index, steps, cfg_scale } =
+    req.body;
+  console.log("create cloudinary", req.body);
   try {
     if (img) {
-      await cloudinary.uploader.upload(img, { upload_preset: "imgSchema" });
-      // console.log("hello bpostcloudinary", req.body);
-      if (uploadRes) {
+      const uploadResponse = await cloudinary.v2.uploader.upload(img, {
+        upload_preset: "imgfavs",
+      });
+      console.log("hello bpostcloudinary", req.body);
+      if (uploadResponse) {
         const img = new Img({
-          img: uploadRes,
+          prompt,
+          negative_prompt,
+          sampler_index,
+          steps,
+          cfg_scale,
+          img: uploadResponse,
         });
-        const savedImg = await Img.save();
-        req.statusCode(200).send(savedImg);
+        const savedImg = await img.save();
+        req.status(200).send(savedImg);
       }
     }
   } catch (error) {
