@@ -16,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-// import axios from "axios";
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -41,9 +40,9 @@ function ResponsiveAppBar() {
       const token = localStorage.getItem("token");
       if (token) {
         var decoded = jwt_decode(token);
-        console.log(decoded);
+        // console.log(decoded);
         let userId = decoded.id;
-        console.log("token comes from decode", userId);
+        // console.log("token comes from decode", userId);
         try {
           let res = await axios.get(`http://localhost:4000/img/${userId}`, {
             token,
@@ -97,8 +96,7 @@ function ResponsiveAppBar() {
 
   const getAvatar = () => {
     const newAvatar = localStorage.getItem("avatarimg");
-    console.log("thisis navbaravatar", newAvatar);
-
+    // console.log("thisis navbaravatar", newAvatar);
     return newAvatar;
     // return localStorage.getItem("avatarimg");
   };

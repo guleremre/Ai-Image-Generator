@@ -13,6 +13,7 @@ import DialogContent from "@mui/material/DialogContent";
 import SamplingMethodSelect from "./HomeComponents/SamplingMethodSelect";
 import SamplingSteps from "./HomeComponents/SamplingSteps";
 import CfgSlider from "./HomeComponents/CfgScale";
+
 const url = "http://127.0.0.1:7860/sdapi/v1/txt2img";
 
 function Home() {
@@ -25,6 +26,8 @@ function Home() {
   const [img, setImg] = useState([]);
   const [loading, setLoading] = useState(false);
   const [imgLoad, setImgLoad] = useState(false);
+  const [userInfo, setUserInfo] = useState([]);
+  const [userId, setUserId] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -42,6 +45,7 @@ function Home() {
       setImg(response.data.images[0]);
       setImgLoad(true);
       setDownloadReady(true);
+      auth();
     } catch (error) {
       console.error("Error:", error.message);
     }
@@ -59,19 +63,34 @@ function Home() {
 
   //rendering image from base64 format
   const renderImg = `data:image/jpeg;base64,${img}`;
-  
-  const CreateUpload = () => {
-    console.log("fav button pressed");
-    const link = document.createElement("ai");
-    link.href = renderImg;
-    console.log(link.href)
-    link.download = "generated_image.jpg";
-    console.log("{renderImg}",{renderImg});
-    console.log("link.download",link.download);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+
+  //Get user ID
+  async function auth() {
+    const url = "http://localhost:4000/user/verify";
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.post(url, { token });
+      setUserInfo((prevUserInfo) => ({ ...prevUserInfo, ...response.data }));
+      setUserId(response.data._id);
+      // console.log("user id geldimi", response.data._id, userId);
+      // console.log("renderimg in auth", renderImg);
+    } catch (error) {
+      console.error("Error verifying token:", error);
+    }
+  }
+
+  const createUpload = async () => {
+    try {
+      const liink = await axios.post(`http://localhost:4000/img/${userId}`, {
+        img,
+      });
+      console.log("liink", liink);
+      // console.log({ userId });
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   // const CreateUpload = () => {
   //   const [aiImg, setAiImg] = useState();
   //   // const handleProduct=(e)=>{
@@ -83,9 +102,10 @@ function Home() {
   //     </>
   //   );
   // };
+
   // const handleAddFavorite = async (id) => {
   //   try {
-  //     const response = await axios.post(`http://localhost:5000/user/${id}`, {
+  //     const response = await axios.post(`http://localhost:4000/user/${id}`, {
   //       token: token,
   //     });
   //     console.log(response);
@@ -93,6 +113,7 @@ function Home() {
   //     console.log(error);
   //   }
   // };
+
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -185,8 +206,8 @@ function Home() {
               <LoadingButton
                 variant="contained"
                 size="medium"
-                CreateUpload
-                onClick={CreateUpload}
+                createUpload
+                onClick={createUpload}
                 sx={{ margin: "auto" }}
               >
                 fav Image

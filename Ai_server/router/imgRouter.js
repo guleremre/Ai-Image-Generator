@@ -9,7 +9,7 @@ router.delete("/:id", ImgController.deleteImg);
 router.put("/:id", ImgController.updateImg);
 router.get("/:userId", ImgController.getAllUserImg);
 // router.get("/:Id", ImgController.getOneImg);
-router.get("/:Id", ImgController.getCloudinary);
-router.post("/:Id", ImgController.postCloudinary);
+router.get("/:userId", ImgController.getCloudinary);
+router.post("/:userId", ImgController.postCloudinary);
 
 module.exports = router; // bunun ismini değişme özel bu

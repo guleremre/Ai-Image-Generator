@@ -3,13 +3,14 @@ const connection = require("./connection");
 
 const schema = new mongoose.Schema(
   {
-    imgUrl: { type: String, required: true },
+    img: { type: String },
     prompt: { type: String },
-    negative_prompt: String,
+    negative_prompt: { type: String },
     sampler_index: String,
     steps: Number,
     cfg_scale: Number,
     seed: Number,
+    userId: String,
   },
   { timestamps: true }
 );

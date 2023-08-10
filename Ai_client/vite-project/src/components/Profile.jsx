@@ -79,7 +79,7 @@ const Profile = () => {
   }
   //to upload profile image
   async function put(avatar, userId) {
-    console.log("yas", avatar);
+    console.log("yasmin", avatar);
     try {
       const response = await axios.put(`http://localhost:4000/user/${userId}`, {
         imgUrl: avatar,

@@ -23,7 +23,7 @@ const getUserAvatar = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  console.log("hello update", req.body);
+  console.log("user controller update", req.body);
   try {
     await User.findByIdAndUpdate({ _id: req.params.id }, req.body);
     res.send({ msg: "updated" });

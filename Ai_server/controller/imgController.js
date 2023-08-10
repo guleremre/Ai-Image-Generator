@@ -6,28 +6,23 @@ const cloudinary = require("../utils/cloudinary");
 //create cloudinary
 const postCloudinary = async (req, res) => {
   const {
-    imgUrl,
+    img,
+    userId,
     prompt,
     negative_prompt,
     sampler_index,
     steps,
     cfg_scale,
-    seed,
   } = req.body;
   try {
-    if (imgUrl) {
-      await cloudinary.uploader.upload(imgUrl, { upload_preset: "imgSchema" });
+    if (img) {
+      await cloudinary.uploader.upload(img, { upload_preset: "imgSchema" });
+      // console.log("hello bpostcloudinary", req.body);
       if (uploadRes) {
-        const img = new İmg({
-          imgUrl: uploadRes,
-          prompt,
-          negative_prompt,
-          sampler_index,
-          steps,
-          cfg_scale,
-          seed,
+        const img = new Img({
+          img: uploadRes,
         });
-        const savedImg = await img.save();
+        const savedImg = await Img.save();
         req.statusCode(200).send(savedImg);
       }
     }
@@ -56,9 +51,10 @@ const getAllImg = async (req, res) => {
     res.status(500).json({ msg: err.msg });
   }
 };
+
 //CREATE NEW IMG
 const postOneImg = async (req, res) => {
-  console.log("hello", req.body);
+  // console.log("hello", req.body);
   try {
     const newImg = await Img.create(req.body);
     res.status(201).json({ msg: "Img successfully uploaded" });
