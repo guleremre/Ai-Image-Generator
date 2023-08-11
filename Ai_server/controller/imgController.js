@@ -1,27 +1,28 @@
 const mongoose = require("mongoose");
 const Img = require("../modules/img");
 const User = require("../modules/user");
-const cloudinary = require("../utils/cloudinary");
+const cloudinary = require("../utils/cloudinary").v2;
 
 //create cloudinary
 const postCloudinary = async (req, res) => {
-  console.log("hello bpostcloudinary", req.body);
+  console.log("hello postcloudinary", req.body);
   const { prompt, negative_prompt, sampler_index, steps, cfg_scale, image } =
     req.body;
   try {
     if (image) {
       const uploadResponse = await cloudinary.v2.uploader.upload(image, {
         upload_preset: "imgfavs",
+        folder: "imgfavs",
       });
+      console.log("uploadResponse", uploadResponse);
       if (uploadResponse) {
-        console.log("1ıkmuyı")
         const img = new Img({
           prompt,
           negative_prompt,
           sampler_index,
           steps,
           cfg_scale,
-          image: uploadResponse,
+          image,
         });
       }
     }

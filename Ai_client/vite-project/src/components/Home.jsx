@@ -93,22 +93,20 @@ function Home() {
     //   cfg_scale: cfg_scale,
     //   image: img,
     // };
-
     try {
+      await axios.cloudinary.v2.uploader
+        .upload(renderImg)
+        .then((result) => console.log(result));
       const response = await axios
         .post("http://localhost:4000/img/", {
-          prompt: prompt,
-          negative_prompt: negative_prompt,
-          sampler_index: sampler_index,
-          steps: steps,
-          cfg_scale: cfg_scale,
+          prompt,
+          negative_prompt,
+          sampler_index,
+          steps,
+          cfg_scale,
           image: renderImg,
         })
         .then((data) => console.log(data));
-      // console.log(" with body", response);
-      // console.log(" with bodydata", response.config);
-      // console.log("liink with body.img)", body2.img);
-      // console.log({ userId });
     } catch (error) {
       console.log(error);
     }
