@@ -5,33 +5,33 @@ const cloudinary = require("../utils/cloudinary");
 
 //create cloudinary
 const postCloudinary = async (req, res) => {
-  const { img, prompt, negative_prompt, sampler_index, steps, cfg_scale } =
+  console.log("hello bpostcloudinary", req.body);
+  const { prompt, negative_prompt, sampler_index, steps, cfg_scale, image } =
     req.body;
-  console.log("create cloudinary", req.body);
   try {
-    if (img) {
-      const uploadResponse = await cloudinary.v2.uploader.upload(img, {
+    if (image) {
+      const uploadResponse = await cloudinary.v2.uploader.upload(image, {
         upload_preset: "imgfavs",
       });
-      console.log("hello bpostcloudinary", req.body);
       if (uploadResponse) {
+        console.log("1ıkmuyı")
         const img = new Img({
           prompt,
           negative_prompt,
           sampler_index,
           steps,
           cfg_scale,
-          img: uploadResponse,
+          image: uploadResponse,
         });
-        const savedImg = await img.save();
-        req.status(200).send(savedImg);
       }
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send(error);
+    res.send(error);
   }
+  console.log("create cloudinary req.body.image", image);
 };
+
 // GET cloudinary
 const getCloudinary = async (req, res) => {
   try {
@@ -53,17 +53,17 @@ const getAllImg = async (req, res) => {
   }
 };
 
-//CREATE NEW IMG
-const postOneImg = async (req, res) => {
-  // console.log("hello", req.body);
-  try {
-    const newImg = await Img.create(req.body);
-    res.status(201).json({ msg: "Img successfully uploaded" });
-  } catch (err) {
-    console.log(err);
-    res.status(409).json({ msg: err.msg });
-  }
-};
+// //CREATE NEW IMG
+// const postOneImg = async (req, res) => {
+//   // console.log("hello", req.body);
+//   try {
+//     const newImg = await Img.create(req.body);
+//     res.status(201).json({ msg: "Img successfully uploaded" });
+//   } catch (err) {
+//     console.log(err);
+//     res.status(409).json({ msg: err.msg });
+//   }
+// };
 
 //DELETE A IMG
 const deleteImg = async (req, res) => {
@@ -160,7 +160,7 @@ const removeFavoriteImg = async (req, res) => {
 
 module.exports = {
   getAllImg,
-  postOneImg,
+  // postOneImg,
   deleteImg,
   updateImg,
   getAllUserImg,

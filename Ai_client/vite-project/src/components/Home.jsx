@@ -85,20 +85,28 @@ function Home() {
   }
 
   const createupload = async () => {
-    const body2 = {
-      prompt,
-      negative_prompt,
-      sampler_index,
-      steps,
-      cfg_scale,
-      img,
-    };
-    console.log(body2);
+    // const body2 = {
+    //   prompt: prompt,
+    //   negative_prompt: negative_prompt,
+    //   sampler_index: sampler_index,
+    //   steps: steps,
+    //   cfg_scale: cfg_scale,
+    //   image: img,
+    // };
+
     try {
-      const liink = await axios.post(`http://localhost:4000/img/`, {
-        body2,
-      });
-      console.log("liink with body", liink);
+      const response = await axios
+        .post("http://localhost:4000/img/", {
+          prompt: prompt,
+          negative_prompt: negative_prompt,
+          sampler_index: sampler_index,
+          steps: steps,
+          cfg_scale: cfg_scale,
+          image: renderImg,
+        })
+        .then((data) => console.log(data));
+      // console.log(" with body", response);
+      // console.log(" with bodydata", response.config);
       // console.log("liink with body.img)", body2.img);
       // console.log({ userId });
     } catch (error) {

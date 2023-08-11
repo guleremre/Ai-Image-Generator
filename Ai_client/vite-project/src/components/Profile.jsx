@@ -68,7 +68,7 @@ const Profile = () => {
       async function (error, result) {
         if (!error && result && result.event === "success") {
           const avatar = result.info.secure_url;
-          console.log("yasmeen", userId, avatar);
+          console.log("yasmeen", result.info);
           await put(avatar, userId);
           // UploadToWidget(userId);
         } else if (error) {
