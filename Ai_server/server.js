@@ -15,7 +15,7 @@ app.use(
 );
 app.use("/img", imgRouter);
 app.use("/user", userRouter);
-app.use("/img", favoriteImgController);
+app.use("/user", favoriteImgController);
 
 app.listen(process.env.port, () => {
   console.log(`server is running on ${process.env.port} `);

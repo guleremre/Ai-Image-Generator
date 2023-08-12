@@ -116,17 +116,13 @@ const getOneImg = async (req, res) => {
 };
 //ADD IMG TO FAVORITE
 const addFavoriteImg = async (req, res) => {
-  // const token = req.body.token;
-  console.log("bu neee", req.body.userId);
-  const id = req.params.id;
-  let userId;
-  console.log(userId);
+  let userId = req.body.userId;
+  let id = req.body.id;
   try {
-    // let payload = jwt.verify(token, "secret");
     let img = await Img.findById(id);
-    let user = await User.findOne({ userId: req.params.userId });
-    console.log("user varmı favoıtrie ulaşcaz", userId);
-    console.log("user varmı favoıtrie ulaşcaz", user);
+    let user = await User.findOne({ userId: req.body.userId });
+    console.log("user varm favotrie ulaşcaz", userId);
+    console.log("user varm favotrie ulaşcaz2", user);
     if (!user.favoriteImg) {
       user.favoriteImg = [img];
       user.save();

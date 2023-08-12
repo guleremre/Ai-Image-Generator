@@ -2,6 +2,7 @@ const User = require("../modules/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const Img = require("../modules/img");
 
 const getAllUserImg = async (req, res) => {
   try {
@@ -135,14 +136,11 @@ const verify = async (req, res) => {
 };
 //ADD IMG TO FAVORITE
 const addFavoriteImg = async (req, res) => {
-  const token = req.body.token;
-  const id = req.params.id;
-
+  const userId = req.body.userId;
+  const id = req.body.id;
   try {
-    let payload = jwt.verify(token, "secret");
     let img = await Img.findById(id);
-    let user = await User.findOne({ username: payload.username });
-
+    let user = await User.findOne({ userId: req.param.userId });
     if (!user.favoriteImg) {
       user.favoriteImg = [img];
       user.save();

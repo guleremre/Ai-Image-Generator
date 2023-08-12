@@ -10,6 +10,6 @@ router.put("/:id", userController.updateProfile);
 router.get("/:userId", userController.getAllUserImg);
 router.get("/img/:userId", userController.getUserAvatar);
 // router.get("/img/:userId", userController.removeFavoriteImg);
-// router.get("/:userId", userController.addFavoriteImg);
+router.post("/:userId", userController.addFavoriteImg);
 
 module.exports = router;

@@ -33,7 +33,7 @@ function Home() {
   const [sampler_index, setSamplerIndex] = useState("Euler");
   const [steps, setSteps] = useState(20);
   const [cfg_scale, setCfgScale] = useState(5);
-  const [favedImgId, setFavedImgId] = useState(5);
+  const [favedImgId, setFavedImgId] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -84,7 +84,6 @@ function Home() {
       console.error("Error verifying token:", error);
     }
   }
-
   const createupload = async () => {
     const body2 = {
       prompt: prompt,
@@ -100,27 +99,25 @@ function Home() {
         body2,
       });
       handleAddFavorite();
-      console.log("img idisini bul", response.data.savedImg._id);
       setFavedImgId(response.data.savedImg._id); //set img id of favorite
       alert(response.data.msg);
     } catch (error) {
       console.log(error);
     }
   };
-  // const token = localStorage.getItem("token");
-
   const handleAddFavorite = async () => {
     try {
-      const response = await axios.post(`http://localhost:4000/img/${userId}`, {
-        id: favedImgId,
-        userId: userId,
-      });
-      console.log(response);
+      const response = await axios.post(
+        `http://localhost:4000/user/${userId}`,
+        {
+          id: favedImgId,
+          userId: userId,
+        }
+      );
     } catch (error) {
       console.log(error);
     }
   };
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -128,9 +125,7 @@ function Home() {
     setOpen(false);
   };
   // which algoritm to choose
-
   //choose created image detail level
-
   const handleSliderValueChange = (newSteps) => {
     console.log("step value is", newSteps.target.value);
     setSteps(newSteps.target.value); // Update the state with the selected slider value
@@ -142,11 +137,9 @@ function Home() {
     setCfgScale(cfg);
     console.log("smilarity to prompt is setted to value", cfg);
   };
-
   useEffect(() => {
     onSubmit();
   }, []);
-
   return (
     <>
       <form onSubmit={onSubmit} className="background-image">
