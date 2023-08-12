@@ -85,36 +85,25 @@ function Home() {
   }
 
   const createupload = async () => {
+    console.log("fav button works1");
     const body2 = {
       prompt: prompt,
       negative_prompt: negative_prompt,
       sampler_index: sampler_index,
       steps: steps,
       cfg_scale: cfg_scale,
-      image: { img },
+      image: renderImg,
+      userId: userId,
     };
     try {
       const response = await axios.post("http://localhost:4000/img/", {
         body2,
       });
       // .then((data) => console.log("frontun datası", data));
-      console.log("responseresponseresponse", response);
     } catch (error) {
       console.log(error);
     }
   };
-
-  // const CreateUpload = () => {
-  //   const [aiImg, setAiImg] = useState();
-  //   // const handleProduct=(e)=>{
-
-  //   // }
-  //   return (
-  //     <>
-  //       <img src={renderImg} alt="" onChange={handleProduct} />
-  //     </>
-  //   );
-  // };
 
   // const handleAddFavorite = async (id) => {
   //   try {
