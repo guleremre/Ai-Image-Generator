@@ -85,7 +85,6 @@ function Home() {
   }
 
   const createupload = async () => {
-    console.log("fav button works1");
     const body2 = {
       prompt: prompt,
       negative_prompt: negative_prompt,
@@ -99,22 +98,24 @@ function Home() {
       const response = await axios.post("http://localhost:4000/img/", {
         body2,
       });
-      // .then((data) => console.log("frontun datası", data));
+      handleAddFavorite();
+      alert(response.data.msg);
     } catch (error) {
       console.log(error);
     }
   };
+  const token = localStorage.getItem("token");
 
-  // const handleAddFavorite = async (id) => {
-  //   try {
-  //     const response = await axios.post(`http://localhost:4000/user/${id}`, {
-  //       token: token,
-  //     });
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const handleAddFavorite = async (id) => {
+    try {
+      const response = await axios.post(`http://localhost:4000/img/${id}`, {
+        token: token,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -131,7 +132,6 @@ function Home() {
     setSteps(newSteps.target.value); // Update the state with the selected slider value
   };
   // choose image freedom level from input
-
   cfg_scale;
   const handleCfgValueChange = (newScale) => {
     const cfg = newScale.target.value;

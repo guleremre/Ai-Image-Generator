@@ -133,6 +133,56 @@ const verify = async (req, res) => {
     return res.send({ msg: "Invalid token" });
   }
 };
+//ADD IMG TO FAVORITE
+const addFavoriteImg = async (req, res) => {
+  const token = req.body.token;
+  const id = req.params.id;
+
+  try {
+    let payload = jwt.verify(token, "secret");
+    let img = await Img.findById(id);
+    let user = await User.findOne({ username: payload.username });
+
+    if (!user.favoriteImg) {
+      user.favoriteImg = [img];
+      user.save();
+    } else {
+      user.favoriteImg = [...user.favoriteImg, img];
+      user.save();
+    }
+    return res.json({ user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Failed " });
+  }
+};
+//DELETE IMG FROM FAVORITE
+const removeFavoriteImg = async (req, res) => {
+  const token = req.body.token;
+  const id = req.params.id;
+  try {
+    let payload = jwt.verify(token, "secret");
+    let Img = await Img.findById(id);
+    let user = await User.findOne({ username: payload.username });
+
+    if (user.favoriteImg.length > 0) {
+      for (let i = 0; i < user.favoriteImg.length; i++) {
+        console.log(user.favoriteImg[i]._id.toHexString());
+        console.log(id);
+        if (id === user.favoriteImg[i]._id.toHexString()) {
+          user.favoriteImg.splice(i, 1);
+          user.save();
+          return res.json({ user });
+        }
+      }
+    } else {
+      return res.json({ message: "Failed to find book" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error });
+  }
+};
 
 module.exports = {
   signup,
@@ -142,4 +192,6 @@ module.exports = {
   getAllUserImg,
   updateProfile,
   getUserAvatar,
+  removeFavoriteImg,
+  addFavoriteImg,
 };

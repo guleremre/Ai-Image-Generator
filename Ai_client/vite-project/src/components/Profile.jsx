@@ -108,7 +108,6 @@ const Profile = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
   useEffect(() => {
     const fetchData = async () => {
       await auth();

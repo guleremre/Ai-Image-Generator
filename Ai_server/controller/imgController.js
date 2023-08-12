@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const Img = require("../modules/img");
 const User = require("../modules/user");
 const cloudinary = require("../utils/cloudinary");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 //create cloudinary image
 const postCloudinary = async (req, res) => {
@@ -27,12 +29,14 @@ const postCloudinary = async (req, res) => {
         console.log(imgObj);
         const img = new Img(imgObj);
         const savedImg = await img.save();
-        res.status(200).send(savedImg);
+        res
+          .status(200)
+          .send({ savedImg, msg: "Image successfully uploaded to database" });
       }
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "Error uploading image to Cloudinary" }); // Send a JSON response with an error message
+    res.status(500).json({ error: "Error uploading image to Cloudinary" });
   }
 };
 
@@ -46,7 +50,6 @@ const getCloudinary = async (req, res) => {
     res.status(500).send(error);
   }
 };
-
 //GET ALL IMGS
 const getAllImg = async (req, res) => {
   try {
@@ -173,4 +176,5 @@ module.exports = {
   removeFavoriteImg,
   getCloudinary,
   postCloudinary,
+  addFavoriteImg,
 };
