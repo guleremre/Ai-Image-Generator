@@ -7,6 +7,8 @@ import { Button } from "@mui/material";
 const Favorites = () => {
   const [user, setUser] = useState("");
   const [userId, setUserId] = useState("");
+  const [userInfo, setUserInfo] = useState("");
+
   const token = localStorage.getItem("token");
 
   const handleDeleteFavorite = async (id) => {

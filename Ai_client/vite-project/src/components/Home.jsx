@@ -33,6 +33,7 @@ function Home() {
   const [sampler_index, setSamplerIndex] = useState("Euler");
   const [steps, setSteps] = useState(20);
   const [cfg_scale, setCfgScale] = useState(5);
+  const [favedImgId, setFavedImgId] = useState(5);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -99,17 +100,20 @@ function Home() {
         body2,
       });
       handleAddFavorite();
+      console.log("img idisini bul", response.data.savedImg._id);
+      setFavedImgId(response.data.savedImg._id); //set img id of favorite
       alert(response.data.msg);
     } catch (error) {
       console.log(error);
     }
   };
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
 
-  const handleAddFavorite = async (id) => {
+  const handleAddFavorite = async () => {
     try {
-      const response = await axios.post(`http://localhost:4000/img/${id}`, {
-        token: token,
+      const response = await axios.post(`http://localhost:4000/img/${userId}`, {
+        id: favedImgId,
+        userId: userId,
       });
       console.log(response);
     } catch (error) {
