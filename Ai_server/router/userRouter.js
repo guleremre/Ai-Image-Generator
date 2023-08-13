@@ -9,7 +9,7 @@ router.put("/:id", userController.update);
 router.put("/:id", userController.updateProfile);
 router.get("/:userId", userController.getAllUserImg);
 router.get("/img/:userId", userController.getUserAvatar);
-// router.get("/img/:userId", userController.removeFavoriteImg);
+router.delete("/:userId", userController.removeFavoriteImg);
 router.post("/:userId", userController.addFavoriteImg);
 
 module.exports = router;

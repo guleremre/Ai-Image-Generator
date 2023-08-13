@@ -98,19 +98,25 @@ function Home() {
       const response = await axios.post("http://localhost:4000/img/", {
         body2,
       });
+      console.log("home obj lazım response.data", response.data.savedImg);
+      var savedImgData = response.data.savedImg;
+
       setFavedImgId(response.data.savedImg._id); //set img id of favorite
-      handleAddFavorite();
+      handleAddFavorite(savedImgData);
       alert(response.data.msg);
     } catch (error) {
       console.log(error);
     }
   };
-  const handleAddFavorite = async () => {
+
+  //after upload image info to database add to favorite
+  const handleAddFavorite = async (savedImgData) => {
+    // console.log("home js FavedImgId", favedImgId);
     try {
       const response = await axios.post(
         `http://localhost:4000/user/${userId}`,
         {
-          id: favedImgId,
+          savedImgData,
           userId: userId,
         }
       );
@@ -124,6 +130,7 @@ function Home() {
   const handleClose = () => {
     setOpen(false);
   };
+
   // which algoritm to choose
   //choose created image detail level
   const handleSliderValueChange = (newSteps) => {

@@ -137,18 +137,21 @@ const verify = async (req, res) => {
 //ADD IMG TO FAVORITE
 const addFavoriteImg = async (req, res) => {
   const userId = req.body.userId;
-  // console.log("user control userId", userId);
-  const id = req.body._id;
+  console.log("req.body.", req.body.savedImgData);
+  // const id = req.body._id;
+  // const favoriteImg=req.body
+
+  let imgObj = req.body.savedImgData;
+  // console.log(imgObj);
   try {
-    let img = await Img.findById(id);
-    console.log("mem o imeg", img);
+    // console.log("mem o imeg", img);
     let user = await User.findOne({ _id: userId });
     // console.log("usercontrol user", user);
     if (!user.favoriteImg) {
-      user.favoriteImg = [img];
+      user.favoriteImg = [imgObj];
       user.save();
     } else {
-      user.favoriteImg = [...user.favoriteImg, img];
+      user.favoriteImg = [...user.favoriteImg, imgObj];
       user.save();
     }
     return res.json({ user });
@@ -157,12 +160,13 @@ const addFavoriteImg = async (req, res) => {
     res.status(500).json({ error: "Failed " });
   }
 };
+
 //DELETE IMG FROM FAVORITE
 const removeFavoriteImg = async (req, res) => {
-  const token = req.body.token;
-  const id = req.params.id;
+  // const token = req.body.token;
+  const id = req.params._id;
   try {
-    let payload = jwt.verify(token, "secret");
+    // let payload = jwt.verify(token, "secret");
     let Img = await Img.findById(id);
     let user = await User.findOne({ username: payload.username });
 
