@@ -13,7 +13,7 @@ router.get("/:userId", ImgController.getAllUserImg);
 router.get("/", ImgController.getCloudinary);
 router.post("/", ImgController.postCloudinary);
 
-router.delete("/:userId", ImgController.removeFavoriteImg);
-router.post("/:userId", ImgController.addFavoriteImg);
+// router.delete("/:userId", ImgController.removeFavoriteImg);
+// router.post("/:userId", ImgController.addFavoriteImg);
 
 module.exports = router; // bunun ismini değişme özel bu

@@ -98,8 +98,8 @@ function Home() {
       const response = await axios.post("http://localhost:4000/img/", {
         body2,
       });
-      handleAddFavorite();
       setFavedImgId(response.data.savedImg._id); //set img id of favorite
+      handleAddFavorite();
       alert(response.data.msg);
     } catch (error) {
       console.log(error);

@@ -18,6 +18,7 @@ const schema = new mongoose.Schema(
     },
     imgUrl: { type: String },
     favoriteImg: { type: Array },
+    // userId: { type: String },
   },
   { timestamps: true }
 );

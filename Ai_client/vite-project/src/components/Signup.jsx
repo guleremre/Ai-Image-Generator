@@ -12,31 +12,31 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 // color theme function
-function ModeToggle() {
-  const { mode, setMode } = useColorScheme();
-  const [mounted, setMounted] = React.useState(false);
+// function ModeToggle() {
+//   const { mode, setMode } = useColorScheme();
+//   const [mounted, setMounted] = React.useState(false);
 
-  if (!mounted) {
-    return null;
-  }
-  //check If  user Logged
-  function checkIfLogged() {
-    const item = localStorage.getItem("token");
-    if (item) {
-      return navigate("/home");
-    }
-  }
-  return (
-    <Button
-      variant="outlined"
-      onClick={() => {
-        setMode(mode === "light" ? "dark" : "light");
-      }}
-    >
-      {mode === "light" ? "Turn dark" : "Turn light"}
-    </Button>
-  );
-}
+//   if (!mounted) {
+//     return null;
+//   }
+//   //check If  user Logged
+//   function checkIfLogged() {
+//     const item = localStorage.getItem("token");
+//     if (item) {
+//       return navigate("/home");
+//     }
+//   }
+//   return (
+//     <Button
+//       variant="outlined"
+//       onClick={() => {
+//         setMode(mode === "light" ? "dark" : "light");
+//       }}
+//     >
+//       {mode === "light" ? "Turn dark" : "Turn light"}
+//     </Button>
+//   );
+// }
 const url = "http://localhost:4000/user/signup";
 
 export default function Signup() {
@@ -45,6 +45,13 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
+  //check If  user Logged
+  function checkIfLogged() {
+    const item = localStorage.getItem("token");
+    if (item) {
+      return navigate("/home");
+    }
+  }
 
   //checking if user entered same password
   function handleButtonClick() {
@@ -73,13 +80,13 @@ export default function Signup() {
   };
 
   useEffect(() => {
-    setMounted(true);
+    // setMounted(true);
     checkIfLogged();
   }, []);
   return (
     <CssVarsProvider>
       <main>
-        <ModeToggle />
+        {/* <ModeToggle /> */}
         <Sheet
           sx={{
             maxWidth: 300,

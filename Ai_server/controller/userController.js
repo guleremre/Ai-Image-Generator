@@ -17,14 +17,14 @@ const getAllUserImg = async (req, res) => {
 const getUserAvatar = async (req, res) => {
   try {
     const userId = req.params.userId;
-    console.log(userId);
+    // console.log(userId);
     // console.log(payload);
-    // const avatar = User.find();
+    const avatar = User.find();
   } catch (error) {}
 };
 
 const update = async (req, res) => {
-  console.log("user controller update", req.body);
+  // console.log("user controller update", req.body);
   try {
     await User.findByIdAndUpdate({ _id: req.params.id }, req.body);
     res.send({ msg: "updated" });
@@ -137,10 +137,13 @@ const verify = async (req, res) => {
 //ADD IMG TO FAVORITE
 const addFavoriteImg = async (req, res) => {
   const userId = req.body.userId;
-  const id = req.body.id;
+  // console.log("user control userId", userId);
+  const id = req.body._id;
   try {
     let img = await Img.findById(id);
-    let user = await User.findOne({ userId: req.param.userId });
+    console.log("mem o imeg", img);
+    let user = await User.findOne({ _id: userId });
+    // console.log("usercontrol user", user);
     if (!user.favoriteImg) {
       user.favoriteImg = [img];
       user.save();
@@ -165,8 +168,8 @@ const removeFavoriteImg = async (req, res) => {
 
     if (user.favoriteImg.length > 0) {
       for (let i = 0; i < user.favoriteImg.length; i++) {
-        console.log(user.favoriteImg[i]._id.toHexString());
-        console.log(id);
+        // console.log(user.favoriteImg[i]._id.toHexString());
+        // console.log(id);
         if (id === user.favoriteImg[i]._id.toHexString()) {
           user.favoriteImg.splice(i, 1);
           user.save();
