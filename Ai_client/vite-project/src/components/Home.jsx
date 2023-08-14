@@ -106,9 +106,9 @@ function Home() {
       console.log(error);
     }
   };
+
   //after upload image info to database add to favorite
   const handleAddFavorite = async (savedImgData) => {
-    console.log("home saved image data", savedImgData);
     try {
       const response = await axios.post(
         `http://localhost:4000/user/${userId}`,

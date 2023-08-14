@@ -151,7 +151,6 @@ const addFavoriteImg = async (req, res) => {
     res.status(500).json({ error: "Failed " });
   }
 };
-
 //DELETE IMG FROM FAVORITE
 const removeFavoriteImg = async (req, res) => {
   const userId = req.body.userId;

@@ -11,7 +11,7 @@ const Favorites = () => {
   const [userId, setUserId] = useState("");
   const [userInfo, setUserInfo] = useState("");
   const [user, setUser] = useState("");
-  // const token = localStorage.getItem("token");
+  const [favoritesChanged, setFavoritesChanged] = useState(false);
 
   //Delete from favorites
   const handleDeleteFavorite = async (imgId) => {
@@ -19,19 +19,26 @@ const Favorites = () => {
       const response = await axios.delete(
         `http://localhost:4000/user/${imgId}`,
         {
-          // userId,
           data: { _id: imgId, userId },
         }
       );
-      console.log(`19999`, userId);
-      console.log(response.data);
-      // setUser(response.data.userInfo);
+      setFavoritesChanged(true);
     } catch (error) {
       console.log(error);
     }
-    console.log(userId);
   };
-
+  const deleteConfirm = async (id) => {
+    try {
+      const confirmBox = window.confirm(
+        "Do you really want to delete this book?"
+      );
+      if (confirmBox === true) {
+        await handleDeleteFavorite(id);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     //to get user info
     async function auth() {
@@ -42,67 +49,73 @@ const Favorites = () => {
         setUserInfo((prevUserInfo) => ({ ...prevUserInfo, ...response.data }));
         setUser(response.data);
         setUserId(response.data._id);
-        console.log("auth user", user);
-        console.log("auth useringo", userInfo);
-        console.log("auth userId", userId);
+        if (favoritesChanged) {
+          console.log("Favorites changed flag is true");
+          setFavoritesChanged(false);
+        }
       } catch (error) {
         console.error("Error verifying token:", error);
       }
     }
     auth();
-  }, []);
+  }, [userId, favoritesChanged, setFavoritesChanged]);
 
   return (
     <div>
-      <h1>Here is a list of your favorite books</h1>
-
+      <h1>Here is a list of your favorite Images</h1>
       <div>
         {userInfo.favoriteImg && (
           <ul>
-            {userInfo.favoriteImg.map((item) => (
-              <li key={item._id}>
-                <img src={item.image} alt="Image cover" />
-                <p>prompt={item.prompt} </p>
-                <p>negative_prompt={item.negative_prompt} </p>
-                <p>sampler_index={item.sampler_index} </p>
-                <p>cfg_scale={item.steps} </p>
-                <p>cfg_scale={item.cfg_scale} </p>
+            {userInfo.favoriteImg
+              .slice()
+              .reverse()
+              .map((item) => (
+                <li key={item._id}>
+                  <img src={item.image} alt="Image cover"  />
+                  <p>prompt={item.prompt} </p>
+                  <p>negative_prompt={item.negative_prompt} </p>
+                  <p>sampler_index={item.sampler_index} </p>
+                  <p>cfg_scale={item.steps} </p>
+                  <p>cfg_scale={item.cfg_scale} </p>
 
-                <Button
-                  sx={{ mt: 2, m: "auto" }}
-                  variant="outlined"
-                  onClick={() => {
-                    handleDeleteFavorite(item._id);
-                  }}
-                >
-                  Unfavorite
-                </Button>
-              </li>
-            ))}
+                  <Button
+                    sx={{ mt: 2, m: "auto" }}
+                    variant="outlined"
+                    onClick={() => {
+                      deleteConfirm(item._id);
+                    }}
+                  >
+                    Unfavorite
+                  </Button>
+                </li>
+              ))}
           </ul>
         )}
       </div>
-      {/* <Box sx={{ width: 500, height: 450, overflowY: "scroll" }}>
-        <ImageList variant="masonry" cols={3} gap={8}>
-          {userInfo.favoriteImg.map((item) => (
-            <ImageListItem key={item._id}>
-              <img
-                src={`${item.img}?w=248&fit=crop&auto=format`}
-                srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.title}
-                loading="lazy"
-              />
-              <p>prompt={item.prompt} </p>
-              <p>negative_prompt={item.negative_prompt} </p>
-              <p>sampler_index={item.sampler_index} </p>
-              <p>cfg_scale={item.steps} </p>
-              <p>cfg_scale={item.cfg_scale} </p>
-            </ImageListItem>
-          ))}
-        </ImageList>
-      </Box> */}
     </div>
   );
 };
 
 export default Favorites;
+
+{
+  /* <Box sx={{ width: 500, height: 450, overflowY: "scroll" }}>
+  <ImageList variant="masonry" cols={3} gap={8}>
+    {userInfo.favoriteImg.map((item) => (
+      <ImageListItem key={item._id}>
+        <img
+          src={`${item.img}?w=248&fit=crop&auto=format`}
+          srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+          alt={item.title}
+          loading="lazy"
+        />
+        <p>prompt={item.prompt} </p>
+        <p>negative_prompt={item.negative_prompt} </p>
+        <p>sampler_index={item.sampler_index} </p>
+        <p>cfg_scale={item.steps} </p>
+        <p>cfg_scale={item.cfg_scale} </p>
+      </ImageListItem>
+    ))}
+  </ImageList>
+</Box> */
+}
