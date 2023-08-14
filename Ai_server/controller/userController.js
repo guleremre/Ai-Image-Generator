@@ -155,7 +155,7 @@ const addFavoriteImg = async (req, res) => {
 //DELETE IMG FROM FAVORITE
 const removeFavoriteImg = async (req, res) => {
   const userId = req.body.userId;
-  const imgId = req.params.id;
+  const imgId = req.body._id;
   // console.log(req.body);
   // const userId = req.body.userId;
   // let imgObj = req.body.savedImgData;
@@ -169,22 +169,27 @@ const removeFavoriteImg = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
     // Find the index of the image in the favoriteImg array
-    console.log("user.favoriteImg susercont", user.favoriteImg);
+    // console.log("user.favoriteImg susercont", user.favoriteImg);
+    // const imgIndex = user.favoriteImg.findIndex(
+    //   (img) => img && img._id.toString() === imgId
+    // );
+
+    console.log("Favorite Images Array:", user.favoriteImg);
+    console.log("Searching for Image ID:", imgId);
     const imgIndex = user.favoriteImg.findIndex(
       (img) => img && img._id.toString() === imgId
     );
-
-    // if (imgIndex === -1) {
-    //   return res.status(404).json({ message: "Image not found in favorites" });
-    // }
+    console.log("Image Index:", imgIndex);
+    
+    if (imgIndex === -1) {
+      return res.status(404).json({ message: "Image not found in favorites" });
+    }
     // Remove the image from the favoriteImg array
+    
+    console.log("Image Index22", imgIndex);
     user.favoriteImg.splice(imgIndex, 1);
     await user.save();
     return res.json({ message: "Image removed from favorites", user });
-
-    // } else {
-    //   return res.json({ message: "Failed to find ImgObj" });
-    // }
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Failed to remove image from favorites" });

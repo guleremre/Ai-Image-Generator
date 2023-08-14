@@ -17,14 +17,13 @@ const Favorites = () => {
     console.log(id);
     try {
       const response = await axios.delete(`http://localhost:4000/user/${id}`, {
-        data: { token: token }, //////////////
+        userId: userId,
       });
       setUser(response.data.userInfo);
     } catch (error) {
       console.log(error);
     }
   };
-  
 
   useEffect(() => {
     //to get user info
