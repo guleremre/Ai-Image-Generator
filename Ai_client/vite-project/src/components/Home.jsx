@@ -9,7 +9,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Textarea from "@mui/joy/Textarea";
 import FormLabel from "@mui/joy/FormLabel";
 import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
+
 import SamplingMethodSelect from "./HomeComponents/SamplingMethodSelect";
 import SamplingSteps from "./HomeComponents/SamplingSteps";
 import CfgSlider from "./HomeComponents/CfgScale";
@@ -299,38 +299,36 @@ function Home() {
           </Box>
         </Box>
         <Dialog open={open} onClose={handleClose}>
-          <DialogContent>
-            <Box
-              noValidate
-              component="form"
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                width: "fit-content",
+          <Box
+            noValidate
+            component="form"
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              width: "fit-content",
+            }}
+          >
+            <img
+              style={{
+                width: "100%", // Set the initial width to 100%
+                maxWidth: "200%", // Ensure the image doesn't exceed its natural size
+                // height: "auto", // Maintain aspect ratio
+                transition: "width 0.2s ease",
+                marginBottom: 20,
+                transform: "scale(1)",
               }}
+              src={renderImg}
+              alt="renderImg"
+              onClick={handleClose}
+            />
+            <Button
+              sx={{ mt: 2, m: "auto" }}
+              variant="outlined"
+              onClick={handleClose}
             >
-              <img
-                style={{
-                  width: "100%", // Set the initial width to 100%
-                  maxWidth: "200%", // Ensure the image doesn't exceed its natural size
-                  // height: "auto", // Maintain aspect ratio
-                  transition: "width 0.2s ease",
-                  marginBottom: 20,
-                  transform: "scale(1)",
-                }}
-                src={renderImg}
-                alt="renderImg"
-                onClick={handleClose}
-              />
-              <Button
-                sx={{ mt: 2, m: "auto" }}
-                variant="outlined"
-                onClick={handleClose}
-              >
-                Close
-              </Button>
-            </Box>
-          </DialogContent>
+              Close
+            </Button>
+          </Box>
         </Dialog>
       </form>
     </>

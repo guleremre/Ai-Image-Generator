@@ -3,16 +3,30 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { Button } from "@mui/material";
+import AspectRatio from "@mui/joy/AspectRatio";
+import Typography from "@mui/joy/Typography";
+import Card from "@mui/joy/Card";
+import List from "@mui/joy/List";
+import ListDivider from "@mui/joy/ListDivider";
+import ListItem from "@mui/joy/ListItem";
+import ListItemContent from "@mui/joy/ListItemContent";
+import ListItemButton from "@mui/joy/ListItemButton";
+import Dialog from "@mui/material/Dialog";
 import Box from "@mui/material/Box";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
 
 const Favorites = () => {
   const [userId, setUserId] = useState("");
   const [userInfo, setUserInfo] = useState("");
   const [user, setUser] = useState("");
   const [favoritesChanged, setFavoritesChanged] = useState(false);
+  const [open, setOpen] = useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   //Delete from favorites
   const handleDeleteFavorite = async (imgId) => {
     try {
@@ -59,63 +73,112 @@ const Favorites = () => {
     }
     auth();
   }, [userId, favoritesChanged, setFavoritesChanged]);
-
   return (
-    <div>
+    <Card variant="outlined" sx={{ width: "95%", m: "auto", p: 0 }}>
       <h1>Here is a list of your favorite Images</h1>
-      <div>
-        {userInfo.favoriteImg && (
-          <ul>
-            {userInfo.favoriteImg
-              .slice()
-              .reverse()
-              .map((item) => (
-                <li key={item._id}>
-                  <img src={item.image} alt="Image cover"  />
-                  <p>prompt={item.prompt} </p>
-                  <p>negative_prompt={item.negative_prompt} </p>
-                  <p>sampler_index={item.sampler_index} </p>
-                  <p>cfg_scale={item.steps} </p>
-                  <p>cfg_scale={item.cfg_scale} </p>
-
-                  <Button
-                    sx={{ mt: 2, m: "auto" }}
-                    variant="outlined"
-                    onClick={() => {
-                      deleteConfirm(item._id);
+      <List sx={{ py: "var(--ListDivider-gap)" }}>
+        {userInfo.favoriteImg &&
+          userInfo.favoriteImg
+            .slice()
+            .reverse()
+            .map((item, index) => (
+              <React.Fragment key={item._id}>
+                <ListItem>
+                  <ListItemButton sx={{ gap: 2 }}>
+                    <AspectRatio
+                      variant="outlined"
+                      ratio="4/3"
+                      objectFit="cover"
+                      sx={{ flexBasis: 600 }}
+                    >
+                      <img
+                        className="mapImg"
+                        // className={"size"}
+                        onClick={handleClickOpen}
+                        src={`${item.image}?w=120&fit=crop&auto=format`}
+                        srcSet={`${item.image}?w=120&fit=crop&auto=format&dpr=2 2x`}
+                        alt={item.title}
+                      />
+                    </AspectRatio>
+                    <ListItemContent>
+                      <Typography level="body-sm">
+                        <b>prompt:</b>{" "}
+                        {item.prompt.length >= 20
+                          ? item.prompt.slice(0, 200) + "..."
+                          : item.prompt}
+                      </Typography>
+                      <Typography level="body-sm">
+                        <b>negative_prompt:</b>
+                        {item.negative_prompt.length >= 20
+                          ? item.negative_prompt.slice(0, 200) + "..."
+                          : item.negative_prompt}
+                      </Typography>
+                      <Typography level="body-sm">
+                        <b>sampler_index:</b>
+                        {item.sampler_index}
+                      </Typography>
+                      <Typography level="body-sm">
+                        <b>cfg_scale:</b>
+                        {item.cfg_scale}
+                      </Typography>
+                      <Typography level="body-sm">
+                        <b>steps:</b>
+                        {item.steps}
+                      </Typography>
+                      <Button
+                        sx={{
+                          mt: 8,
+                          m: "auto",
+                          color: "contrastText",
+                          bgcolor: "primary.light",
+                        }}
+                        variant="outlined"
+                        onClick={() => {
+                          deleteConfirm(item._id);
+                        }}
+                      >
+                        Unfavorite
+                      </Button>
+                    </ListItemContent>
+                  </ListItemButton>
+                </ListItem>
+                {index !== userInfo.favoriteImg.length - 1 && <ListDivider />}
+                <Dialog open={open} onClose={handleClose}>
+                  <Box
+                    noValidate
+                    component="form"
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "fit-content",
                     }}
                   >
-                    Unfavorite
-                  </Button>
-                </li>
-              ))}
-          </ul>
-        )}
-      </div>
-    </div>
+                    <img
+                      style={{
+                        width: "100%", // Set the initial width to 100%
+                        maxWidth: "200%", // Ensure the image doesn't exceed its natural size
+                        // height: "auto", // Maintain aspect ratio
+                        transition: "width 0.2s ease",
+                        marginBottom: 20,
+                        transform: "scale(1)",
+                      }}
+                      src={item.image} //////////////////
+                      alt="item.image"
+                      onClick={handleClose}
+                    />
+                    <Button
+                      sx={{ mt: 2, m: "auto" }}
+                      variant="outlined"
+                      onClick={handleClose}
+                    >
+                      Close
+                    </Button>
+                  </Box>
+                </Dialog>
+              </React.Fragment>
+            ))}
+      </List>
+    </Card>
   );
 };
-
 export default Favorites;
-
-{
-  /* <Box sx={{ width: 500, height: 450, overflowY: "scroll" }}>
-  <ImageList variant="masonry" cols={3} gap={8}>
-    {userInfo.favoriteImg.map((item) => (
-      <ImageListItem key={item._id}>
-        <img
-          src={`${item.img}?w=248&fit=crop&auto=format`}
-          srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-          alt={item.title}
-          loading="lazy"
-        />
-        <p>prompt={item.prompt} </p>
-        <p>negative_prompt={item.negative_prompt} </p>
-        <p>sampler_index={item.sampler_index} </p>
-        <p>cfg_scale={item.steps} </p>
-        <p>cfg_scale={item.cfg_scale} </p>
-      </ImageListItem>
-    ))}
-  </ImageList>
-</Box> */
-}
