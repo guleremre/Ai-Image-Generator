@@ -11,24 +11,25 @@ const Favorites = () => {
   const [userId, setUserId] = useState("");
   const [userInfo, setUserInfo] = useState("");
   const [user, setUser] = useState("");
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
+
   //Delete from favorites
-  const handleDeleteFavorite = async (id) => {
-    console.log(token);
-    console.log(id);
-    console.log("18", userInfo.favoriteImg);
+  const handleDeleteFavorite = async (imgId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:4000/user/${userId}`,
+        `http://localhost:4000/user/${imgId}`,
         {
-          userId: userId,
-          data: { token: token },
+          // userId,
+          data: { _id: imgId, userId },
         }
       );
-      setUser(response.data.userInfo);
+      console.log(`19999`, userId);
+      console.log(response.data);
+      // setUser(response.data.userInfo);
     } catch (error) {
       console.log(error);
     }
+    console.log(userId);
   };
 
   useEffect(() => {
@@ -40,14 +41,16 @@ const Favorites = () => {
         const response = await axios.post(url, { token });
         setUserInfo((prevUserInfo) => ({ ...prevUserInfo, ...response.data }));
         setUser(response.data);
+        setUserId(response.data._id);
+        console.log("auth user", user);
+        console.log("auth useringo", userInfo);
+        console.log("auth userId", userId);
       } catch (error) {
         console.error("Error verifying token:", error);
       }
-      console.log(user);
-      console.log("userInfo", userInfo);
     }
     auth();
-  }, [userId]);
+  }, []);
 
   return (
     <div>
@@ -68,7 +71,9 @@ const Favorites = () => {
                 <Button
                   sx={{ mt: 2, m: "auto" }}
                   variant="outlined"
-                  onClick={handleDeleteFavorite}
+                  onClick={() => {
+                    handleDeleteFavorite(item._id);
+                  }}
                 >
                   Unfavorite
                 </Button>

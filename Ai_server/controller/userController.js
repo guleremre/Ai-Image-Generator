@@ -156,6 +156,9 @@ const addFavoriteImg = async (req, res) => {
 const removeFavoriteImg = async (req, res) => {
   const userId = req.body.userId;
   const imgId = req.body._id;
+  console.log("userId favdel", userId);
+  console.log("req.body favdel", req.body);
+  console.log("imgId favdel", imgId);
   try {
     //find user
     let user = await User.findOne({ _id: userId });
