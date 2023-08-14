@@ -98,9 +98,7 @@ function Home() {
       const response = await axios.post("http://localhost:4000/img/", {
         body2,
       });
-      console.log("home obj lazım response.data", response.data.savedImg);
       var savedImgData = response.data.savedImg;
-
       setFavedImgId(response.data.savedImg._id); //set img id of favorite
       handleAddFavorite(savedImgData);
       alert(response.data.msg);
@@ -108,10 +106,9 @@ function Home() {
       console.log(error);
     }
   };
-
   //after upload image info to database add to favorite
   const handleAddFavorite = async (savedImgData) => {
-    // console.log("home js FavedImgId", favedImgId);
+    console.log("home saved image data", savedImgData);
     try {
       const response = await axios.post(
         `http://localhost:4000/user/${userId}`,
@@ -137,8 +134,7 @@ function Home() {
     console.log("step value is", newSteps.target.value);
     setSteps(newSteps.target.value); // Update the state with the selected slider value
   };
-  // choose image freedom level from input
-  cfg_scale;
+  // choose image freedom level from input  cfg_scale;
   const handleCfgValueChange = (newScale) => {
     const cfg = newScale.target.value;
     setCfgScale(cfg);

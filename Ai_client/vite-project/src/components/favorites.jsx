@@ -24,6 +24,7 @@ const Favorites = () => {
       console.log(error);
     }
   };
+  
 
   useEffect(() => {
     //to get user info
@@ -56,6 +57,14 @@ const Favorites = () => {
                 <p>sampler_index={item.sampler_index} </p>
                 <p>cfg_scale={item.steps} </p>
                 <p>cfg_scale={item.cfg_scale} </p>
+
+                <Button
+                  sx={{ mt: 2, m: "auto" }}
+                  variant="outlined"
+                  // onClick={handleClose}
+                >
+                  Unfavorite
+                </Button>
               </li>
             ))}
           </ul>

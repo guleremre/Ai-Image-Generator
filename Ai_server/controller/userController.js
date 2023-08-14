@@ -17,8 +17,6 @@ const getAllUserImg = async (req, res) => {
 const getUserAvatar = async (req, res) => {
   try {
     const userId = req.params.userId;
-    // console.log(userId);
-    // console.log(payload);
     const avatar = User.find();
   } catch (error) {}
 };
@@ -137,16 +135,9 @@ const verify = async (req, res) => {
 //ADD IMG TO FAVORITE
 const addFavoriteImg = async (req, res) => {
   const userId = req.body.userId;
-  console.log("req.body.", req.body.savedImgData);
-  // const id = req.body._id;
-  // const favoriteImg=req.body
-
   let imgObj = req.body.savedImgData;
-  // console.log(imgObj);
   try {
-    // console.log("mem o imeg", img);
     let user = await User.findOne({ _id: userId });
-    // console.log("usercontrol user", user);
     if (!user.favoriteImg) {
       user.favoriteImg = [imgObj];
       user.save();
@@ -163,29 +154,40 @@ const addFavoriteImg = async (req, res) => {
 
 //DELETE IMG FROM FAVORITE
 const removeFavoriteImg = async (req, res) => {
-  // const token = req.body.token;
-  const id = req.params._id;
-  try {
-    // let payload = jwt.verify(token, "secret");
-    let Img = await Img.findById(id);
-    let user = await User.findOne({ username: payload.username });
+  const userId = req.body.userId;
+  const imgId = req.params.id;
+  // console.log(req.body);
+  // const userId = req.body.userId;
+  // let imgObj = req.body.savedImgData;
+  // console.log(imgObj);
+  // console.log("deletefav userınfo", userInfo);
+  // console.log("deletefavdeletefavdeletefav", userInfo.favoriteImg);
 
-    if (user.favoriteImg.length > 0) {
-      for (let i = 0; i < user.favoriteImg.length; i++) {
-        // console.log(user.favoriteImg[i]._id.toHexString());
-        // console.log(id);
-        if (id === user.favoriteImg[i]._id.toHexString()) {
-          user.favoriteImg.splice(i, 1);
-          user.save();
-          return res.json({ user });
-        }
-      }
-    } else {
-      return res.json({ message: "Failed to find book" });
+  try {
+    let user = await User.findOne({ _id: userId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
+    // Find the index of the image in the favoriteImg array
+    console.log("user.favoriteImg susercont", user.favoriteImg);
+    const imgIndex = user.favoriteImg.findIndex(
+      (img) => img && img._id.toString() === imgId
+    );
+
+    // if (imgIndex === -1) {
+    //   return res.status(404).json({ message: "Image not found in favorites" });
+    // }
+    // Remove the image from the favoriteImg array
+    user.favoriteImg.splice(imgIndex, 1);
+    await user.save();
+    return res.json({ message: "Image removed from favorites", user });
+
+    // } else {
+    //   return res.json({ message: "Failed to find ImgObj" });
+    // }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: error });
+    res.status(500).json({ error: "Failed to remove image from favorites" });
   }
 };
 
