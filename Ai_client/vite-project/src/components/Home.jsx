@@ -298,14 +298,13 @@ function Home() {
             />
           </Box>
         </Box>
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
           <Box
             noValidate
             component="form"
             sx={{
               display: "flex",
               flexDirection: "column",
-              width: "fit-content",
             }}
           >
             <img

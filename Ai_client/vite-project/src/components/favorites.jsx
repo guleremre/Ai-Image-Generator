@@ -20,6 +20,14 @@ const Favorites = () => {
   const [user, setUser] = useState("");
   const [favoritesChanged, setFavoritesChanged] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openImageDialogs, setOpenImageDialogs] = useState([]);
+
+  // Function to toggle the open state of a specific image dialog
+  const toggleImageDialog = (index) => {
+    const newOpenStates = [...openImageDialogs];
+    newOpenStates[index] = !newOpenStates[index];
+    setOpenImageDialogs(newOpenStates);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -83,7 +91,7 @@ const Favorites = () => {
             .reverse()
             .map((item, index) => (
               <React.Fragment key={item._id}>
-                <ListItem>
+                <ListItem maxWidth="50%">
                   <ListItemButton sx={{ gap: 2 }}>
                     <AspectRatio
                       variant="outlined"
@@ -93,8 +101,7 @@ const Favorites = () => {
                     >
                       <img
                         className="mapImg"
-                        // className={"size"}
-                        onClick={handleClickOpen}
+                        onClick={() => toggleImageDialog(index)}
                         src={`${item.image}?w=120&fit=crop&auto=format`}
                         srcSet={`${item.image}?w=120&fit=crop&auto=format&dpr=2 2x`}
                         alt={item.title}
@@ -143,21 +150,26 @@ const Favorites = () => {
                   </ListItemButton>
                 </ListItem>
                 {index !== userInfo.favoriteImg.length - 1 && <ListDivider />}
-                <Dialog open={open} onClose={handleClose}>
+
+                <Dialog
+                  open={openImageDialogs[index]}
+                  onClose={() => toggleImageDialog(index)}
+                  maxWidth="md"
+                  fullWidth
+                >
                   <Box
                     noValidate
                     component="form"
                     sx={{
                       display: "flex",
                       flexDirection: "column",
-                      width: "fit-content",
                     }}
                   >
                     <img
                       style={{
-                        width: "100%", // Set the initial width to 100%
-                        maxWidth: "200%", // Ensure the image doesn't exceed its natural size
-                        // height: "auto", // Maintain aspect ratio
+                        width: "100%",
+                        maxWidth: "100%",
+                        // height: "auto",
                         transition: "width 0.2s ease",
                         marginBottom: 20,
                         transform: "scale(1)",
