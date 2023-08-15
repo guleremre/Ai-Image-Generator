@@ -19,7 +19,7 @@ const Favorites = () => {
   const [userInfo, setUserInfo] = useState("");
   const [user, setUser] = useState("");
   const [favoritesChanged, setFavoritesChanged] = useState(false);
-  const [open, setOpen] = useState(false);
+
   const [openImageDialogs, setOpenImageDialogs] = useState([]);
 
   // Function to toggle the open state of a specific image dialog
@@ -29,12 +29,6 @@ const Favorites = () => {
     setOpenImageDialogs(newOpenStates);
   };
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
   //Delete from favorites
   const handleDeleteFavorite = async (imgId) => {
     try {
@@ -176,12 +170,12 @@ const Favorites = () => {
                       }}
                       src={item.image} //////////////////
                       alt="item.image"
-                      onClick={handleClose}
+                      onClick={() => toggleImageDialog(index)}
                     />
                     <Button
                       sx={{ mt: 2, m: "auto" }}
                       variant="outlined"
-                      onClick={handleClose}
+                      onClick={() => toggleImageDialog(index)}
                     >
                       Close
                     </Button>
