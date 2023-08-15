@@ -22,7 +22,7 @@ const getUserAvatar = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  // console.log("user controller update", req.body);
+  
   try {
     await User.findByIdAndUpdate({ _id: req.params.id }, req.body);
     res.send({ msg: "updated" });
@@ -155,9 +155,7 @@ const addFavoriteImg = async (req, res) => {
 const removeFavoriteImg = async (req, res) => {
   const userId = req.body.userId;
   const imgId = req.body._id;
-  console.log("userId favdel", userId);
-  console.log("req.body favdel", req.body);
-  console.log("imgId favdel", imgId);
+ 
   try {
     //find user
     let user = await User.findOne({ _id: userId });

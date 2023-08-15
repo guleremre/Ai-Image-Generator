@@ -22,6 +22,11 @@ const Favorites = () => {
 
   const [openImageDialogs, setOpenImageDialogs] = useState([]);
 
+  // to copy text
+  const handleCopyText = (text) => {
+    navigator.clipboard.writeText(text);
+    alert("Copied!");
+  };
   // Function to toggle the open state of a specific image dialog
   const toggleImageDialog = (index) => {
     const newOpenStates = [...openImageDialogs];
@@ -46,7 +51,7 @@ const Favorites = () => {
   const deleteConfirm = async (id) => {
     try {
       const confirmBox = window.confirm(
-        "Do you really want to delete this book?"
+        "Do you really want to remove this from your favorite list?"
       );
       if (confirmBox === true) {
         await handleDeleteFavorite(id);
@@ -102,27 +107,42 @@ const Favorites = () => {
                       />
                     </AspectRatio>
                     <ListItemContent>
-                      <Typography level="body-sm">
+                      <Typography
+                        level="body-sm"
+                        onClick={() => handleCopyText(item.prompt)}
+                      >
                         <b>prompt:</b>{" "}
                         {item.prompt.length >= 20
                           ? item.prompt.slice(0, 200) + "..."
                           : item.prompt}
                       </Typography>
-                      <Typography level="body-sm">
+                      <Typography
+                        level="body-sm"
+                        onClick={() => handleCopyText(item.negative_prompt)}
+                      >
                         <b>negative_prompt:</b>
                         {item.negative_prompt.length >= 20
                           ? item.negative_prompt.slice(0, 200) + "..."
                           : item.negative_prompt}
                       </Typography>
-                      <Typography level="body-sm">
+                      <Typography
+                        level="body-sm"
+                        onClick={() => handleCopyText(item.sampler_index)}
+                      >
                         <b>sampler_index:</b>
                         {item.sampler_index}
                       </Typography>
-                      <Typography level="body-sm">
+                      <Typography
+                        level="body-sm"
+                        onClick={() => handleCopyText(item.cfg_scale)}
+                      >
                         <b>cfg_scale:</b>
                         {item.cfg_scale}
                       </Typography>
-                      <Typography level="body-sm">
+                      <Typography
+                        level="body-sm"
+                        onClick={() => handleCopyText(item.steps)}
+                      >
                         <b>steps:</b>
                         {item.steps}
                       </Typography>
