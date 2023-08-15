@@ -13,13 +13,13 @@ import ListItemContent from "@mui/joy/ListItemContent";
 import ListItemButton from "@mui/joy/ListItemButton";
 import Dialog from "@mui/material/Dialog";
 import Box from "@mui/material/Box";
-
+import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
+import BookmarkRemoveSharpIcon from "@mui/icons-material/BookmarkRemoveSharp";
+import LoadingButton from "@mui/lab/LoadingButton";
 const Favorites = () => {
   const [userId, setUserId] = useState("");
   const [userInfo, setUserInfo] = useState("");
-  const [user, setUser] = useState("");
   const [favoritesChanged, setFavoritesChanged] = useState(false);
-
   const [openImageDialogs, setOpenImageDialogs] = useState([]);
 
   // to copy text
@@ -68,7 +68,6 @@ const Favorites = () => {
       try {
         const response = await axios.post(url, { token });
         setUserInfo((prevUserInfo) => ({ ...prevUserInfo, ...response.data }));
-        setUser(response.data);
         setUserId(response.data._id);
         if (favoritesChanged) {
           console.log("Favorites changed flag is true");
@@ -111,7 +110,10 @@ const Favorites = () => {
                         level="body-sm"
                         onClick={() => handleCopyText(item.prompt)}
                       >
-                        <b>prompt:</b>{" "}
+                        <b>
+                          <ContentCopyRoundedIcon />
+                          prompt:
+                        </b>{" "}
                         {item.prompt.length >= 20
                           ? item.prompt.slice(0, 200) + "..."
                           : item.prompt}
@@ -120,7 +122,10 @@ const Favorites = () => {
                         level="body-sm"
                         onClick={() => handleCopyText(item.negative_prompt)}
                       >
-                        <b>negative_prompt:</b>
+                        <b>
+                          <ContentCopyRoundedIcon />
+                          negative_prompt:
+                        </b>
                         {item.negative_prompt.length >= 20
                           ? item.negative_prompt.slice(0, 200) + "..."
                           : item.negative_prompt}
@@ -146,20 +151,22 @@ const Favorites = () => {
                         <b>steps:</b>
                         {item.steps}
                       </Typography>
-                      <Button
+                      <LoadingButton
+                        variant="contained"
+                        size="medium"
                         sx={{
-                          mt: 8,
-                          m: "auto",
-                          color: "contrastText",
-                          bgcolor: "primary.light",
+                          margin: "auto",
+                          "&:hover": {
+                            color: "red",
+                            backgroundColor: "white",
+                          },
                         }}
-                        variant="outlined"
                         onClick={() => {
                           deleteConfirm(item._id);
                         }}
                       >
-                        Unfavorite
-                      </Button>
+                        <BookmarkRemoveSharpIcon />
+                      </LoadingButton>
                     </ListItemContent>
                   </ListItemButton>
                 </ListItem>

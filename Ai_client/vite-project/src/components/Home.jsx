@@ -9,10 +9,11 @@ import Skeleton from "@mui/material/Skeleton";
 import Textarea from "@mui/joy/Textarea";
 import FormLabel from "@mui/joy/FormLabel";
 import Dialog from "@mui/material/Dialog";
-
+import BookmarkAddSharpIcon from "@mui/icons-material/BookmarkAddSharp";
 import SamplingMethodSelect from "./HomeComponents/SamplingMethodSelect";
 import SamplingSteps from "./HomeComponents/SamplingSteps";
 import CfgSlider from "./HomeComponents/CfgScale";
+import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 
 const url = "http://127.0.0.1:7860/sdapi/v1/txt2img";
 
@@ -101,7 +102,7 @@ function Home() {
       var savedImgData = response.data.savedImg;
       setFavedImgId(response.data.savedImg._id); //set img id of favorite
       handleAddFavorite(savedImgData);
-      alert(response.data.msg);
+      // alert(response.data.msg);
     } catch (error) {
       console.log(error);
     }
@@ -117,6 +118,7 @@ function Home() {
           userId: userId,
         }
       );
+      alert(" Image added to favorite list");
     } catch (error) {
       console.log(error);
     }
@@ -188,28 +190,46 @@ function Home() {
             loading={loading}
             loadingPosition="end"
             variant="contained"
-            sx={{ margin: "auto" }}
+            sx={{
+              margin: "auto",
+              "&:hover": {
+                color: "#1976d2",
+                backgroundColor: "white",
+              },
+            }}
           >
             <span>Generate Image</span>
-          </LoadingButton>{" "}
+          </LoadingButton>
           {downloadReady && (
             <>
               <LoadingButton
                 variant="contained"
                 size="medium"
                 onClick={handleDownload}
-                sx={{ margin: "auto" }}
+                sx={{
+                  margin: "auto",
+                  "&:hover": {
+                    color: "#1976d2",
+                    backgroundColor: "white",
+                  },
+                }}
               >
-                Download Image
+                <DownloadRoundedIcon />
               </LoadingButton>
 
               <LoadingButton
                 variant="contained"
                 size="medium"
                 onClick={createupload}
-                sx={{ margin: "auto" }}
+                sx={{
+                  margin: "auto",
+                  "&:hover": {
+                    color: "#1976d2",
+                    backgroundColor: "white",
+                  },
+                }}
               >
-                fav Image
+                <BookmarkAddSharpIcon />
               </LoadingButton>
             </>
           )}
