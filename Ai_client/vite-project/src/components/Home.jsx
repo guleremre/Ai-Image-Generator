@@ -148,91 +148,93 @@ function Home() {
   return (
     <>
       <form onSubmit={onSubmit} className="background-image">
-        <Box
-          sx={{
-            bgcolor: "#9fa8a4",
-            p: 0,
-            pt: 3,
-            pb: 0,
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          {imgLoad ? (
-            <img
-              width="256"
-              className={"size"}
-              onClick={handleClickOpen}
-              src={renderImg}
-            />
-          ) : (
-            <Skeleton
-              sx={{ bgcolor: "grey.800" }}
-              variant="rectangular"
-              animation="wave"
-              width={258}
-              height={258}
-            />
-          )}
-        </Box>
-        <Box
-          sx={{
-            "& > button": { mt: 3 },
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-          }}
-        >
-          <LoadingButton
-            size="medium"
-            onClick={onSubmit}
-            endIcon={<SendIcon />}
-            loading={loading}
-            loadingPosition="end"
-            variant="contained"
+        <Box>
+          <Box
             sx={{
-              margin: "auto",
-              "&:hover": {
-                color: "#1976d2",
-                backgroundColor: "white",
-              },
+              bgcolor: "red",
+              // bgcolor: "#9fa8a4",
+              p: 0,
+              py: 3,
+
+              display: "flex",
+              justifyContent: "center",
             }}
           >
-            <span>Generate Image</span>
-          </LoadingButton>
-          {downloadReady && (
-            <>
-              <LoadingButton
-                variant="contained"
-                size="medium"
-                onClick={handleDownload}
+            {imgLoad ? (
+              <img width="256" onClick={handleClickOpen} src={renderImg} />
+            ) : (
+              <Skeleton
+                sx={{ bgcolor: "grey.800" }}
+                variant="rectangular"
+                animation="wave"
+                width={258}
+                height={258}
+              />
+            )}
+          </Box>
+          <Box
+            sx={{
+              "& > button": { m: 1 },
+              display: "flex",
+              justifyContent: "center",
+              bgcolor: "green",
+              flexDirection: "row",
+            }}
+          >
+            <LoadingButton
+              size="medium"
+              onClick={onSubmit}
+              endIcon={<SendIcon />}
+              loading={loading}
+              loadingPosition="end"
+              variant="contained"
+              sx={{
+                margin: "auto",
+                "&:hover": {
+                  color: "#1976d2",
+                  backgroundColor: "white",
+                },
+              }}
+            >
+              <span>Generate Image</span>
+            </LoadingButton>
+            {downloadReady && (
+              <Box
                 sx={{
-                  margin: "auto",
-                  "&:hover": {
-                    color: "#1976d2",
-                    backgroundColor: "white",
-                  },
+                  m: 1,
                 }}
               >
-                <DownloadRoundedIcon />
-              </LoadingButton>
-
-              <LoadingButton
-                variant="contained"
-                size="medium"
-                onClick={createupload}
-                sx={{
-                  margin: "auto",
-                  "&:hover": {
-                    color: "#1976d2",
-                    backgroundColor: "white",
-                  },
-                }}
-              >
-                <BookmarkAddSharpIcon />
-              </LoadingButton>
-            </>
-          )}
+                <LoadingButton
+                  variant="contained"
+                  size="medium"
+                  onClick={handleDownload}
+                  sx={{
+                    margin: "auto",
+                    "&:hover": {
+                      color: "#1976d2",
+                      backgroundColor: "white",
+                    },
+                  }}
+                >
+                  <DownloadRoundedIcon />
+                </LoadingButton>{" "}
+                <LoadingButton
+                  variant="contained"
+                  size="medium"
+                  onClick={createupload}
+                  sx={{
+                    margin: "auto",
+                    "&:hover": {
+                      color: "#1976d2",
+                      backgroundColor: "white",
+                    },
+                  }}
+                >
+                  <BookmarkAddSharpIcon />
+                </LoadingButton>
+              </Box>
+            )}
+          </Box>
         </Box>
         <Box
           sx={{
@@ -241,6 +243,7 @@ function Home() {
             pb: 2,
             display: "flex",
             flexDirection: "column",
+            bgcolor: "yellow",
           }}
         >
           <FormLabel>Prompt</FormLabel>
@@ -290,64 +293,37 @@ function Home() {
               setNegativePrompt(e.target.value);
             }}
           />
-          <Box
-            className="advancedSetups"
-            // sx={{ margin: 2, display: "flex", flexDirection: "column" }}
-          >
-            <SamplingMethodSelect
-              onSelected={setSamplerIndex}
-              sampler_index={sampler_index}
-            />
-            <Box
-            // sx={{
-            //   display: "flex",
-            //   flexDirection: "column",
-            //   justifyContent: "left",
-            //   alignItems: "center",
-            // }}
-            >
-              <SamplingSteps
-                onValueChange={handleSliderValueChange}
-                steps={steps}
-              />
-              <p>Detail value {steps}</p>
-            </Box>
-            <CfgSlider
-              onValueChange={handleCfgValueChange}
-              cfg_scale={cfg_scale}
-            />
-          </Box>
+        </Box>
+        <Box
+          className="advancedSetups"
+          sx={{ display: "flex", flexDirection: "column", bgcolor: "orange" }}
+        >
+          <SamplingMethodSelect
+            onSelected={setSamplerIndex}
+            sampler_index={sampler_index}
+          />
+
+          <SamplingSteps
+            onValueChange={handleSliderValueChange}
+            steps={steps}
+          />
+          <p>Detail value {steps}</p>
+          <CfgSlider
+            onValueChange={handleCfgValueChange}
+            cfg_scale={cfg_scale}
+          />
         </Box>
         <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
-          <Box
-            noValidate
-            component="form"
-            sx={{
-              display: "flex",
-              flexDirection: "column",
+          <img
+            style={{
+              width: "100%", // Set the initial width to 100%
+              maxWidth: "100%", // Ensure the image doesn't exceed its natural size
+              height: "auto", // Maintain aspect ratio
             }}
-          >
-            <img
-              style={{
-                width: "100%", // Set the initial width to 100%
-                maxWidth: "200%", // Ensure the image doesn't exceed its natural size
-                // height: "auto", // Maintain aspect ratio
-                transition: "width 0.2s ease",
-                marginBottom: 20,
-                transform: "scale(1)",
-              }}
-              src={renderImg}
-              alt="renderImg"
-              onClick={handleClose}
-            />
-            <Button
-              sx={{ mt: 2, m: "auto" }}
-              variant="outlined"
-              onClick={handleClose}
-            >
-              Close
-            </Button>
-          </Box>
+            src={renderImg}
+            alt="renderImg"
+            onClick={handleClose}
+          />
         </Dialog>
       </form>
     </>

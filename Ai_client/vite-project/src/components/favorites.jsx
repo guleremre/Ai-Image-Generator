@@ -95,7 +95,14 @@ const Favorites = () => {
                       variant="outlined"
                       ratio="4/3"
                       objectFit="cover"
-                      sx={{ flexBasis: 600 }}
+                      sx={{
+                        flexBasis: 600,
+                        position: "relative",
+                        "&:hover": {
+                          color: "#1976d2",
+                          backgroundColor: "white",
+                        },
+                      }}
                     >
                       <img
                         className="mapImg"
@@ -104,16 +111,40 @@ const Favorites = () => {
                         srcSet={`${item.image}?w=120&fit=crop&auto=format&dpr=2 2x`}
                         alt={item.title}
                       />
+                      <LoadingButton
+                        variant="contained"
+                        size="medium"
+                        // color="secondary"
+                        sx={{
+                          borderRadius: "50%",
+                          position: "absolute",
+                          bottom: "5%",
+                          right: "5%",
+                          "&:hover": {
+                            color: "red",
+                            backgroundColor: "white",
+                          },
+                        }}
+                        onClick={() => {
+                          deleteConfirm(item._id);
+                        }}
+                      >
+                        <BookmarkRemoveSharpIcon />
+                      </LoadingButton>
                     </AspectRatio>
                     <ListItemContent>
                       <Typography
                         level="body-sm"
                         onClick={() => handleCopyText(item.prompt)}
+                        sx={{
+                          "&:hover": {
+                            color: "#1976d2",
+                            backgroundColor: "white",
+                            scale: "1.1",
+                          },
+                        }}
                       >
-                        <b>
-                          <ContentCopyRoundedIcon />
-                          prompt:
-                        </b>{" "}
+                        <b>prompt:</b>{" "}
                         {item.prompt.length >= 20
                           ? item.prompt.slice(0, 200) + "..."
                           : item.prompt}
@@ -121,11 +152,15 @@ const Favorites = () => {
                       <Typography
                         level="body-sm"
                         onClick={() => handleCopyText(item.negative_prompt)}
+                        sx={{
+                          "&:hover": {
+                            color: "#1976d2",
+                            backgroundColor: "white",
+                            scale: "1.1",
+                          },
+                        }}
                       >
-                        <b>
-                          <ContentCopyRoundedIcon />
-                          negative_prompt:
-                        </b>
+                        <b>negative_prompt:</b>
                         {item.negative_prompt.length >= 20
                           ? item.negative_prompt.slice(0, 200) + "..."
                           : item.negative_prompt}
@@ -178,35 +213,19 @@ const Favorites = () => {
                   maxWidth="md"
                   fullWidth
                 >
-                  <Box
-                    noValidate
-                    component="form"
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
+                  <img
+                    style={{
+                      width: "100%",
+                      maxWidth: "100%",
+                      // height: "auto",
+                      transition: "width 0.2s ease",
+                      // marginBottom: 20,
+                      // transform: "scale(1)",
                     }}
-                  >
-                    <img
-                      style={{
-                        width: "100%",
-                        maxWidth: "100%",
-                        // height: "auto",
-                        transition: "width 0.2s ease",
-                        marginBottom: 20,
-                        transform: "scale(1)",
-                      }}
-                      src={item.image} //////////////////
-                      alt="item.image"
-                      onClick={() => toggleImageDialog(index)}
-                    />
-                    <Button
-                      sx={{ mt: 2, m: "auto" }}
-                      variant="outlined"
-                      onClick={() => toggleImageDialog(index)}
-                    >
-                      Close
-                    </Button>
-                  </Box>
+                    src={item.image} 
+                    alt="item.image"
+                    onClick={() => toggleImageDialog(index)}
+                  />
                 </Dialog>
               </React.Fragment>
             ))}

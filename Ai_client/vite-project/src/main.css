@@ -1,0 +1,10 @@
+body {
+  background-image: url("/images/00002-4042268537.png"),
+    url("/images/00003-2812890993.png"), url("/images/00005-1994719511.png"),
+    url("/images/00006-911648361.png"), url("/images/00009-3407238675.png"),
+    url("/images/00030-3150968087.png"), url("/images/00035-319552740.png");
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

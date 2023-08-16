@@ -11,6 +11,7 @@ import About from "./components/About";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Favorites from "./components/favorites";
+// import Parallax from "./components/Parallax";
 function App() {
   return (
     <>

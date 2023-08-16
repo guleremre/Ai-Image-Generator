@@ -6,12 +6,5 @@
   width: 70%;
   background-color: #9fa8a4;
   min-height: 60em;
-  background-image: ".\images\celestial-city.webp";
-}
-
-:root {
-  background-image: ".\images\celestial-city.webp";
-}
-body {
-  background-image: ".\images\celestial-city.webp";
+  /* background-image: ".\images\celestial-city.webp"; */
 }
