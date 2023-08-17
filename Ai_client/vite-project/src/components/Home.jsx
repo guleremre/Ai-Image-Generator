@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Box } from '@mui/material';
+import { Box } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Button from "@mui/joy/Button";
 import SendIcon from "@mui/icons-material/Send";
@@ -362,25 +362,25 @@ function Home() {
             p: 2,
           }}
         >
-          <Box >
+          <Box>
             <SamplingMethodSelect
               onSelected={setSamplerIndex}
               sampler_index={sampler_index}
             />
           </Box>
           <Box>
-            <FormLabel>Detail value {steps}</FormLabel>
             <SamplingSteps
               onValueChange={handleSliderValueChange}
               steps={steps}
             />
+            <FormLabel>Detail value {steps}</FormLabel>
           </Box>
           <Box>
-            <FormLabel> Cfg Scale</FormLabel>
             <CfgSlider
               onValueChange={handleCfgValueChange}
               cfg_scale={cfg_scale}
             />
+            <FormLabel> Cfg Scale</FormLabel>
           </Box>
         </Box>
 

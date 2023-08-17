@@ -12,7 +12,7 @@ export default function SamplingMethodSelect({ onSelected }) {
   };
 
   return (
-    <FormControl sx={{ minWidth: 120 }}>
+    <FormControl sx={{ minWidth: 250 }}>
       <InputLabel id="Sampling-Method">Sampling Method</InputLabel>
       <Select
         labelId="Sampling-Method-label"

@@ -1,15 +1,15 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import { styled, alpha, Box } from "@mui/system";
-import  { sliderClasses } from "@mui/base/Slider";
+import { sliderClasses } from "@mui/base/Slider";
 import { Slider } from "@mui/base";
 
 export default function CfgSlider({ onValueChange }) {
   const handleSliderChange = (newScale) => {
     onValueChange(newScale); // Update the state when slider value changes
-    };
+  };
   return (
-    <Box sx={{ width: 400 }}>
+    <Box sx={{ width: 250 }}>
       <StyledSlider
         aria-label="Smilarity"
         defaultValue={5}
