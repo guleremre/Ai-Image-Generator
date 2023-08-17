@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Box from "@mui/material/Box";
+import { Box } from '@mui/material';
 import LoadingButton from "@mui/lab/LoadingButton";
 import Button from "@mui/joy/Button";
 import SendIcon from "@mui/icons-material/Send";
