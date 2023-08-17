@@ -327,30 +327,7 @@ function Home() {
             />
           </Box>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            // maxWidth: "inherit",
-            m: 2,
-          }}
-        >
-          {/* <Box
-            className="black"
-            sx={{
-              p: 2,
-              bgcolor: "black",
-              display: "flex",
-              flexDirection: "column",
-              flexGrow: "1",
-              justifyContent: "center",
-              // alignItems: "center",
 
-              // maxHeight: "inherit",
-            }}
-          ></Box> */}
-        </Box>
         <Box
           className="advancedSetups"
           sx={{

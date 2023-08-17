@@ -17,7 +17,7 @@ export default function CfgSlider({ onValueChange }) {
         onChange={handleSliderChange}
         step={0.5}
         marks
-        min={0}
+        min={2}
         max={20}
         slots={{ valueLabel: SliderValueLabel }}
       />
@@ -77,7 +77,7 @@ const StyledSlider = styled(Slider)(
   -webkit-tap-highlight-color: transparent;
 
   &:hover {
-    opacity: 2;
+    opacity: 1;
   }
 
   &.${sliderClasses.disabled} { 
