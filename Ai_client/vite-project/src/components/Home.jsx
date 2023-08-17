@@ -1,7 +1,10 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+
+
 import {Box} from "@mui/material";
+
 import LoadingButton from "@mui/lab/LoadingButton";
 import Button from "@mui/joy/Button";
 import SendIcon from "@mui/icons-material/Send";
@@ -204,9 +207,8 @@ function Home() {
                 "& > button": { m: 1 },
                 display: "flex",
                 justifyContent: "center",
-                // bgcolor: "green",
+                bgcolor: "pink",
                 flexDirection: "row",
-                // m: 2,
               }}
             >
               <LoadingButton
@@ -229,7 +231,10 @@ function Home() {
               {downloadReady && (
                 <Box
                   sx={{
-                    m: 1,
+                    my: 1,
+                    mr: 1,
+                    display: "flex",
+                    gap: 1,
                   }}
                 >
                   <LoadingButton
@@ -245,7 +250,7 @@ function Home() {
                     }}
                   >
                     <DownloadRoundedIcon />
-                  </LoadingButton>{" "}
+                  </LoadingButton>
                   <LoadingButton
                     variant="contained"
                     size="medium"
@@ -281,10 +286,11 @@ function Home() {
             <FormLabel>Prompt</FormLabel>
             <Textarea
               color="primary"
-              minRows={3}
+              minRows={5}
               maxRows={6}
               width="100%"
-              // size="xl"
+              size="md"
+              variant="solid"
               sx={{
                 "--Textarea-focusedInset": "var(--any, )",
                 "--Textarea-focusedThickness": "0.25rem",
@@ -296,7 +302,7 @@ function Home() {
                   borderColor: "#86b7fe",
                 },
               }}
-              variant="solid"
+              // variant="solid"
               placeholder="Enter prompt"
               defaultValue="monster 1girl, (masterpiece, best quality, beautiful and aesthetic:1.2), ultra high res, 8k, detailed, (fractal art:1.3), colorful, radiosity, automatic white balance"
               onChange={(e) => setPrompt(e.target.value)}
@@ -304,9 +310,10 @@ function Home() {
             <FormLabel>Negative prompt</FormLabel>
             <Textarea
               color="primary"
-              minRows={3}
+              minRows={5}
               maxRows={6}
-              // size="md"
+              size="md"
+              variant="solid"
               sx={{
                 "--Textarea-focusedInset": "var(--any, )",
                 "--Textarea-focusedThickness": "0.25rem",
@@ -318,7 +325,6 @@ function Home() {
                   borderColor: "#86b7fe",
                 },
               }}
-              variant="solid"
               placeholder="Enter Negative prompt"
               defaultValue="nude, topless, naked, ng_deepnegative_v1_75t, easynegative, (worst quality:2), (low quality:2), (normal quality:1.8), lowres, ((monochrome)), ((grayscale)), sketch, ugly, morbid, deformed, logo, text, bad anatomy, bad proportions, disfigured, extra arms, extra legs, fused fingers, extra digits, fewer digits, mutated hands, poorly drawn hands, bad hands"
               onChange={(e) => {
@@ -328,41 +334,19 @@ function Home() {
           </Box>
         </Box>
         <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            // maxWidth: "inherit",
-            m: 2,
-          }}
-        >
-          {/* <Box
-            className="black"
-            sx={{
-              p: 2,
-              bgcolor: "black",
-              display: "flex",
-              flexDirection: "column",
-              flexGrow: "1",
-              justifyContent: "center",
-              // alignItems: "center",
-
-              // maxHeight: "inherit",
-            }}
-          ></Box> */}
-        </Box>
-        <Box
           className="advancedSetups"
           sx={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-start",
+            textAlign: "start",
             bgcolor: "orange",
             // m: 5,
+            gap: 1,
             p: 2,
           }}
         >
-          <Box >
+          <Box>
             <SamplingMethodSelect
               onSelected={setSamplerIndex}
               sampler_index={sampler_index}

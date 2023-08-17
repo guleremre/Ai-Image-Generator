@@ -1,10 +1,9 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
+
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useState } from "react";
 
 export default function SamplingMethodSelect({ onSelected }) {
   const handleChange = (event) => {
@@ -12,7 +11,7 @@ export default function SamplingMethodSelect({ onSelected }) {
   };
 
   return (
-    <FormControl sx={{ minWidth: 120 }}>
+    <FormControl sx={{ minWidth: 250 }}>
       <InputLabel id="Sampling-Method">Sampling Method</InputLabel>
       <Select
         labelId="Sampling-Method-label"

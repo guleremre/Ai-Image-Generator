@@ -12,7 +12,7 @@ export default function SamplingSteps({ onValueChange }) {
     onValueChange(newSteps); // Update the state when slider value changes
   };
   return (
-    <Box sx={{ width: 300 }}>
+    <Box sx={{ width: 250 }}>
       <StyledSlider
         // value={steps}
         onChange={handleSliderChange}

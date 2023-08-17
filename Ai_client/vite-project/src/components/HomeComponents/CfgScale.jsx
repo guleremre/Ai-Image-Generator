@@ -1,15 +1,15 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import { styled, alpha, Box } from "@mui/system";
-import  { sliderClasses } from "@mui/base/Slider";
+import { sliderClasses } from "@mui/base/Slider";
 import { Slider } from "@mui/base";
 
 export default function CfgSlider({ onValueChange }) {
   const handleSliderChange = (newScale) => {
     onValueChange(newScale); // Update the state when slider value changes
-    };
+  };
   return (
-    <Box sx={{ width: 400 }}>
+    <Box sx={{ width: 250 }}>
       <StyledSlider
         aria-label="Smilarity"
         defaultValue={5}
@@ -17,7 +17,7 @@ export default function CfgSlider({ onValueChange }) {
         onChange={handleSliderChange}
         step={0.5}
         marks
-        min={0}
+        min={2}
         max={20}
         slots={{ valueLabel: SliderValueLabel }}
       />
@@ -77,7 +77,7 @@ const StyledSlider = styled(Slider)(
   -webkit-tap-highlight-color: transparent;
 
   &:hover {
-    opacity: 2;
+    opacity: 1;
   }
 
   &.${sliderClasses.disabled} { 
