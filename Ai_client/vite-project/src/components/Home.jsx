@@ -204,9 +204,8 @@ function Home() {
                 "& > button": { m: 1 },
                 display: "flex",
                 justifyContent: "center",
-                // bgcolor: "green",
+                bgcolor: "pink",
                 flexDirection: "row",
-                // m: 2,
               }}
             >
               <LoadingButton
@@ -229,7 +228,10 @@ function Home() {
               {downloadReady && (
                 <Box
                   sx={{
-                    m: 1,
+                    my: 1,
+                    mr: 1,
+                    display: "flex",
+                    gap: 1,
                   }}
                 >
                   <LoadingButton
@@ -245,7 +247,7 @@ function Home() {
                     }}
                   >
                     <DownloadRoundedIcon />
-                  </LoadingButton>{" "}
+                  </LoadingButton>
                   <LoadingButton
                     variant="contained"
                     size="medium"
@@ -334,8 +336,10 @@ function Home() {
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-start",
+            textAlign: "start",
             bgcolor: "orange",
             // m: 5,
+            gap: 1,
             p: 2,
           }}
         >
@@ -346,18 +350,18 @@ function Home() {
             />
           </Box>
           <Box>
+            <FormLabel>Detail value {steps}</FormLabel>
             <SamplingSteps
               onValueChange={handleSliderValueChange}
               steps={steps}
             />
-            <FormLabel>Detail value {steps}</FormLabel>
           </Box>
           <Box>
+            <FormLabel> Cfg Scale</FormLabel>
             <CfgSlider
               onValueChange={handleCfgValueChange}
               cfg_scale={cfg_scale}
             />
-            <FormLabel> Cfg Scale</FormLabel>
           </Box>
         </Box>
 
