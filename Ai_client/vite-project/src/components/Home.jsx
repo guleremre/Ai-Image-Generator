@@ -148,171 +148,242 @@ function Home() {
   return (
     <>
       <form onSubmit={onSubmit} className="background-image">
-        <Box>
+        <Box
+          className="red-green-yellow"
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            // maxWidth: "inherit",
+            m: 2,
+          }}
+        >
           <Box
+            className="red-green"
             sx={{
-              bgcolor: "red",
-              // bgcolor: "#9fa8a4",
-              p: 0,
-              py: 3,
-
               display: "flex",
-              justifyContent: "center",
+              maxHeight: "100%",
+              flexDirection: "column",
+              alignContent: "center",
+              // alignItems:""
             }}
           >
-            {imgLoad ? (
-              <img width="256" onClick={handleClickOpen} src={renderImg} />
-            ) : (
-              <Skeleton
-                sx={{ bgcolor: "grey.800" }}
-                variant="rectangular"
-                animation="wave"
-                width={258}
-                height={258}
-              />
-            )}
-          </Box>
-          <Box
-            sx={{
-              "& > button": { m: 1 },
-              display: "flex",
-              justifyContent: "center",
-              bgcolor: "green",
-              flexDirection: "row",
-            }}
-          >
-            <LoadingButton
-              size="medium"
-              onClick={onSubmit}
-              endIcon={<SendIcon />}
-              loading={loading}
-              loadingPosition="end"
-              variant="contained"
+            <Box
+              className="red"
               sx={{
-                margin: "auto",
-                "&:hover": {
-                  color: "#1976d2",
-                  backgroundColor: "white",
-                },
+                // bgcolor: "red",
+                // bgcolor: "#9fa8a4",
+                // p: 0,
+                // py: 2,
+                // p: 2,
+                // maxHeight: "100%",
+                // maxWidth: "100%",
+                display: "flex",
+                justifyContent: "center",
+                // alignContent: "space-around",
+                alignItems: "center",
+                flexGrow: "0",
               }}
             >
-              <span>Generate Image</span>
-            </LoadingButton>
-            {downloadReady && (
-              <Box
+              {imgLoad ? (
+                <img width="256" onClick={handleClickOpen} src={renderImg} />
+              ) : (
+                <Skeleton
+                  sx={{ bgcolor: "grey.800" }}
+                  variant="rectangular"
+                  animation="wave"
+                  width={258}
+                  height={258}
+                />
+              )}
+            </Box>
+
+            <Box
+              className="green"
+              sx={{
+                "& > button": { m: 1 },
+                display: "flex",
+                justifyContent: "center",
+                // bgcolor: "green",
+                flexDirection: "row",
+                // m: 2,
+              }}
+            >
+              <LoadingButton
+                size="medium"
+                onClick={onSubmit}
+                endIcon={<SendIcon />}
+                loading={loading}
+                loadingPosition="end"
+                variant="contained"
                 sx={{
-                  m: 1,
+                  margin: "auto",
+                  "&:hover": {
+                    color: "#1976d2",
+                    backgroundColor: "white",
+                  },
                 }}
               >
-                <LoadingButton
-                  variant="contained"
-                  size="medium"
-                  onClick={handleDownload}
+                <span>Generate Image</span>
+              </LoadingButton>
+              {downloadReady && (
+                <Box
                   sx={{
-                    margin: "auto",
-                    "&:hover": {
-                      color: "#1976d2",
-                      backgroundColor: "white",
-                    },
+                    m: 1,
                   }}
                 >
-                  <DownloadRoundedIcon />
-                </LoadingButton>{" "}
-                <LoadingButton
-                  variant="contained"
-                  size="medium"
-                  onClick={createupload}
-                  sx={{
-                    margin: "auto",
-                    "&:hover": {
-                      color: "#1976d2",
-                      backgroundColor: "white",
-                    },
-                  }}
-                >
-                  <BookmarkAddSharpIcon />
-                </LoadingButton>
-              </Box>
-            )}
+                  <LoadingButton
+                    variant="contained"
+                    size="medium"
+                    onClick={handleDownload}
+                    sx={{
+                      margin: "auto",
+                      "&:hover": {
+                        color: "#1976d2",
+                        backgroundColor: "white",
+                      },
+                    }}
+                  >
+                    <DownloadRoundedIcon />
+                  </LoadingButton>{" "}
+                  <LoadingButton
+                    variant="contained"
+                    size="medium"
+                    onClick={createupload}
+                    sx={{
+                      margin: "auto",
+                      "&:hover": {
+                        color: "#1976d2",
+                        backgroundColor: "white",
+                      },
+                    }}
+                  >
+                    <BookmarkAddSharpIcon />
+                  </LoadingButton>
+                </Box>
+              )}
+            </Box>
+          </Box>
+
+          <Box
+            className="yellow" ///////////////////////
+            sx={{
+              p: 2,
+              // bgcolor: "yellow",
+              display: "flex",
+              flexDirection: "column",
+              flexGrow: "1",
+              justifyContent: "center",
+              // alignItems: "center",
+              // maxHeight: "inherit",
+            }}
+          >
+            <FormLabel>Prompt</FormLabel>
+            <Textarea
+              color="primary"
+              minRows={3}
+              maxRows={6}
+              width="100%"
+              // size="xl"
+              sx={{
+                "--Textarea-focusedInset": "var(--any, )",
+                "--Textarea-focusedThickness": "0.25rem",
+                "--Textarea-focusedHighlight": "rgba(13,110,253,.25)",
+                "&::before": {
+                  transition: "box-shadow .15s ease-in-out",
+                },
+                "&:focus-within": {
+                  borderColor: "#86b7fe",
+                },
+              }}
+              variant="solid"
+              placeholder="Enter prompt"
+              defaultValue="monster 1girl, (masterpiece, best quality, beautiful and aesthetic:1.2), ultra high res, 8k, detailed, (fractal art:1.3), colorful, radiosity, automatic white balance"
+              onChange={(e) => setPrompt(e.target.value)}
+            />
+            <FormLabel>Negative prompt</FormLabel>
+            <Textarea
+              color="primary"
+              minRows={3}
+              maxRows={6}
+              // size="md"
+              sx={{
+                "--Textarea-focusedInset": "var(--any, )",
+                "--Textarea-focusedThickness": "0.25rem",
+                "--Textarea-focusedHighlight": "rgba(13,110,253,.25)",
+                "&::before": {
+                  transition: "box-shadow .15s ease-in-out",
+                },
+                "&:focus-within": {
+                  borderColor: "#86b7fe",
+                },
+              }}
+              variant="solid"
+              placeholder="Enter Negative prompt"
+              defaultValue="nude, topless, naked, ng_deepnegative_v1_75t, easynegative, (worst quality:2), (low quality:2), (normal quality:1.8), lowres, ((monochrome)), ((grayscale)), sketch, ugly, morbid, deformed, logo, text, bad anatomy, bad proportions, disfigured, extra arms, extra legs, fused fingers, extra digits, fewer digits, mutated hands, poorly drawn hands, bad hands"
+              onChange={(e) => {
+                setNegativePrompt(e.target.value);
+              }}
+            />
           </Box>
         </Box>
         <Box
           sx={{
-            p: 8,
-            pt: 2,
-            pb: 2,
             display: "flex",
-            flexDirection: "column",
-            bgcolor: "yellow",
+            justifyContent: "center",
+            alignItems: "center",
+            // maxWidth: "inherit",
+            m: 2,
           }}
         >
-          <FormLabel>Prompt</FormLabel>
-          <Textarea
-            color="primary"
-            minRows={3}
-            size="md"
+          {/* <Box
+            className="black"
             sx={{
-              "--Textarea-focusedInset": "var(--any, )",
-              "--Textarea-focusedThickness": "0.25rem",
-              "--Textarea-focusedHighlight": "rgba(13,110,253,.25)",
-              "&::before": {
-                transition: "box-shadow .15s ease-in-out",
-              },
-              "&:focus-within": {
-                borderColor: "#86b7fe",
-              },
-            }}
-            variant="solid"
-            placeholder="Enter prompt"
-            defaultValue="monster 1girl, (masterpiece, best quality, beautiful and aesthetic:1.2), ultra high res, 8k, detailed, (fractal art:1.3), colorful, radiosity, automatic white balance"
-            onChange={(e) => setPrompt(e.target.value)}
-          />
-          <br />
+              p: 2,
+              bgcolor: "black",
+              display: "flex",
+              flexDirection: "column",
+              flexGrow: "1",
+              justifyContent: "center",
+              // alignItems: "center",
 
-          <FormLabel>Negative prompt</FormLabel>
-
-          <Textarea
-            color="primary"
-            minRows={3}
-            size="md"
-            sx={{
-              "--Textarea-focusedInset": "var(--any, )",
-              "--Textarea-focusedThickness": "0.25rem",
-              "--Textarea-focusedHighlight": "rgba(13,110,253,.25)",
-              "&::before": {
-                transition: "box-shadow .15s ease-in-out",
-              },
-              "&:focus-within": {
-                borderColor: "#86b7fe",
-              },
+              // maxHeight: "inherit",
             }}
-            variant="solid"
-            placeholder="Enter Negative prompt"
-            defaultValue="nude, topless, naked, ng_deepnegative_v1_75t, easynegative, (worst quality:2), (low quality:2), (normal quality:1.8), lowres, ((monochrome)), ((grayscale)), sketch, ugly, morbid, deformed, logo, text, bad anatomy, bad proportions, disfigured, extra arms, extra legs, fused fingers, extra digits, fewer digits, mutated hands, poorly drawn hands, bad hands"
-            onChange={(e) => {
-              setNegativePrompt(e.target.value);
-            }}
-          />
+          ></Box> */}
         </Box>
         <Box
           className="advancedSetups"
-          sx={{ display: "flex", flexDirection: "column", bgcolor: "orange" }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-start",
+            bgcolor: "orange",
+            // m: 5,
+            p: 2,
+          }}
         >
-          <SamplingMethodSelect
-            onSelected={setSamplerIndex}
-            sampler_index={sampler_index}
-          />
-
-          <SamplingSteps
-            onValueChange={handleSliderValueChange}
-            steps={steps}
-          />
-          <p>Detail value {steps}</p>
-          <CfgSlider
-            onValueChange={handleCfgValueChange}
-            cfg_scale={cfg_scale}
-          />
+          <Box >
+            <SamplingMethodSelect
+              onSelected={setSamplerIndex}
+              sampler_index={sampler_index}
+            />
+          </Box>
+          <Box>
+            <FormLabel>Detail value {steps}</FormLabel>
+            <SamplingSteps
+              onValueChange={handleSliderValueChange}
+              steps={steps}
+            />
+          </Box>
+          <Box>
+            <FormLabel> Cfg Scale</FormLabel>
+            <CfgSlider
+              onValueChange={handleCfgValueChange}
+              cfg_scale={cfg_scale}
+            />
+          </Box>
         </Box>
+
         <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
           <img
             style={{

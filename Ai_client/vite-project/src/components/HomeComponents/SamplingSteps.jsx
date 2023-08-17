@@ -1,8 +1,11 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import { styled, alpha, Box } from "@mui/system";
-import Slider, { sliderClasses } from "@mui/base/Slider";
+import { sliderClasses } from "@mui/base/Slider";
 import { useState } from "react";
+
+import { Slider } from "@mui/base";
+
 
 export default function SamplingSteps({ onValueChange }) {
   const handleSliderChange = (newSteps) => {
