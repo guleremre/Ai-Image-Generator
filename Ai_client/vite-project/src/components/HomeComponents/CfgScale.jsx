@@ -1,7 +1,8 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import { styled, alpha, Box } from "@mui/system";
-import Slider, { sliderClasses } from "@mui/base/Slider";
+import  { sliderClasses } from "@mui/base/Slider";
+import { Slider } from "@mui/base";
 
 export default function CfgSlider({ onValueChange }) {
   const handleSliderChange = (newScale) => {
