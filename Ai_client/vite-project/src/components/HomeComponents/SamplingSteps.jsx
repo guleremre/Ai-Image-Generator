@@ -6,7 +6,6 @@ import { useState } from "react";
 
 import { Slider } from "@mui/base";
 
-
 export default function SamplingSteps({ onValueChange }) {
   const handleSliderChange = (newSteps) => {
     // let steps;
