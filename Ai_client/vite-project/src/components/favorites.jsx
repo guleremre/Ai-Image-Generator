@@ -12,10 +12,9 @@ import ListItem from "@mui/joy/ListItem";
 import ListItemContent from "@mui/joy/ListItemContent";
 import ListItemButton from "@mui/joy/ListItemButton";
 import Dialog from "@mui/material/Dialog";
-import Box from "@mui/material/Box";
-import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 import BookmarkRemoveSharpIcon from "@mui/icons-material/BookmarkRemoveSharp";
 import LoadingButton from "@mui/lab/LoadingButton";
+
 const Favorites = () => {
   const [userId, setUserId] = useState("");
   const [userInfo, setUserInfo] = useState("");
@@ -82,6 +81,7 @@ const Favorites = () => {
   return (
     <Card variant="outlined" sx={{ width: "95%", m: "auto", p: 0 }}>
       <h1>Here is a list of your favorite Images</h1>
+      <ListDivider />
       <List sx={{ py: "var(--ListDivider-gap)" }}>
         {userInfo.favoriteImg &&
           userInfo.favoriteImg
@@ -222,7 +222,7 @@ const Favorites = () => {
                       // marginBottom: 20,
                       // transform: "scale(1)",
                     }}
-                    src={item.image} 
+                    src={item.image}
                     alt="item.image"
                     onClick={() => toggleImageDialog(index)}
                   />
