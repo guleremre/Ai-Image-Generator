@@ -26,8 +26,10 @@ function App() {
             <Route path="/profile" element={<Profile />}></Route>
             <Route path="/about" element={<About />}></Route>
             <Route path="/favorites" element={<Favorites />}></Route>
+            
             <Route path="*" element={<NotFound />}></Route>
           </Routes>
+          
         </BrowserRouter>
       </div>
     </>
