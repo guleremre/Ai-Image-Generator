@@ -2,8 +2,7 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 
 import LoadingButton from "@mui/lab/LoadingButton";
 import Button from "@mui/joy/Button";
@@ -12,7 +11,8 @@ import Skeleton from "@mui/material/Skeleton";
 import Textarea from "@mui/joy/Textarea";
 import FormLabel from "@mui/joy/FormLabel";
 import Dialog from "@mui/material/Dialog";
-import BookmarkAddSharpIcon from "@mui/icons-material/BookmarkAddSharp";
+
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import SamplingMethodSelect from "./HomeComponents/SamplingMethodSelect";
 import SamplingSteps from "./HomeComponents/SamplingSteps";
 import CfgSlider from "./HomeComponents/CfgScale";
@@ -207,7 +207,7 @@ function Home() {
                 "& > button": { m: 1 },
                 display: "flex",
                 justifyContent: "center",
-                bgcolor: "pink",
+                // bgcolor: "pink",
                 flexDirection: "row",
               }}
             >
@@ -263,7 +263,7 @@ function Home() {
                       },
                     }}
                   >
-                    <BookmarkAddSharpIcon />
+                    <FavoriteIcon />
                   </LoadingButton>
                 </Box>
               )}
@@ -340,7 +340,7 @@ function Home() {
             flexDirection: "column",
             justifyContent: "flex-start",
             textAlign: "start",
-            bgcolor: "orange",
+            // bgcolor: "orange",
             // m: 5,
             gap: 1,
             p: 2,

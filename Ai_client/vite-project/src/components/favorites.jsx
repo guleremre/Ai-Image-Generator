@@ -12,7 +12,9 @@ import ListItem from "@mui/joy/ListItem";
 import ListItemContent from "@mui/joy/ListItemContent";
 import ListItemButton from "@mui/joy/ListItemButton";
 import Dialog from "@mui/material/Dialog";
-import BookmarkRemoveSharpIcon from "@mui/icons-material/BookmarkRemoveSharp";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import OutlinedAlerts from "./FavoriteComponents/alert";
+
 import LoadingButton from "@mui/lab/LoadingButton";
 
 const Favorites = () => {
@@ -130,7 +132,7 @@ const Favorites = () => {
                           deleteConfirm(item._id);
                         }}
                       >
-                        <BookmarkRemoveSharpIcon />
+                        <FavoriteBorderIcon />
                       </LoadingButton>
                     </AspectRatio>
                     <ListItemContent>
@@ -201,7 +203,7 @@ const Favorites = () => {
                           deleteConfirm(item._id);
                         }}
                       >
-                        <BookmarkRemoveSharpIcon />
+                        <FavoriteBorderIcon />
                       </LoadingButton>
                     </ListItemContent>
                   </ListItemButton>
