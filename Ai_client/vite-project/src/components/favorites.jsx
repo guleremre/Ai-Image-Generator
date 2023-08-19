@@ -97,6 +97,7 @@ const Favorites = () => {
                       objectFit="cover"
                       sx={{
                         flexBasis: 600,
+                        maxWidth: 325,
                         position: "relative",
                         "&:hover": {
                           color: "#1976d2",
@@ -108,7 +109,7 @@ const Favorites = () => {
                         className="mapImg"
                         onClick={() => toggleImageDialog(index)}
                         src={`${item.image}?w=120&fit=crop&auto=format`}
-                        srcSet={`${item.image}?w=120&fit=crop&auto=format&dpr=2 2x`}
+                        srcSet={`${item.image}?w=120&fit=crop&auto=format&dpr=2 x`}
                         alt={item.title}
                       />
                       <LoadingButton
