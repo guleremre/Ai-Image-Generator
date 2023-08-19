@@ -351,6 +351,7 @@ function Home() {
           </Box>
           <Box>
             <FormLabel>Detail value {steps}</FormLabel>
+            <br />
             <SamplingSteps
               onValueChange={handleSliderValueChange}
               steps={steps}
@@ -358,6 +359,7 @@ function Home() {
           </Box>
           <Box>
             <FormLabel> Cfg Scale</FormLabel>
+            <br />
             <CfgSlider
               onValueChange={handleCfgValueChange}
               cfg_scale={cfg_scale}
