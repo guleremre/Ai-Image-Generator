@@ -271,19 +271,14 @@ function Home() {
               )}
             </Box>
           </Box>
-
           <Box
-            className="yellow" ///////////////////////
+            className="yellow" 
             sx={{
               p: 2,
-
-              // bgcolor: "yellow",
               display: "flex",
               flexDirection: "column",
               flexGrow: "1",
               justifyContent: "center",
-              // alignItems: "center",
-              // maxHeight: "inherit",
             }}
           >
             <FormLabel>Prompt</FormLabel>
