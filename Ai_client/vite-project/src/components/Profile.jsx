@@ -135,10 +135,10 @@ const Profile = () => {
           className=" profile"
           sx={{
             maxWidth: 300,
-            mx: "auto", 
-            my: 2, 
-            py: 3, 
-            px: 2, 
+            mx: "auto",
+            my: 2,
+            py: 3,
+            px: 2,
             display: "flex",
             flexDirection: "column",
             gap: 2,

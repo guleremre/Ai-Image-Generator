@@ -12,7 +12,7 @@ import Textarea from "@mui/joy/Textarea";
 import FormLabel from "@mui/joy/FormLabel";
 import Dialog from "@mui/material/Dialog";
 
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import SamplingMethodSelect from "./HomeComponents/SamplingMethodSelect";
 import SamplingSteps from "./HomeComponents/SamplingSteps";
 import CfgSlider from "./HomeComponents/CfgScale";
@@ -155,9 +155,11 @@ function Home() {
           className="red-green-yellow"
           sx={{
             display: "flex",
+            // border: "3px dashed grey",
+            backgroundColor: "white",
+            borderRadius: "8px",
             justifyContent: "center",
             alignItems: "center",
-            // maxWidth: "inherit",
             m: 2,
           }}
         >
@@ -168,7 +170,6 @@ function Home() {
               maxHeight: "100%",
               flexDirection: "column",
               alignContent: "center",
-              // alignItems:""
             }}
           >
             <Box
@@ -183,6 +184,7 @@ function Home() {
                 // maxWidth: "100%",
                 display: "flex",
                 justifyContent: "center",
+
                 // alignContent: "space-around",
                 alignItems: "center",
                 flexGrow: "0",
@@ -192,7 +194,7 @@ function Home() {
                 <img width="256" onClick={handleClickOpen} src={renderImg} />
               ) : (
                 <Skeleton
-                  sx={{ bgcolor: "grey.800" }}
+                  sx={{ ml: 2, bgcolor: "grey.800" }}
                   variant="rectangular"
                   animation="wave"
                   width={258}
@@ -274,6 +276,7 @@ function Home() {
             className="yellow" ///////////////////////
             sx={{
               p: 2,
+
               // bgcolor: "yellow",
               display: "flex",
               flexDirection: "column",
@@ -336,6 +339,9 @@ function Home() {
         <Box
           className="advancedSetups"
           sx={{
+            // border: "3px dashed grey",
+            backgroundColor: "white",
+            borderRadius: "8px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-start",
@@ -344,6 +350,7 @@ function Home() {
             // m: 5,
             gap: 1,
             p: 2,
+            m: 2,
           }}
         >
           <Box>
@@ -353,7 +360,7 @@ function Home() {
             />
           </Box>
           <Box>
-            <FormLabel>Detail value {steps}</FormLabel>
+            <FormLabel>Sampling Steps {steps}</FormLabel>
             <br />
             <SamplingSteps
               onValueChange={handleSliderValueChange}
@@ -373,9 +380,10 @@ function Home() {
         <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
           <img
             style={{
-              width: "100%", // Set the initial width to 100%
-              maxWidth: "100%", // Ensure the image doesn't exceed its natural size
-              height: "auto", // Maintain aspect ratio
+              width: "100%",
+              maxWidth: "100%",
+              height: "100%",
+              // overflow: "hidden",
             }}
             src={renderImg}
             alt="renderImg"

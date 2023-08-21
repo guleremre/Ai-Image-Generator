@@ -108,7 +108,6 @@ const Favorites = () => {
                       }}
                     >
                       <img
-                        className="mapImg"
                         onClick={() => toggleImageDialog(index)}
                         src={`${item.image}?w=120&fit=crop&auto=format`}
                         srcSet={`${item.image}?w=120&fit=crop&auto=format&dpr=2 x`}
@@ -117,7 +116,6 @@ const Favorites = () => {
                       <LoadingButton
                         variant="contained"
                         size="medium"
-                        // color="secondary"
                         sx={{
                           borderRadius: "50%",
                           position: "absolute",
@@ -142,8 +140,9 @@ const Favorites = () => {
                         sx={{
                           "&:hover": {
                             color: "#1976d2",
-                            backgroundColor: "white",
-                            scale: "1.1",
+                            // backgroundColor: "white",
+                            // scale: "1.1",
+                            border: "1px dashed grey",
                           },
                         }}
                       >
@@ -158,8 +157,9 @@ const Favorites = () => {
                         sx={{
                           "&:hover": {
                             color: "#1976d2",
-                            backgroundColor: "white",
-                            scale: "1.1",
+                            // backgroundColor: "white",
+                            // scale: "1.1",
+                            border: "1px dashed grey",
                           },
                         }}
                       >
@@ -215,6 +215,11 @@ const Favorites = () => {
                   onClose={() => toggleImageDialog(index)}
                   maxWidth="md"
                   fullWidth
+                  sx={{
+                    maxWidth: "100%",
+                    overflow: "hidden",
+                    borderRadius: "8px",
+                  }}
                 >
                   <img
                     style={{
@@ -222,6 +227,7 @@ const Favorites = () => {
                       maxWidth: "100%",
                       // height: "auto",
                       transition: "width 0.2s ease",
+                      // overflow: "hidden",
                       // marginBottom: 20,
                       // transform: "scale(1)",
                     }}

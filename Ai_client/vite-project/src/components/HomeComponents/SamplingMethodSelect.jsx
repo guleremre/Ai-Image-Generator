@@ -11,8 +11,12 @@ export default function SamplingMethodSelect({ onSelected }) {
   };
 
   return (
-    <FormControl sx={{ minWidth: 250 }}>
-      <InputLabel id="Sampling-Method">Sampling Method</InputLabel>
+    <FormControl
+      sx={{ minWidth: 250, background: "#0a6bcb", borderRadius: "5px" }}
+    >
+      <InputLabel id="Sampling-Method">
+        <b>Sampling Method</b>
+      </InputLabel>
       <Select
         labelId="Sampling-Method-label"
         id="Sampling-Method"
