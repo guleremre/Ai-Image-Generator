@@ -35,6 +35,8 @@ export default function Signup() {
       alert("passwords doesn't match");
     }
   }
+
+  //Submit
   const onSubmit = async () => {
     try {
       const response = await axios.post(url, { username, email, password });
@@ -62,10 +64,10 @@ export default function Signup() {
         <Sheet
           sx={{
             maxWidth: 300,
-            mx: "auto", // margin left & right
-            my: 4, // margin top & bottom
-            py: 3, // padding top & bottom
-            px: 2, // padding left & right
+            mx: "auto",
+            my: 4,
+            py: 3,
+            px: 2,
             display: "flex",
             flexDirection: "column",
             gap: 2,
@@ -110,19 +112,19 @@ export default function Signup() {
               // html input attribute
               name="password"
               type="password"
-              placeholder="password"
+              placeholder="Password"
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
             />
           </FormControl>
           <FormControl>
-            <FormLabel>Password</FormLabel>
+            <FormLabel>Confirm Password</FormLabel>
             <Input
               // html input attribute
               name="password"
               type="password"
-              placeholder="password"
+              placeholder="Confirm Password"
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
               }}
@@ -133,12 +135,12 @@ export default function Signup() {
             onClick={() => {
               handleButtonClick();
             }}
-            sx={{ mt: 1 /* margin top */ }}
+            sx={{ mt: 1 }}
           >
             Sign up
           </Button>
           <Typography
-            endDecorator={<Link href="/">log in</Link>}
+            endDecorator={<Link href="/">Log in</Link>}
             fontSize="sm"
             sx={{ alignSelf: "center" }}
           >
