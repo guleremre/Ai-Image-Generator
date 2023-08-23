@@ -216,7 +216,7 @@ function ResponsiveAppBar() {
                   navToAbout();
                 }}
               >
-                <Typography textAlign="center"> about</Typography>
+                <Typography textAlign="center"> About</Typography>
               </MenuItem>
               {/* {pages.map((page) => (
               ))} */}

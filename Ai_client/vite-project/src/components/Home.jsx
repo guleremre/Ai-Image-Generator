@@ -157,7 +157,7 @@ function Home() {
             display: "flex",
             maxWidth: "100%",
             // border: "3px dashed grey",
-            backgroundColor: "pink",
+            backgroundColor: "white",
             borderRadius: "8px",
             justifyContent: "center",
             alignItems: "center",
