@@ -11,30 +11,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-// color theme function
-function ModeToggle() {
-  const { mode, setMode } = useColorScheme();
-  const [mounted, setMounted] = React.useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  if (!mounted) {
-    return null;
-  }
-
-  return (
-    <Button
-      variant="outlined"
-      onClick={() => {
-        setMode(mode === "light" ? "dark" : "light");
-      }}
-    >
-      {mode === "light" ? "Turn dark" : "Turn light"}
-    </Button>
-  );
-}
-
 //login function
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -75,7 +51,7 @@ export default function Login() {
   return (
     <CssVarsProvider>
       <main>
-        <ModeToggle />
+        
         <Sheet
           sx={{
             maxWidth: 300,

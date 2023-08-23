@@ -209,14 +209,14 @@ function ResponsiveAppBar() {
                   navToHome();
                 }}
               >
-                <Typography textAlign="center"> Home1</Typography>
+                <Typography textAlign="center"> Home</Typography>
               </MenuItem>
               <MenuItem
                 onClick={() => {
                   navToAbout();
                 }}
               >
-                <Typography textAlign="center"> about1</Typography>
+                <Typography textAlign="center"> about</Typography>
               </MenuItem>
               {/* {pages.map((page) => (
               ))} */}
@@ -248,7 +248,7 @@ function ResponsiveAppBar() {
               }}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              Home2
+              Home
             </Button>
             <Button
               onClick={() => {
@@ -256,7 +256,7 @@ function ResponsiveAppBar() {
               }}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              About2
+              About
             </Button>
           </Box>
           {logged ? (
