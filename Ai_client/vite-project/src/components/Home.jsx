@@ -157,7 +157,7 @@ function Home() {
             display: "flex",
             maxWidth: "100%",
             // border: "3px dashed grey",
-            backgroundColor: "white",
+            backgroundColor: "#f5f5f5",
             borderRadius: "8px",
             justifyContent: "center",
             alignItems: "center",
@@ -226,7 +226,7 @@ function Home() {
                   margin: "auto",
                   "&:hover": {
                     color: "#1976d2",
-                    backgroundColor: "white",
+                    backgroundColor: "#f5f5f5",
                   },
                 }}
               >
@@ -249,7 +249,7 @@ function Home() {
                       margin: "auto",
                       "&:hover": {
                         color: "#1976d2",
-                        backgroundColor: "white",
+                        backgroundColor: "#f5f5f5",
                       },
                     }}
                   >
@@ -263,7 +263,7 @@ function Home() {
                       margin: "auto",
                       "&:hover": {
                         color: "#1976d2",
-                        backgroundColor: "white",
+                        backgroundColor: "#f5f5f5",
                       },
                     }}
                   >
@@ -337,7 +337,7 @@ function Home() {
           className="advancedSetups"
           sx={{
             // border: "3px dashed grey",
-            backgroundColor: "white",
+            backgroundColor: "#f5f5f5",
             borderRadius: "8px",
             display: "flex",
             flexDirection: "column",

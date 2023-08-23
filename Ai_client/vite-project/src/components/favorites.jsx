@@ -103,7 +103,7 @@ const Favorites = () => {
                         position: "relative",
                         "&:hover": {
                           color: "#1976d2",
-                          backgroundColor: "white",
+                          backgroundColor: "#f5f5f5",
                         },
                       }}
                     >
@@ -123,7 +123,7 @@ const Favorites = () => {
                           right: "5%",
                           "&:hover": {
                             color: "red",
-                            backgroundColor: "white",
+                            backgroundColor: "#f5f5f5",
                           },
                         }}
                         onClick={() => {
@@ -196,7 +196,7 @@ const Favorites = () => {
                           margin: "auto",
                           "&:hover": {
                             color: "red",
-                            backgroundColor: "white",
+                            backgroundColor: "#f5f5f5",
                           },
                         }}
                         onClick={() => {
