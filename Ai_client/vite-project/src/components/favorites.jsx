@@ -14,6 +14,7 @@ import ListItemButton from "@mui/joy/ListItemButton";
 import Dialog from "@mui/material/Dialog";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import OutlinedAlerts from "./FavoriteComponents/alert";
+import { useNavigate } from "react-router-dom";
 
 import LoadingButton from "@mui/lab/LoadingButton";
 
@@ -22,7 +23,9 @@ const Favorites = () => {
   const [userInfo, setUserInfo] = useState("");
   const [favoritesChanged, setFavoritesChanged] = useState(false);
   const [openImageDialogs, setOpenImageDialogs] = useState([]);
+  const navigate = useNavigate();
 
+  
   // to copy text
   const handleCopyText = (text) => {
     navigator.clipboard.writeText(text);
@@ -66,6 +69,9 @@ const Favorites = () => {
     async function auth() {
       const url = "http://localhost:4000/user/verify";
       const token = localStorage.getItem("token");
+      if (!token) {
+        return navigate("/home");
+      }
       try {
         const response = await axios.post(url, { token });
         setUserInfo((prevUserInfo) => ({ ...prevUserInfo, ...response.data }));
