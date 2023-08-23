@@ -155,8 +155,9 @@ function Home() {
           className="red-green-yellow"
           sx={{
             display: "flex",
+            maxWidth: "100%",
             // border: "3px dashed grey",
-            backgroundColor: "white",
+            backgroundColor: "#f5f5f5",
             borderRadius: "8px",
             justifyContent: "center",
             alignItems: "center",
@@ -167,6 +168,7 @@ function Home() {
             className="red-green"
             sx={{
               display: "flex",
+
               maxHeight: "100%",
               flexDirection: "column",
               alignContent: "center",
@@ -184,7 +186,7 @@ function Home() {
                 // maxWidth: "100%",
                 display: "flex",
                 justifyContent: "center",
-
+                width: "100%",
                 // alignContent: "space-around",
                 alignItems: "center",
                 flexGrow: "0",
@@ -224,7 +226,7 @@ function Home() {
                   margin: "auto",
                   "&:hover": {
                     color: "#1976d2",
-                    backgroundColor: "white",
+                    backgroundColor: "#f5f5f5",
                   },
                 }}
               >
@@ -247,7 +249,7 @@ function Home() {
                       margin: "auto",
                       "&:hover": {
                         color: "#1976d2",
-                        backgroundColor: "white",
+                        backgroundColor: "#f5f5f5",
                       },
                     }}
                   >
@@ -261,7 +263,7 @@ function Home() {
                       margin: "auto",
                       "&:hover": {
                         color: "#1976d2",
-                        backgroundColor: "white",
+                        backgroundColor: "#f5f5f5",
                       },
                     }}
                   >
@@ -272,7 +274,7 @@ function Home() {
             </Box>
           </Box>
           <Box
-            className="yellow" 
+            className="yellow"
             sx={{
               p: 2,
               display: "flex",
@@ -335,7 +337,7 @@ function Home() {
           className="advancedSetups"
           sx={{
             // border: "3px dashed grey",
-            backgroundColor: "white",
+            backgroundColor: "#f5f5f5",
             borderRadius: "8px",
             display: "flex",
             flexDirection: "column",

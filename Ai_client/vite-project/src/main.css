@@ -1,7 +1,7 @@
 body {
-  background-image: url("./images/celestial-city.png");
-
-  background-size: 150%;
+  /* background-image: url("./images/celestial-city.png"); */
+  background-color:#D8D9DA
+  /* background-size: 150%; */
   /* background-repeat: repeat; */
   /* background-position: top; */
 }

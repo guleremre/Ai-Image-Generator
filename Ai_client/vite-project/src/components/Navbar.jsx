@@ -21,33 +21,22 @@ function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [logged, setLogged] = useState(false);
-  // const [userId, setUserId] = useState([]);
   const [userAvatar, setUserAvatar] = useState("");
-
   const memo = localStorage.getItem("token");
-
   useEffect(() => {
-    //  auth();
     memo ? setLogged(true) : setLogged(false);
   }, [memo]);
-
-  // useEffect(() => {
-  //   link(userId);
-  // }, []);
 
   useEffect(() => {
     async function fetchAvatar() {
       const token = localStorage.getItem("token");
       if (token) {
         var decoded = jwt_decode(token);
-        // console.log(decoded);
         let userId = decoded.id;
-        // console.log("token comes from decode", userId);
         try {
           let res = await axios.get(`http://localhost:4000/img/${userId}`, {
             token,
           });
-          // console.log(res);
         } catch (error) {
           console.log(error);
         }
@@ -57,48 +46,11 @@ function ResponsiveAppBar() {
     fetchAvatar();
   }, []);
 
-  //Call the auth function to get the userId
-  // async function auth() {
-  //   // debugger;
-  //   const url = "http://localhost:4000/user/verify";
-  //   const token = localStorage.getItem("token");
-  //   try {
-  //     const response = await axios.post(url, { token });
-  //     var updatedUserId = response.data._id;
-  //     setUserId(updatedUserId);
-  //     console.log("updatedUserId", updatedUserId);
-  //     console.log("userId!!!!!!!", userId);
-  //     link(userId);
-  //   } catch (error) {
-  //     console.error("Error verifying token:", error);
-  //   }
-  // }
-
-  // //to get users images link
-  // async function link(userId) {
-  //   // debugger;
-  //   try {
-  //     const url = `http://localhost:4000/img/${userId}`;
-  //     const { data } = await axios.get(url);
-  //     console.log("{data}", { data });
-  //     setUserAvatar({ data });
-  //     console.log(`userAvatar  this is images of ${userId} `, userAvatar);
-  //     const avatarLink = userAvatar.map((item) => {
-  //       item.avatar;
-  //     });
-  //     // console.log("avatarlink", avatarLink);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
   const navigate = useNavigate();
 
   const getAvatar = () => {
     const newAvatar = localStorage.getItem("avatarimg");
-    // console.log("thisis navbaravatar", newAvatar);
     return newAvatar;
-    // return localStorage.getItem("avatarimg");
   };
   const navToHome = () => {
     navigate("/home");
@@ -209,14 +161,14 @@ function ResponsiveAppBar() {
                   navToHome();
                 }}
               >
-                <Typography textAlign="center"> Home1</Typography>
+                <Typography textAlign="center"> Home</Typography>
               </MenuItem>
               <MenuItem
                 onClick={() => {
                   navToAbout();
                 }}
               >
-                <Typography textAlign="center"> about1</Typography>
+                <Typography textAlign="center"> About</Typography>
               </MenuItem>
               {/* {pages.map((page) => (
               ))} */}
@@ -248,7 +200,7 @@ function ResponsiveAppBar() {
               }}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              Home2
+              Home
             </Button>
             <Button
               onClick={() => {
@@ -256,7 +208,7 @@ function ResponsiveAppBar() {
               }}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              About2
+              About
             </Button>
           </Box>
           {logged ? (
