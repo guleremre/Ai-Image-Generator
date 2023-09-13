@@ -5,7 +5,7 @@
 * [Usage](#usage)
 * [Images from App](#images)
 ## General info
-This project is about creating image from text by using Artificial Intelligence. 
+This is a MERN project about creating image from text by using Artificial Intelligence. 
 For AI Stable diffusion is used. 
 https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features#alt-diffusion
 	
