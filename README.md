@@ -12,17 +12,17 @@ For AI [Stable diffusion](https://github.com/AUTOMATIC1111/stable-diffusion-webu
 ## Technologies
 Project is created with:
 
-* react: 18.2.0
+* React: 18.2.0
 * Material Ui
-* sass: 1.64.1
-* dotenv: 16.3.1
-* express: 4.18.2
-* mongoose: 7.4.0
-* node js
-* nodemon: 2.0.22
-* bcrypt: 5.1.0
-* cloudinary: 1.40.0
-* jwt: 3.1.2
+* Sass: 1.64.1
+* Dotenv: 16.3.1
+* Express: 4.18.2
+* Mongoose: 7.4.0
+* Node js
+* Nodemon: 2.0.22
+* Bcrypt: 5.1.0
+* Cloudinary: 1.40.0
+* Jwt: 3.1.2
 	
 ## Setup
 To run this project, install it locally using npm:
