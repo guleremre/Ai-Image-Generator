@@ -2,11 +2,12 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
-* [Images from App](#ımages)
+* [Usage](#usage)
+* [Images from App](#images)
 ## General info
 This project is about creating image from text by using Artificial Intelligence. 
-For AI [Stable diffusion] is used. 
-(https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features#alt-diffusion)
+For AI Stable diffusion is used. 
+https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features#alt-diffusion
 	
 ## Technologies
 Project is created with:
@@ -34,6 +35,15 @@ $ npm run dev
 $ cd ..\Ai_image_generator\Ai_server
 $ npm start
 ```
+## Usage
+ To create an image enter some text to prompt and push generate image button. 
+ Sampler: Which algorithm to use to produce the image
+
+Steps: How many times to improve the generated image iteratively; higher values take longer; very low values can produce bad results
+
+CFG scale schedule: How closely the image should conform to the prompt. Lower values produce more creative results. (recommended range 5-15)
+
+Negative promptAllows you to use another prompt of things the model should avoid when generating the picture. This works by using the negative prompt for unconditional conditioning in the sampling process instead of an empty string.
 ## Images
 ![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223828.png>)
 ![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223715.png>)
