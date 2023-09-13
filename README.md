@@ -37,7 +37,8 @@ $ npm start
 ```
 ## Usage
  To create an image enter some text to prompt and push generate image button. 
- Sampler: Which algorithm to use to produce the image
+ 
+ **Sampler**: Which algorithm to use to produce the image
 
 **Steps**: How many times to improve the generated image iteratively; higher values take longer; very low values can produce bad results
 
