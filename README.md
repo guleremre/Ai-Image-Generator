@@ -2,7 +2,7 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
-
+* [Images from App](#ımages)
 ## General info
 This project is about creating image from text by using Artificial Intelligence. 
 	
