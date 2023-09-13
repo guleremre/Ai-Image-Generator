@@ -18,6 +18,7 @@ Project is created with:
 * Dotenv: 16.3.1
 * Express: 4.18.2
 * Mongoose: 7.4.0
+* MongoDb
 * Node js
 * Nodemon: 2.0.22
 * Bcrypt: 5.1.0
