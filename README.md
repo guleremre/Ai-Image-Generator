@@ -30,7 +30,7 @@ To run this project, install it locally using npm:
 ```
 $ cd ..\Ai_image_generator\
 $ npm install
-$ cd ./Ai_client/vite-project/
+$ cd .\Ai_client/vite-project\
 $ npm run dev
 $ cd ..\Ai_image_generator\Ai_server
 $ npm start
