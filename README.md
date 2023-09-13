@@ -31,3 +31,7 @@ $ cd ./Ai_client/vite-project/
 $ npm run dev
 $ cd ..\Ai_image_generator\Ai_server
 $ npm start
+
+## Images
+![Algorithm schema](./images/Ekran görüntüsü 2023-08-23 223715.png)
+![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223715.png>)
