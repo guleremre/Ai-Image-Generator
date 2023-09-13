@@ -13,7 +13,6 @@ const getAllUserImg = async (req, res) => {
     res.status(500).json({ msg: err.msg });
   }
 };
-
 const getUserAvatar = async (req, res) => {
   try {
     const userId = req.params.userId;

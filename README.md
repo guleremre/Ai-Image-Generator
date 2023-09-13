@@ -38,13 +38,14 @@ $ npm start
 ## Usage
  To create an image enter some text to prompt and push generate image button. 
  
- **Sampler**: Which algorithm to use to produce the image
+ **Sampler** : Which algorithm to use to produce the image
 
 **Steps**: How many times to improve the generated image iteratively; higher values take longer; very low values can produce bad results
 
 **CFG scale schedule**: How closely the image should conform to the prompt. Lower values produce more creative results. (recommended range 5-15)
 
 **Negative prompt**:Allows you to use another prompt of things the model should avoid when generating the picture. This works by using the negative prompt for unconditional conditioning in the sampling process instead of an empty string.
+
 ## Images
 ![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223828.png>)
 ![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223715.png>)
