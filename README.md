@@ -4,15 +4,14 @@
 * [Setup](#setup)
 
 ## General info
-This project is about creating image from text by using Artificial Intelligence.
+This project is about creating image from text by using Artificial Intelligence. 
 	
 ## Technologies
 Project is created with:
-for Frontend
+
 * react: 18.2.0
 * Material Ui
 * sass: 1.64.1
-for Backend
 * dotenv: 16.3.1
 * express: 4.18.2
 * mongoose: 7.4.0
