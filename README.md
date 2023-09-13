@@ -5,6 +5,8 @@
 * [Images from App](#ımages)
 ## General info
 This project is about creating image from text by using Artificial Intelligence. 
+For AI [Stable diffusion] is used. 
+(https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features#alt-diffusion)
 	
 ## Technologies
 Project is created with:
@@ -33,7 +35,10 @@ $ cd ..\Ai_image_generator\Ai_server
 $ npm start
 ```
 ## Images
-
+![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223828.png>)
 ![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223715.png>)
 ![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223729.png>)
-![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223754.png>)![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223804.png>)![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 224507.png>)![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 224507.png>)![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 224540.png>)
+![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223754.png>)
+![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223804.png>)
+![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 224507.png>)
+![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 224540.png>)
