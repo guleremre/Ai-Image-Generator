@@ -1,4 +1,4 @@
-# Project Name:Ai-rtistic
+## Project Name:Ai-rtistic
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
