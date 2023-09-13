@@ -26,8 +26,13 @@ Project is created with:
 * Jwt: 3.1.2
 	
 ## Setup
-To run this project, install it locally using npm:
+Configuration: Create a .env file in the root directory (../Ai_image_generator\Ai_server) and set up the following environment variable: 
+MongoDB_URI = your mongo-db-uri,
+CLOUD_NAME=yourCLOUD_NAME,
+CLOUD_API_SECRET=your-CLOUD_API_SECRET,
+CLOUD_API_K=your-CLOUD_API_K
 
+To run this project, install it locally using npm:
 ```
 $ cd ..\Ai_image_generator\
 $ npm install
