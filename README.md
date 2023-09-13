@@ -33,5 +33,7 @@ $ cd ..\Ai_image_generator\Ai_server
 $ npm start
 ```
 ## Images
-![Algorithm schema](./images/Ekran görüntüsü 2023-08-23 223715.png)
+
 ![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223715.png>)
+![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223729.png>)
+![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223754.png>)![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223804.png>)![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 224507.png>)![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 224507.png>)![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 224540.png>)
