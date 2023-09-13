@@ -43,7 +43,7 @@ Steps: How many times to improve the generated image iteratively; higher values 
 
 CFG scale schedule: How closely the image should conform to the prompt. Lower values produce more creative results. (recommended range 5-15)
 
-Negative promptAllows you to use another prompt of things the model should avoid when generating the picture. This works by using the negative prompt for unconditional conditioning in the sampling process instead of an empty string.
+Negative prompt:Allows you to use another prompt of things the model should avoid when generating the picture. This works by using the negative prompt for unconditional conditioning in the sampling process instead of an empty string.
 ## Images
 ![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223828.png>)
 ![Alt text](<screen shots/Ekran görüntüsü 2023-08-23 223715.png>)

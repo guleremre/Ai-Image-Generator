@@ -46,7 +46,7 @@ const About = () => {
         </Typography>
         <br />
         <Typography>
-          <b>Negative prompt</b>Allows you to use another prompt of things the
+          <b>Negative prompt</b>:Allows you to use another prompt of things the
           model should avoid when generating the picture. This works by using
           the negative prompt for unconditional conditioning in the sampling
           process instead of an empty string.
