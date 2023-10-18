@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import "./App.css";
 import Home from "./components/Home";
-import Test from "./components/Test";
+// import Test from "./components/Test";
 import ResponsiveAppBar from "./components/Navbar";
 import NotFound from "./components/NotFound";
 import Profile from "./components/Profile.jsx";
@@ -22,7 +22,7 @@ function App() {
             <Route path="/" element={<Login />}></Route>
             <Route path="/Signup" element={<Signup />}></Route>
             <Route path="/home" element={<Home />}></Route>
-            <Route path="/test" element={<Test />}></Route>
+            {/* <Route path="/test" element={<Test />}></Route> */}
             <Route path="/profile" element={<Profile />}></Route>
             <Route path="/about" element={<About />}></Route>
             <Route path="/favorites" element={<Favorites />}></Route>

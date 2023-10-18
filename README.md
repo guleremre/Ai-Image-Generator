@@ -7,6 +7,7 @@
 * [Images from App](#images)
 ## General info
 Project Name:Ai-rtistic
+
 This is a MERN project about creating image from text by using Artificial Intelligence. 
 For AI [Stable diffusion](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features#alt-diffusion) is used. 
 

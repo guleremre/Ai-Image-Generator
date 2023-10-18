@@ -13,7 +13,7 @@ import ListItemContent from "@mui/joy/ListItemContent";
 import ListItemButton from "@mui/joy/ListItemButton";
 import Dialog from "@mui/material/Dialog";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import OutlinedAlerts from "./FavoriteComponents/alert";
+// import OutlinedAlerts from "./FavoriteComponents/alert";
 import { useNavigate } from "react-router-dom";
 
 import LoadingButton from "@mui/lab/LoadingButton";
