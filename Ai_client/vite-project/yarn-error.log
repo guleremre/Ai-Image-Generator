@@ -1,0 +1,84 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js install
+
+PATH: 
+  C:\Users\sars\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\sars\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Users\sars\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Python27;C:\Python27\python.exe;C:\Program Files\Docker\Docker\resources\bin;C:\Users\sars\AppData\Local\Programs\Python\Launcher;C:\Users\sars\AppData\Local\Microsoft\WindowsApps;C:\Users\sars\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\sars\AppData\Roaming\npm;C:\Users\sars\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  14.21.3
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.14.16.tgz: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (C:\Users\sars\AppData\Roaming\nvm\v14.21.3\node_modules\yarn\lib\cli.js:141517:19)
+      at Object.onceWrapper (events.js:519:28)
+      at ClientRequest.emit (events.js:400:28)
+      at TLSSocket.emitRequestTimeout (_http_client.js:790:9)
+      at Object.onceWrapper (events.js:519:28)
+      at TLSSocket.emit (events.js:412:35)
+      at TLSSocket.Socket._onTimeout (net.js:495:8)
+      at listOnTimeout (internal/timers.js:557:17)
+      at processTimers (internal/timers.js:500:7)
+
+npm manifest: 
+  {
+    "name": "vite-project",
+    "proxy": "http://localhost:8080",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+      "dev": "vite",
+      "build": "vite build",
+      "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+      "preview": "vite preview"
+    },
+    "dependencies": {
+      "@cloudinary/react": "^1.11.2",
+      "@cloudinary/url-gen": "^1.11.0",
+      "@emotion/react": "^11.11.1",
+      "@emotion/styled": "^11.11.0",
+      "@fontsource/roboto": "^5.0.5",
+      "@material-tailwind/react": "^2.0.7",
+      "autoprefixer": "^10.4.14",
+      "@mui/base": "^5.0.0-beta.8",
+      "@mui/icons-material": "^5.14.3",
+      "@mui/joy": "^5.0.0-beta.2",
+      "@mui/lab": "^5.0.0-alpha.137",
+      "@mui/material": "^5.14.3",
+      "axios": "^1.4.0",
+      "cloudinary": "^1.40.0",
+      "flowbite": "^1.7.0",
+      "flowbite-react": "^0.5.0",
+      "jwt-decode": "^3.1.2",
+      "mdb-react-ui-kit": "^6.1.0",
+      "postcss": "^8.4.27",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "react-redux": "^8.1.2",
+      "react-router-dom": "^6.14.2"
+    },
+    "devDependencies": {
+      "@types/react": "^18.2.15",
+      "@types/react-dom": "^18.2.7",
+      "@vitejs/plugin-react": "^4.0.3",
+      "eslint": "^8.45.0",
+      "eslint-plugin-react": "^7.32.2",
+      "eslint-plugin-react-hooks": "^4.6.0",
+      "eslint-plugin-react-refresh": "^0.4.3",
+      "sass": "^1.64.1",
+      "tailwindcss": "^3.3.3",
+      "vite": "^4.4.5"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
