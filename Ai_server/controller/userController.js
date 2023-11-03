@@ -1,8 +1,11 @@
 const User = require("../modules/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const expressValidator = require("express-validator");
 require("dotenv").config();
 const Img = require("../modules/img");
+const { body } = require("express-validator");
+// const { validate } = require("");
 
 const getAllUserImg = async (req, res) => {
   try {
@@ -21,7 +24,6 @@ const getUserAvatar = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  
   try {
     await User.findByIdAndUpdate({ _id: req.params.id }, req.body);
     res.send({ msg: "updated" });
@@ -47,7 +49,22 @@ const updateProfile = async (req, res) => {
   }
 };
 
+const validate = (req, res, next) => {
+  const errors = expressValidator.validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).send({ success: false, msg: errors });
+  } else {
+    next();
+  }
+};
+
 const signup = async (req, res) => {
+  [
+    expressValidator.body("username").notEmpty(),
+    expressValidator.body("email").notEmpty(),
+    expressValidator.body("password").notEmpty(),
+    validate,
+  ];
   try {
     // Check if user exists with the given email or username
     const checkUser = await User.findOne({
@@ -79,7 +96,10 @@ const signup = async (req, res) => {
   } catch (err) {
     // Handle any errors that occur during the process
     console.error("Error in signup:", err);
-    return res.send({ msg: "Internal server error" });
+    return res.status(err.statusCode || 400).send({
+      success: false,
+      message: err.message || "user_can_not_be_created",
+    });
   }
 };
 
@@ -154,7 +174,7 @@ const addFavoriteImg = async (req, res) => {
 const removeFavoriteImg = async (req, res) => {
   const userId = req.body.userId;
   const imgId = req.body._id;
- 
+
   try {
     //find user
     let user = await User.findOne({ _id: userId });
