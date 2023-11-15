@@ -22,6 +22,7 @@
     "@mui/joy": "^5.0.0-beta.2",
     "@mui/lab": "^5.0.0-alpha.137",
     "@mui/material": "^5.14.3",
+    "@reduxjs/toolkit": "^1.9.7",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "cloudinary": "^1.40.0",
