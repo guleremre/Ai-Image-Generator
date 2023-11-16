@@ -2,8 +2,8 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+//mui imports
 import { Box } from "@mui/material";
-
 import LoadingButton from "@mui/lab/LoadingButton";
 import Button from "@mui/joy/Button";
 import SendIcon from "@mui/icons-material/Send";
@@ -11,16 +11,20 @@ import Skeleton from "@mui/material/Skeleton";
 import Textarea from "@mui/joy/Textarea";
 import FormLabel from "@mui/joy/FormLabel";
 import Dialog from "@mui/material/Dialog";
-
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SamplingMethodSelect from "./HomeComponents/SamplingMethodSelect";
 import SamplingSteps from "./HomeComponents/SamplingSteps";
 import CfgSlider from "./HomeComponents/CfgScale";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
-
+//redux import
+// import AddTasks from "./AddTasks";
+// import { useDispatch, useSelector } from "react-redux";
 const url = "http://127.0.0.1:7860/sdapi/v1/txt2img";
 
 function Home() {
+  // const dispatch = useDispatch();
+  // const task = useSelector((state) => state.AddTasks.task);
+  // console.log("state.AddTasks", state.AddTasks);
   let [prompt, setPrompt] = useState(
     "monster 1girl, (masterpiece, best quality, beautiful and aesthetic:1.2), ultra high res, 8k, detailed, (fractal art:1.3), colorful, radiosity, automatic white balance"
   );
@@ -88,6 +92,7 @@ function Home() {
       console.error("Error verifying token:", error);
     }
   }
+  //post inputs to server
   const createupload = async () => {
     const body2 = {
       prompt: prompt,
@@ -232,6 +237,8 @@ function Home() {
               >
                 <span>Generate Image</span>
               </LoadingButton>
+              {/* <button>add task</button> */}
+              {/* <AddTasks /> */}
               {downloadReady && (
                 <Box
                   sx={{

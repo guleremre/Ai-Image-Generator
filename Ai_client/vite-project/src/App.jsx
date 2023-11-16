@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 
 //Redux
 import { Provider } from "react-redux"; //en tepeye ekliyoruz ki stateleri alabilelim
-import store from "../redux/store.js";
+import store from "./redux/store.js";
 
 //pages componets
 import "./App.css";
