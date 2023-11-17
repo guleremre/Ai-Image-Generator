@@ -8,13 +8,15 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { Dispatch, Selector, useDispatch, useSelector } from "react-redux";
 
 const Profile = () => {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
   const [userInfo, setUserInfo] = useState([]);
   const [userId, setUserId] = useState("");
-
+  const Dispatch = useDispatch();
+  const Selector = useSelector();
   const [updatedUsername, setUpdatedUsername] = useState("");
   const [updatedEmail, setUpdatedEmail] = useState("");
 
