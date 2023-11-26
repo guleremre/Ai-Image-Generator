@@ -6,4 +6,4 @@
 // router.post("/:userId", favoriteImgController.addFavoriteImg);
 // router.delete("/:id", favoriteImgController.removeFavoriteImg);
 
-// module.exports = router;
+// module.exports = router; .
